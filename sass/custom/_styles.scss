@@ -113,6 +113,14 @@
         line-height: 1.4em;
     }
 
+	aside.sidebar section .site-title a:hover { color: #222222; }
+	aside.sidebar section .site-title a:visited { color: #222222; }
+	aside.sidebar section .site-title a:active { color: #222222; }
+	aside.sidebar section .site-author a:hover { color: #222222; }
+	aside.sidebar section .site-author a:visited { color: #222222; }
+	aside.sidebar section .site-author a:active { color: #222222; }
+
+
 	aside.sidebar section h1 { letter-spacing: 0.1em; }
 
 	aside.sidebar a { text-decoration: none; }
@@ -202,3 +210,17 @@
 	  }
 	  }
 
+/* for the about/index.html page */
+dl dt {
+    float:left; 
+    text-align: right;
+    font-weight:bold; 
+    margin-right:10px; 
+    padding:5px;  
+    width:120px; 
+}
+ 
+dl dd {
+    margin:2px 0; 
+    padding:5px 0;
+}

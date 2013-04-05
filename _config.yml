@@ -7,7 +7,7 @@ title: qqrs
 #subtitle: A blogging framework for hackers.
 author: Russell Smith
 #simple_search: http://google.com/search
-description: 
+description: I'm an electrical engineer and software developer.
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
 # You can customize the format as defined in
@@ -97,3 +97,12 @@ google_analytics_tracking_id: UA-39885144-1
 
 # Facebook Like
 facebook_like: false
+
+# LinkedIn
+linkedin_profile: http://www.linkedin.com/in/russellsmith72
+
+# Obfuscated email
+email_obfuscated: qqrsmith at gmail
+
+# Resume PDF
+resume_pdf: http://github.com/qqrs/resume/blob/master/resume-rsmith.pdf?raw=true
