@@ -12,7 +12,11 @@
     /* ----- main layout ----- */
 
 
-    html { background: #262C33 url("../images/background.png"); }
+    html { 
+        background: #262C33 url("../images/background.png"); 
+        background-repeat:no-repeat;
+        background-attachment:fixed;
+    }
 
     body { font-size: 1em; }
 
