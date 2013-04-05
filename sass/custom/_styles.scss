@@ -92,6 +92,23 @@
 	/* ----- Sidebar ----- */
 
 
+	aside.sidebar section .site-title { 
+        color: #222222;
+        font-size: 67px; 
+        font-family: HelveticaNeue-CondensedBold, HelveticaNeue, Helvetica, Arial, sans-serif;
+        font-weight: bold;
+        text-transform: uppercase;
+        line-height: 0.9em;
+    }
+
+	aside.sidebar section .site-author { 
+        color: #222222;
+        font-size: 29px; 
+        font-family: HelveticaNeue-CondensedBold, HelveticaNeue, Helvetica, Arial, sans-serif;
+        font-weight: bold;
+        line-height: 1.4em;
+    }
+
 	aside.sidebar section h1 { letter-spacing: 0.1em; }
 
 	aside.sidebar a { text-decoration: none; }
