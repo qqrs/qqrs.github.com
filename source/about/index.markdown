@@ -18,7 +18,7 @@ footer: false
     <dd>{{ site.email_obfuscated }}</dd>
 
     <dt>GitHub</dt>
-    <dd><a href="https://github.com/{{ site.github_user }}">@{{ site.github_user }}</a></dd>
+    <dd><a href="https://github.com/{{ site.github_user }}">github.com/{{ site.github_user }}</a></dd>
 
     <dt>Linkedin</dt>
     <dd><a href="{{ site.linkedin_profile }}">{{ site.author }}</a></dd>
