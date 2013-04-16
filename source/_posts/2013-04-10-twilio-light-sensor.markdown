@@ -26,8 +26,11 @@ Our project makes it possible to check the bathroom status by phone or text mess
 
 Bathroom occupancy status is determined using a light sensor attached to a Raspberry Pi. 
 If the lights are on in the bathroom, we assume that the bathroom is occupied.
+
 We created a web application hosted on Heroku which accepts periodic bathroom state updates from the Raspberry Pi and handles incoming requests from Twilio. 
 When a user calls or texts the Twilio phone number, Twilio sends a request to the web app, which responds with an appropriate message to be spoken or texted to the user.
+
+In addition to the voice and text interface, [@gelstudios](http://twitter.com/gelstudios) created a nice web interface using Bootstrap.
 
 ## Server
 
@@ -43,29 +46,33 @@ We created the server application for the project in Python using the Flask micr
 The Heroku Dev Center article [Getting Started with Python on Heroku](http://devcenter.heroku.com/articles/python) is a good walkthrough for setting up Flask on Heroku.
 
 ### Server Code  
-Full source for the web application can be found at [github.com/qqrs/twilio-light-sensor-server/blob/master/run.py](https://github.com/qqrs/twilio-light-sensor-server/blob/master/run.py). Interesting sections are included below.
-
-In addition to the voice and text interface, [@gelstudios](http://twitter.com/gelstudios) created a nice web interface using Bootstrap --- source code is on Github.
+Full source for the web application can be found at [github.com/qqrs/twilio-light-sensor-server/blob/master/run.py](https://github.com/qqrs/twilio-light-sensor-server/blob/master/run.py).
+Interesting sections are included below.
 
 The sensor state is not persisted to database --- 
 if the Heroku app instance spins down, the sensor state will be unknown when the next request causes it to spin up again.
 For purposes of a demo, the server will be kept active by frequent updates from the remote sensor --- 
 it should only spin down when there are no remote sensors sending data.
 
-The */twilio/voice* and */twilio/text* routes handle requests from Twilio. 
-When a user calls or sends an SMS message to the phone number assigned to our account, Twilio is configured so that it will make an HTTP post request to these routes.
-When this occurs, the app generates an appropriate message indicating the status of the bathroom. 
-The message is returned to Twilio in the HTTP response and then sent to the user as either audio (by text-to-speech) or in an SMS message.
+The `/twilio/voice` and `/twilio/text` routes handle requests from Twilio. 
+When a user calls or sends an SMS message to the phone number assigned to our account, Twilio is configured so that it will make an HTTP POST request to these routes.
+When the server receives the request from Twilio, it generates an appropriate message indicating the status of the bathroom. 
+The message is returned to Twilio in the HTTP response and is sent to the user as either audio (by text-to-speech) or as an SMS message.
 
-The */update* route accepts sensor state updates from the remote sensor via HTTP POST. Each request includes the parameters sensor\_id and sensor\_val. Note that escaping and exception handling should be added if deployed to a public server and access is not restricted.
+The `/update` route accepts sensor state updates from the remote sensor via HTTP POST. 
+Each request includes `sensor_id` and `sensor_val` parameters to identify
+the sensor and report the current value. 
 
 ``` python Server https://github.com/qqrs/twilio-light-sensor-server/blob/master/run.py Github
-from flask import Flask, request
+from flask import Flask, request, render_template, redirect
+import time
 import twilio.twiml
 
 app = Flask(__name__)
 
 sensor_states = {}
+allowed_sensor_ids = [u'upstairs-wc', u'downstairs-wc', u'sidestairs-wc']
+allowed_sensor_vals = [u'0', u'1']
 
 @app.route("/twilio/voice", methods=['POST'])
 def twilio_voice():
@@ -84,16 +91,32 @@ def twilio_text():
 @app.route("/update", methods=['POST'])
 def update_state():
     """Update state following request from remote sensor."""
-    sensor_id = request.form['sensor_id']
-    sensor_val = request.form['sensor_val']
+    if 'sensor_id' not in request.form or 'sensor_val' not in request.form:
+        return ""
 
+    sensor_id = request.form['sensor_id']
+    if sensor_id not in allowed_sensor_ids:
+        return ""
+
+    sensor_val = request.form['sensor_val']
+    if sensor_val not in allowed_sensor_vals:
+        return ""
+
+    sensor_time = int(time.time())
     global sensor_states
-    sensor_states[sensor_id] = sensor_val
-    return ""
+    sensor_states[sensor_id] = {'status': sensor_val, 'updated': sensor_time}
+    return  ""
+
+@app.route("/", methods=['GET'])
+def web_state():
+    global sensor_states
+    now = int(time.time())
+    return render_template('index.html', sensors=sensor_states, time=now)
 
 def get_sensor_state_msg(sensor_id):
     global sensor_states
-    state = sensor_states.get(sensor_id)
+    sensor = sensor_states[sensor_id]
+    state = sensor.get('status')
 
     if state == '0':
         return 'The bathroom is vacant.'
@@ -107,10 +130,6 @@ def get_sensor_state_msg(sensor_id):
 ## Remote Sensor  
 [{% img right /images/twilio_light_sensor_rpi_hardware.jpg Raspberry Pi with ADC daughterboard and CdS photocell %}](/images/twilio_light_sensor_rpi_hardware.jpg)
 
-### Light Sensor  
-[{% img right /images/twilio_light_sensor_photocell_sch.jpg 139 Photocell schematic %}](/images/twilio_light_sensor_photocell_sch.jpg)
-The light sensor is a 10k CdS photocell, interfaced to a Raspberry Pi with an analog-to-digital converter (ADC) daughterboard. The light sensor is connected to an input of the ADC in a voltage divider configuration with a 10k resistor. With illumination from overhead lighting, the resistance of the photocell drops to about 1.5k.
-
 ### Raspberry Pi  
 The [Raspberry Pi](http://www.raspberrypi.org/) is a single-board computer with an ARM-core processor, SD card slot, HDMI and composite video, USB, and optional Ethernet.
 While similar ARM dev boards and single-board computers have 
@@ -120,12 +139,12 @@ the Raspberry Pi was able to hit an enticing price point and combines several at
 making it a popular choice for hobby electronics projects.
 
 1. __Price point:__ 
-$35 for the Model B with Ethernet, $25 for the Model A without (plus cost of shipping, tax, power supply, SD card). 
+$35 with Ethernet, $25 without (plus cost of shipping, tax, power supply, SD card). 
 This is down into Arduino territory --- low enough to build a project without worrying about tearing it apart right away to recover the Raspberry Pi.
 
 1. __Integrated Peripherals:__
 It has HDMI video (1080p with hardware decoding), audio, Ethernet, USB (with support for Wi-Fi). 
-An expansion header with general purpose input/output (GPIO) pins for interfacing to digital signals (LEDs, pushbuttons) and 
+It also has an expansion header with general purpose input/output (GPIO) pins for interfacing to digital signals (LEDs, pushbuttons) and 
 a UART, a SPI bus, and an I²C bus (memory devices, sensors).
 The combination of video and networking with low-level interfaces in one low-cost device opens up many possibilities.
 
@@ -135,9 +154,18 @@ The Raspberry Pi Foundation provides images of Debian and Arch Linux tailored fo
 Many other distributions have been [contributed by users](http://elinux.org/RPi_Distributions).
 Having a full Linux OS allows the use of higher-level languages like Python and interactive debugging on the device.
 
+A 5V USB power supply and an SD card with an operating system installed are required to begin using the Raspberry Pi. 
+A good guide to getting started can be found at the [elinux.org wiki](http://elinux.org/RPi_Beginners).
+Preloaded SD cards can be purchased from several vendors or an operating system image can be [loaded onto a blank SD card](http://elinux.org/RPi_Easy_SD_Card_Setup).
+
 Note that it is important to have a stable power supply. Some USB 5V supplies may be inadequate. 
 I experienced SD card corruption several times until I bought a [good supply](http://www.amazon.com/dp/B008R97TOQ) 
 and set `over_voltage=2` in the config.txt file as described [here](http://raspberrypi.stackexchange.com/questions/2069/filesystem-corruption-on-the-sd-card).
+Any good supply with at leat a 1.0 amp current rating should be acceptable.
+
+### Light Sensor  
+[{% img right /images/twilio_light_sensor_photocell_sch.jpg 139 Photocell schematic %}](/images/twilio_light_sensor_photocell_sch.jpg)
+The light sensor is a 10k CdS photocell, interfaced to a Raspberry Pi with an analog-to-digital converter (ADC) daughterboard. The light sensor is connected to an input of the ADC in a voltage divider configuration with a 10k resistor. With illumination from overhead lighting, the resistance of the photocell drops to about 1.5k.
 
 ### ADC Daughterboard
 {% img right /images/twilio_light_sensor_adc_daughterboard.jpg ADC daughterboard %}
@@ -147,12 +175,13 @@ However, it is straightforward to interface an external ADC via the SPI or I²C 
 Adafruit provides a good guide to using the Microchip MCP3008: 
 [Analog Inputs for Raspberry Pi Using the MCP3008](http://learn.adafruit.com/reading-a-analog-in-and-controlling-audio-volume-with-the-raspberry-pi/overview).
 
-I had soldered up an an MCP3008 on perfboard for another project to save time breadboarding so I reused it for this project.
+I had soldered up an an MCP3008 on protoboard for another project so I reused it for this project.
 
-A number of [expansion boards](http://elinux.org/RPi_Expansion_Boards) which provide an ADC are also available from third-party vendors.
+A number of assembled [expansion boards](http://elinux.org/RPi_Expansion_Boards) which provide an ADC are available from third-party vendors.
 
 ### Raspberry Pi Remote Sensor Monitoring Script
-Adafruit provides [sample code](http://learn.adafruit.com/reading-a-analog-in-and-controlling-audio-volume-with-the-raspberry-pi/script) in Python to read from the ADC via SPI.
+Adafruit provides [sample code](http://learn.adafruit.com/reading-a-analog-in-and-controlling-audio-volume-with-the-raspberry-pi/script) 
+in Python to read from the ADC via the SPI bus.
 
 Full source for the remote sensor monitoring script can be found at [github.com/qqrs/twilio-light-sensor-remote/blob/master/twilio_light_sensor.py](https://github.com/qqrs/twilio-light-sensor-remote/blob/master/twilio_light_sensor.py). Interesting sections are included below.
 
@@ -226,14 +255,15 @@ def update_server_state(state):
 	return f.getcode() == 200
 ```
 
-To run the script, Python packages will need to be installed. See the Adafruit article 
+To run the script, Python packages must be installed. See the Adafruit article 
 [here](http://learn.adafruit.com/reading-a-analog-in-and-controlling-audio-volume-with-the-raspberry-pi/necessary-packages)
 on installing `python-dev` and `rpi.gpio`.
-If a keyboard and monitor are attached, the script can be run at the terminal: `python twilio_light_sensor.py`. 
+The script can be run at the terminal: `python twilio_light_sensor.py`. 
 
 To run the script automatically at boot, it can be added to the end of `/etc/rc.local`, 
-immediately before the `exit 0` line, with this command (modifying the path to script if necessary):
-`python /home/pi/twilio_light_sensor/twilio_light_sensor.py &`. 
+immediately before the `exit 0` line:
+`python /home/pi/twilio_light_sensor/twilio_light_sensor.py &`
+(modifying the path to script if necessary). 
 
 Note that the `&` is required to allow the rest of the init sequence to complete.
 The script can be stopped by switching to another tty with Ctrl-Alt-F2, logging in, finding the process ID with `ps aux | grep twilio`, and killing the process with `kill <pid>`.
