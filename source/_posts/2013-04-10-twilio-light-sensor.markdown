@@ -163,8 +163,9 @@ I experienced SD card corruption several times until I bought a [good supply](ht
 and set `over_voltage=2` in the config.txt file as described [here](http://raspberrypi.stackexchange.com/questions/2069/filesystem-corruption-on-the-sd-card).
 Any good supply with at leat a 1.0 amp current rating should be acceptable.
 
-### Light Sensor  
 [{% img right /images/twilio_light_sensor_photocell_sch.jpg 139 Photocell schematic %}](/images/twilio_light_sensor_photocell_sch.jpg)
+
+### Light Sensor  
 The light sensor is a 10k CdS photocell, interfaced to a Raspberry Pi with an analog-to-digital converter (ADC) daughterboard. The light sensor is connected to an input of the ADC in a voltage divider configuration with a 10k resistor. With illumination from overhead lighting, the resistance of the photocell drops to about 1.5k.
 
 ### ADC Daughterboard
