@@ -1,5 +1,4 @@
 ---
-published: false
 layout: post
 title: "Interfacing a SoftPot Membrane Potentiometer"
 date: 2013-04-22 12:26
