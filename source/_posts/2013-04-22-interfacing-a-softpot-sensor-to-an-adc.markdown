@@ -51,7 +51,7 @@ the resistance decrease is smaller,
 so this effect seems to be caused by the conductive shunt layer shorting out a cross section of the resistive layer at the point of contact.
 
 **Warning:** By pressing both ends of the SoftPot at the same time it is possible to short power to ground, which can damage the SoftPot. 
-This is could be a real concern for the angular position configuration, since a stray finger could press both ends at the same time.
+This might be a real concern for the angular position configuration, since a stray finger could press both ends at the same time.
 A resistor in series with the supply pin should protect against this, but will reduce the voltage range of the output.
 
 ### SoftPot with Pulldown
