@@ -9,7 +9,7 @@ categories: electronics
 ### SoftPot?
 {% img right /images/softpot_200px_01.jpg 'SoftPot' %}
 
-The [SoftPot](http://www.spectrasymbol.com/potentiometer/softpot) is a touch-sensitive position sensor produced by Spectra Symbol.
+The SoftPot is a touch-sensitive position sensor produced by [Spectra Symbol](http://www.spectrasymbol.com/potentiometer/softpot).
 It is available in a variety of sizes and configurations for linear and angular position measurements.
 There are also two related product lines: the ThinPot, which is narrower, and the HotPot, which is rated for higher temperature operation.
 
@@ -20,6 +20,11 @@ The top layer serves the same purpose as a movable wiper in a traditional rotary
 More detail on the SoftPot can be found at the [NYU ITP Sensor Workshop](http://itp.nyu.edu/physcomp/sensors/Reports/SoftPot).
 
 Several vendors sell the SoftPot in small quantities, including [SparkFun](http://www.sparkfun.com), [Adafruit](http://www.adafruit.com/), and [Digikey](http://www.digikey.com/).
+
+While reading up on the SoftPot to prepare for using it in a project, I found that a number of people posting in the SparkFun comments had run into problems.
+That's understandable, since the datasheet is pretty sparse.
+It's a pretty handy sensor for certain applications and it would be a shame if no one used it, so here's a blog post on the SoftPot. 
+(It was also a good excuse to add $$\LaTeX$$ formatting support to my blog!) 
 
 ### Interfacing a SoftPot
 {% img right /images/softpot_pot_divider.png 'Potentiometer voltage divider' %}
@@ -51,7 +56,7 @@ the resistance decrease is smaller,
 so this effect seems to be caused by the conductive shunt layer shorting out a cross section of the resistive layer at the point of contact.
 
 **Warning:** By pressing both ends of the SoftPot at the same time it is possible to short power to ground, which can damage the SoftPot. 
-This might be a real concern for the angular position configuration, since a stray finger could press both ends at the same time.
+This might be a serious concern for the rotary SoftPot, since a stray finger could easily press both ends at the same time.
 A resistor in series with the supply pin should protect against this, but will reduce the voltage range of the output.
 
 ### SoftPot with Pulldown
@@ -94,16 +99,16 @@ The following table shows the maximum linearity error for each pulldown resistan
 
 <br>
 In general, a good rule of thumb is to choose a pulldown resistor an order of magnitude larger than the resistances it will interact with.
-From the plot and table above, this seems to hold in this case:
-anything greater than 100 kΩ appears to be reasonable, depending on the specifics of the application.
+Going by the plot and table above, it seems to hold in this case:
+anything greater than 100 kΩ is reasonable, depending on the specifics of the application.
 
 ### Conclusion
 The SoftPot can be treated like a traditional rotary potentiometer, except when the sensor is not touched. 
 When not touched, the sensor output at the collector pin is left floating.
 Taking this into account, here are three possibilities for using the sensor:
 
+1. Add a pulldown resistor of approximately 100kΩ -- 1MΩ to hold the sensor output at GND when not touched.
 1. Design the device such that a stylus or other object is in continuous mechanical contact with the SoftPot.
-2. Use some additional means of detecting touch events, such as a limit switch or capacitive touch sensor. Only read the SoftPot output when a touch has been detected.
-3. Add a pulldown resistor of approximately 100kΩ - 1MΩ to hold the sensor at GND when not touched.
+1. Use some additional means of detecting touch events, such as a limit switch or capacitive touch sensor. Only read the SoftPot output when a touch has been detected.
 
-I think the SoftPot is a pretty useful sensor --- if you're using it in a project I'd like to [hear about it](/about).
+Thats it! The SoftPot is a pretty useful sensor --- now let's see some cool SoftPot projects!
