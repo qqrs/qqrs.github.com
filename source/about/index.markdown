@@ -20,10 +20,10 @@ footer: false
     <dt>GitHub</dt>
     <dd><a href="https://github.com/{{ site.github_user }}">github.com/{{ site.github_user }}</a></dd>
 
+    <dt>Twitter</dt>
+    <dd><a href="https://twitter.com/{{ site.twitter_user_nosidebar }}">@{{ site.twitter_user_nosidebar }}</a></dd>
+
     <dt>Linkedin</dt>
     <dd><a href="{{ site.linkedin_profile }}">{{ site.author }}</a></dd>
-
-    <dt>Resume (PDF)</dt>
-    <dd><a href="{{ site.resume_pdf }}">{{ site.author }}</a></dd>
 </dl>
 
