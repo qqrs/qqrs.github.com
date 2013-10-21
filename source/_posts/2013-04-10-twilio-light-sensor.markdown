@@ -6,18 +6,18 @@ comments: true
 categories: hacker-school electronics code
 ---
 
-Hacker School is three-month self-directed environment for [becoming a better programmer](http://www.hackerschool.com/about) with others doing the same.
+Hacker School is a three-month self-directed environment for [becoming a better programmer](http://www.hackerschool.com/about).
 I'm in the current batch.  
 
-Several of the current Hacker Schoolers had expressed a desire to learn more about hardware hacking.
-[@leocadiotine](http://twitter.com/leocadiotine) and I decided to spend an evening building a Raspberry Pi sensor interface project to show how quick and easy it can be to get into hardware.
+Several of the current Hacker Schoolers expressed a desire to learn more about hardware hacking.
+[@leocadiotine](http://twitter.com/leocadiotine) and I decided to spend an evening building a Raspberry Pi sensor interface project to show how easy it can be to get into hardware.
 
-[@sashalaundy](http://twitter.com/sashalaundy) gave a short talk this week on what a well-designed web service API should look like.
+[@sashalaundy](http://twitter.com/sashalaundy) gave a short talk this week on RESTful API design.
 She used the Twilio API for phone and SMS as an example --- Leo and I decided to give it a try for this project.
 
 ## Overview
 
-Hardware and code have the potential to make the world a better place and Leo and I wanted to build a project that improved our surroundings in some small way. 
+Leo and I wanted to build a project that improved our surroundings in some small way. 
 The Hacker School space in NYC has two restrooms: one attached to the main work area, and one downstairs. 
 It's a short walk, but we thought it would nice to know if the bathroom is occupied before taking the time to walk.
 
@@ -31,6 +31,9 @@ We created a web application hosted on Heroku which accepts periodic bathroom st
 When a user calls or texts the Twilio phone number, Twilio sends a request to the web app, which responds with an appropriate message to be spoken or texted to the user.
 
 In addition to the voice and text interface, [@gelstudios](http://twitter.com/gelstudios) created a nice web interface using Bootstrap.
+
+The project certainly isn't doing anything that hasn't been done before, but for an evening project it made a nice demo.
+I hope this post will serve as a nice guide for anyone looking to get started with a web-interfaced Raspberry Pi sensor project.
 
 ## Server
 
@@ -266,7 +269,7 @@ immediately before the `exit 0` line:
 `python /home/pi/twilio_light_sensor/twilio_light_sensor.py &`
 (modifying the path to script if necessary). 
 
-Note that the `&` is required to allow the rest of the init sequence to complete.
+Note that the trailing ampersand `&` is required --- this forks a subshell and allows the rest of the init sequence to complete.
 The script can be stopped by switching to another tty with Ctrl-Alt-F2, logging in, finding the process ID with `ps aux | grep twilio`, and killing the process with `kill <pid>`.
 
 ## Success
