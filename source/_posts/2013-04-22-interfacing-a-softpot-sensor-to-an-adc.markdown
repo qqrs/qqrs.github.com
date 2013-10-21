@@ -23,7 +23,7 @@ Several vendors sell the SoftPot in small quantities, including [SparkFun](http:
 
 While reading up on the SoftPot to prepare for using it in a project, I found that a number of people posting in the SparkFun comments had run into problems.
 That's understandable, since the datasheet is pretty sparse.
-It's a pretty handy sensor for certain applications and it would be a shame if no one used it, so here's a blog post on the SoftPot. 
+It's a pretty handy sensor for certain applications and it would be a shame if anyone avoided it due to the limited documentation, so here's a blog post on my experience with the SoftPot. 
 (It was also a good excuse to add $$\LaTeX$$ formatting support to my blog!) 
 
 ### Interfacing a SoftPot
@@ -98,7 +98,7 @@ The following table shows the maximum linearity error for each pulldown resistan
 |  1 MΩ  |  0.2%
 
 <br>
-In general, a good rule of thumb is to choose a pulldown resistor an order of magnitude larger than the resistances it will interact with.
+A good rule of thumb for most circuits is to choose a pulldown resistor an order of magnitude larger than the output resistance of the signal source.
 Going by the plot and table above, it seems to hold in this case:
 anything greater than 100 kΩ is reasonable, depending on the specifics of the application.
 
@@ -111,4 +111,4 @@ Taking this into account, here are three possibilities for using the sensor:
 1. Design the device such that a stylus or other object is in continuous mechanical contact with the SoftPot.
 1. Use some additional means of detecting touch events, such as a limit switch or capacitive touch sensor. Only read the SoftPot output when a touch has been detected.
 
-Thats it! The SoftPot is a pretty useful sensor --- now let's see some cool SoftPot projects!
+Thats it. The SoftPot is a pretty useful sensor --- lot's of possibilities for cool projects!
