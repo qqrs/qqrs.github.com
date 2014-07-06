@@ -13,9 +13,10 @@
 
 
     html { 
-        background: #262C33 url("../images/background_flashdie.jpg");
-        background-repeat:no-repeat;
-        background-attachment:fixed;
+        background: #262C33 url("../images/background_flashdie_crop.jpg");
+        background-repeat: repeat-y;
+        background-attachment: scroll;
+        background-size: 100%;
     }
 
     body { font-size: 1em; }
