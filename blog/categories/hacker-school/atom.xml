@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: hacker-school | qqrs]]></title>
+  <link href="http://qqrs.github.com/blog/categories/hacker-school/atom.xml" rel="self"/>
+  <link href="http://qqrs.github.com/"/>
+  <updated>2015-01-02T21:38:15-05:00</updated>
+  <id>http://qqrs.github.com/</id>
+  <author>
+    <name><![CDATA[Russell Smith]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Voice– and SMS–Enabled Light Sensor using Raspberry Pi and Twilio]]></title>
+    <link href="http://qqrs.github.com/blog/2013/04/10/twilio-light-sensor/"/>
+    <updated>2013-04-10T12:59:00-04:00</updated>
+    <id>http://qqrs.github.com/blog/2013/04/10/twilio-light-sensor</id>
+    <content type="html"><![CDATA[<p>This was a quick project created in collaboration with <a href="http://twitter.com/leocadiotine">@leocadiotine</a>
+at <a href="http://www.hackerschool.com">Hacker School</a>. Hacker School is a free three–month self–directed learning environment
+that has been described as being “like a writers’ retreat for programmers.”</p>
+
+<p>Thanks go to <a href="http://twitter.com/sashalaundy">@sashalaundy</a> for the introduction to the Twilio API that sparked the idea.</p>
+
+<h2 id="overview">Overview</h2>
+
+<p><img class="right" src="/images/twilio_light_sensor_text_message.png" title="‘Text message response’" >
+The Hacker School space for our batch had two restrooms: one attached to the main work area, and one downstairs. 
+We thought it would nice to know if the bathroom is occupied before taking the time to walk down.</p>
+
+<p>Our project makes it possible to check the bathroom status by phone or text message.</p>
+
+<p>Bathroom occupancy status is determined using a light sensor attached to a Raspberry Pi. 
+If the lights are on in the bathroom, we assume that the bathroom is occupied.</p>
+
+<p>We created a Heroku–hosted web application that accepts periodic bathroom state updates from the Raspberry Pi and handles incoming requests from Twilio. 
+When a user calls or texts the Twilio phone number, Twilio sends a request to the web app, which responds with an appropriate message to be spoken or texted to the user.</p>
+
+<p>In addition to the voice/SMS interface, <a href="http://twitter.com/gelstudios">@gelstudios</a> created a nice web interface for the project.</p>
+
+<h2 id="server">Server</h2>
+
+<h3 id="twilio">Twilio</h3>
+<p>Twilio is a web–based service for sending and receiving phone calls and SMS text messages.
+It provides an easy–to–use API accessible via HTTP and a convenient Python package.
+A free trial of the service is available (which inserts small nag notices into outgoing messages).
+We used the <a href="http://www.twilio.com/docs/quickstart/python">Twilio Python Quickstart Tutorials</a> as our introduction.</p>
+
+<h3 id="heroku">Heroku</h3>
+<p>Heroku is a service that provides a complete, integrated stack for hosting web applications with a range of choices in language, framework, web server and data store.
+We created the server application for the project in Python using the Flask microframework. 
+The Heroku Dev Center article <a href="http://devcenter.heroku.com/articles/python">Getting Started with Python on Heroku</a> is a good walkthrough for setting up Flask on Heroku.</p>
+
+<h3 id="server-code">Server Code</h3>
+<p>Full source for the web application can be found at <a href="https://github.com/qqrs/twilio-light-sensor-server/blob/master/run.py">github.com/qqrs/twilio-light-sensor-server/blob/master/run.py</a>.</p>
+
+<p>The <code>/twilio/voice</code> and <code>/twilio/text</code> routes handle requests from Twilio. 
+When a user calls or sends an SMS message to the phone number assigned to our account, Twilio is configured so that it will make an HTTP POST request to these routes.
+When the server receives the request from Twilio, it generates an appropriate message indicating the status of the bathroom. 
+The message is returned to Twilio in the HTTP response and is sent to the user as either audio (by text–to–speech) or as an SMS message.</p>
+
+<p>The <code>/update</code> route accepts sensor state updates from the remote sensor via HTTP POST. 
+Each request includes <code>sensor_id</code> and <code>sensor_val</code> parameters to identify
+the sensor and report the current value. </p>
+
+<h2 id="remote-sensor">Remote Sensor</h2>
+<p><a href="/images/twilio_light_sensor_rpi_hardware.jpg"><img class="right" src="/images/twilio_light_sensor_rpi_hardware.jpg" title="Raspberry Pi with ADC daughterboard and CdS photocell" ></a></p>
+
+<h3 id="raspberry-pi">Raspberry Pi</h3>
+<p>The <a href="http://www.raspberrypi.org/">Raspberry Pi</a> is a single–board computer with an ARM–core processor, SD card slot, HDMI and composite video, USB, and optional Ethernet
+that is able to run a full distribution of Linux.
+Though similar ARM dev boards and single–board computers have
+<a href="http://beagleboard.org/">existed</a>
+for <a href="http://www.embeddedarm.com/products/arm-sbc.php">years</a>,
+the Raspberry Pi was able to hit an enticing price point of $35 (with Ethernet) while still including many of the attractive features of more expensive boards.</p>
+
+<p>A 5V USB power supply and an SD card with an operating system installed are required to begin using the Raspberry Pi. 
+A good guide to getting started can be found at the <a href="http://elinux.org/RPi_Beginners">elinux.org wiki</a>.
+Preloaded SD cards can be purchased from several vendors or an operating system image can be <a href="http://elinux.org/RPi_Easy_SD_Card_Setup">loaded onto a blank SD card</a>.</p>
+
+<p>Note that it is important to have a stable power supply. Some USB 5V supplies may be inadequate. 
+I experienced SD card corruption several times until I bought a <a href="http://www.amazon.com/dp/B008R97TOQ">good supply</a> 
+and set <code>over_voltage=2</code> in the config.txt file as described <a href="http://raspberrypi.stackexchange.com/questions/2069/filesystem-corruption-on-the-sd-card">here</a>.
+Any good supply with at least a 1.0 amp current rating should be acceptable.</p>
+
+<p><a href="/images/twilio_light_sensor_photocell_sch.jpg"><img class="right" src="/images/twilio_light_sensor_photocell_sch.jpg" width="139" title="Photocell schematic" ></a></p>
+
+<h3 id="light-sensor">Light Sensor</h3>
+<p>The light sensor is a 10k CdS photocell, interfaced to a Raspberry Pi with an analog–to–digital converter (ADC) daughterboard. The light sensor is connected to an input of the ADC in a voltage divider configuration with a 10k resistor. With illumination from overhead lighting, the resistance of the photocell drops to about 1.5k.</p>
+
+<h3 id="adc-daughterboard">ADC Daughterboard</h3>
+<p><img class="right" src="/images/twilio_light_sensor_adc_daughterboard.jpg" title="ADC daughterboard" >
+An analog–to–digital converter (ADC) is required to read the signal from the light sensor. 
+The Raspberry Pi does not have an integrated ADC like the Arduino and many microcontroller dev boards. 
+However, it is straightforward to interface an external ADC via the SPI or I²C buses. 
+Adafruit provides a good guide to using the Microchip MCP3008: 
+<a href="http://learn.adafruit.com/reading-a-analog-in-and-controlling-audio-volume-with-the-raspberry-pi/overview">Analog Inputs for Raspberry Pi Using the MCP3008</a>.</p>
+
+<p>I had soldered up an MCP3008 on protoboard for another project so I reused it for this project.</p>
+
+<p>A number of assembled <a href="http://elinux.org/RPi_Expansion_Boards">expansion boards</a> that provide an ADC are available from third–party vendors.</p>
+
+<h3 id="raspberry-pi-remote-sensor-monitoring-script">Raspberry Pi Remote Sensor Monitoring Script</h3>
+<p>Adafruit provides <a href="http://learn.adafruit.com/reading-a-analog-in-and-controlling-audio-volume-with-the-raspberry-pi/script">sample code</a> 
+in Python to read from the ADC via the SPI bus.</p>
+
+<p>Full source for the remote sensor monitoring script can be found at <a href="https://github.com/qqrs/twilio-light-sensor-remote/blob/master/twilio_light_sensor.py">github.com/qqrs/twilio-light-sensor-remote/blob/master/twilio_light_sensor.py</a>.</p>
+
+<p>The monitoring script consists of a polling loop that reads the sensor at a defined interval. 
+It calls <code>readadc()</code>, a function provided by Adafruit that bit–bangs the SPI communication in software (some versions of the Raspberry Pi did not include hardware SPI).
+Sensor state is determined by comparing the ADC value to a fixed threshold: if greater than the threshold, the light is assumed to be on.
+A moving average is used as a basic low–pass filter to prevent a noisy read from being interpreted as a change in state. 
+The sensor state is reported to the server via an HTTP POST request by <code>update_server_state()</code> whenever the sensor state changes, or at least every 60 seconds when it has not changed.</p>
+
+<p>To run the script, Python packages must be installed. See the Adafruit article
+<a href="http://learn.adafruit.com/reading-a-analog-in-and-controlling-audio-volume-with-the-raspberry-pi/necessary-packages">here</a>
+on installing <code>python-dev</code> and <code>rpi.gpio</code>.
+The script can be run at the terminal: <code>python twilio_light_sensor.py</code>. </p>
+
+<p>To run the script automatically at boot, it can be added to the end of <code>/etc/rc.local</code>, 
+immediately before the <code>exit 0</code> line:
+<code>python /home/pi/twilio_light_sensor/twilio_light_sensor.py &amp;</code>
+(modifying the path to script if necessary). </p>
+
+<p>Note that the trailing ampersand <code>&amp;</code> is required. This forks a subshell and allows the rest of the init sequence to complete.
+The script can be stopped by switching to another tty with Ctrl–Alt–F2, logging in, finding the process ID with <code>ps aux | grep twilio</code>, and killing the process with <code>kill &lt;pid&gt;</code>.</p>
+
+<h2 id="success">Success</h2>
+<p>With the server running on Heroku and the light sensor attached to the Raspberry Pi, Twilio responds to text messages or voice calls: <code>The bathroom is vacant</code> or <code>The bathroom is occupied</code>. Success!</p>
+]]></content>
+  </entry>
+  
+</feed>

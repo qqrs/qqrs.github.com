@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
+    <url>
+        <loc>http://qqrs.github.com/blog/2013/04/10/twilio-light-sensor/</loc>
+        <lastmod>2015-01-02T21:34:01-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://qqrs.github.com/blog/2013/04/22/interfacing-a-softpot-sensor-to-an-adc/</loc>
+        <lastmod>2014-12-24T21:27:28-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://qqrs.github.com/about/</loc>
+        <lastmod>2014-12-24T21:27:28-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://qqrs.github.com/archives/</loc>
+        <lastmod>2015-01-02T21:34:01-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://qqrs.github.com/blog/archives/</loc>
+        <lastmod>2015-01-02T21:34:01-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://qqrs.github.com/</loc>
+        <lastmod>2015-01-02T21:34:01-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://qqrs.github.com/robots.txt</loc>
+        <lastmod>2014-12-24T21:27:28-05:00</lastmod>
+    </url>
+</urlset>

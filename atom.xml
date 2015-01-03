@@ -1,122 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>qqrs</title>
-  <meta name="author" content="Russell Smith">
-
-  
-  <meta name="description" content="SoftPot? The SoftPot is a touch-sensitive position sensor produced by Spectra Symbol.
-It is available in a variety of sizes and configurations for &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://qqrs.github.com/">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-   <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-
-  <!-- mathjax config similar to math.stackexchange -->
-  <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-          jax: ["input/TeX", "output/HTML-CSS"],
-          tex2jax: {
-              inlineMath: [ ['\\$', '\\$'] ],
-              displayMath: [ ['$$', '$$']],
-              processEscapes: true,
-              skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-          },
-          messageStyle: "none",
-          "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
-      });
-  </script>
-  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
-
-  <link href="/atom.xml" rel="alternate" title="qqrs" type="application/atom+xml">
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-
-
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-39885144-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-</hgroup>
-
-</header>
-  <!-- <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav> -->
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
+  <title><![CDATA[qqrs]]></title>
+  <link href="http://qqrs.github.com/atom.xml" rel="self"/>
+  <link href="http://qqrs.github.com/"/>
+  <updated>2015-01-02T21:38:15-05:00</updated>
+  <id>http://qqrs.github.com/</id>
+  <author>
+    <name><![CDATA[Russell Smith]]></name>
     
-      <h1 class="entry-title"><a href="/blog/2013/04/22/interfacing-a-softpot-sensor-to-an-adc/">Interfacing a SoftPot Membrane Potentiometer</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
 
   
-
-
-<time datetime="2013-04-22T12:26:00-04:00" pubdate data-updated="true">Apr 22<span>nd</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3 id="softpot">SoftPot?</h3>
-<p><img class="right" src="/images/softpot_200px_01.jpg" title="'SoftPot'" /></p>
+  <entry>
+    <title type="html"><![CDATA[Interfacing a SoftPot Membrane Potentiometer]]></title>
+    <link href="http://qqrs.github.com/blog/2013/04/22/interfacing-a-softpot-sensor-to-an-adc/"/>
+    <updated>2013-04-22T12:26:00-04:00</updated>
+    <id>http://qqrs.github.com/blog/2013/04/22/interfacing-a-softpot-sensor-to-an-adc</id>
+    <content type="html"><![CDATA[<h3 id="softpot">SoftPot?</h3>
+<p><img class="right" src="http://qqrs.github.com/images/softpot_200px_01.jpg" title="'SoftPot'" /></p>
 
 <p>The SoftPot is a touch-sensitive position sensor produced by <a href="http://www.spectrasymbol.com/potentiometer/softpot">Spectra Symbol</a>.
 It is available in a variety of sizes and configurations for linear and angular position measurements.
@@ -136,7 +39,7 @@ It’s a pretty handy sensor for certain applications and it would be a shame if
 (It was also a good excuse to add <script type="math/tex">\LaTeX</script> formatting support to my blog!) </p>
 
 <h3 id="interfacing-a-softpot">Interfacing a SoftPot</h3>
-<p><img class="right" src="/images/softpot_pot_divider.png" title="'Potentiometer voltage divider'" />
+<p><img class="right" src="http://qqrs.github.com/images/softpot_pot_divider.png" title="'Potentiometer voltage divider'" />
 The SoftPot datasheet indicates that it can be interfaced in the same way as a traditional rotary potentiometer.
 There are two bus bar pins which are connected to power (pin 1) and ground (pin 3). 
 The datasheet refers to pin 2 as the collector — analogous to the wiper in a rotary potentiometer.
@@ -148,7 +51,7 @@ However, it is not immediately clear from the datasheet how the sensor responds 
 <p>I connected my SoftPot (part number SP-L-0300-103-1%-RH) to the ADC input of a microcontroller and found that the ADC recorded a slow oscillation of a few hundred millivolts when the SoftPot was not touched.
 This seemed to indicate that the SoftPot leaves the collector floating when not touched, so I took some resistance measurements.</p>
 
-<p><img class="right" src="/images/softpot_connection_diagram.png" title="'Softpot connection diagram'" /></p>
+<p><img class="right" src="http://qqrs.github.com/images/softpot_connection_diagram.png" title="'Softpot connection diagram'" /></p>
 
 <table>
   <thead>
@@ -199,7 +102,7 @@ This might be a serious concern for the rotary SoftPot, since a stray finger cou
 A resistor in series with the supply pin should protect against this, but will reduce the voltage range of the output.</p>
 
 <h3 id="softpot-with-pulldown">SoftPot with Pulldown</h3>
-<p><img class="right" src="/images/softpot_pot_divider_pulldown.png" title="'Potentiometer voltage divider with pulldown'" /></p>
+<p><img class="right" src="http://qqrs.github.com/images/softpot_pot_divider_pulldown.png" title="'Potentiometer voltage divider with pulldown'" /></p>
 
 <p>We need a way to distinguish between a garbage sensor measurement due to the floating collector pin and a good sensor measurement resulting from a touch.
 One way to do so is to add a pulldown resistor at the SoftPot collector pin which will hold the ADC input at GND when the SoftPot is not touched.</p>
@@ -208,7 +111,7 @@ One way to do so is to add a pulldown resistor at the SoftPot collector pin whic
 The choice of resistance value is a tradeoff: 
 it must be small enough to hold the ADC pin near GND but as large as possible to reduce the linearity error introduced in the measurement.</p>
 
-<p><img class="right" src="/images/softpot_res_divider_pulldown.png" title="'Softpot equivalent circuit with pulldown'" />
+<p><img class="right" src="http://qqrs.github.com/images/softpot_res_divider_pulldown.png" title="'Softpot equivalent circuit with pulldown'" />
 The SoftPot can be modeled as two series resistors, 
 <script type="math/tex"> R_1 </script> and <script type="math/tex"> R_2 </script> , where  <script type="math/tex"> R_1 + R_2 = 10kΩ </script>.
 The touch position can be denoted as <script type="math/tex"> x </script>, with <script type="math/tex"> x = 0.0 </script> corresponding to the close end of the sensor and <script type="math/tex"> x = 1.0 </script> to the far end.
@@ -224,7 +127,7 @@ the top plot below shows <script type="math/tex"> \frac{V_{out}}{V_{cc}} </scrip
 The bottom plot shows linearity error, which is the percentage difference from a true linear response due to the effect of the pulldown resistor.
 (Python/matplotlib source code <a href="http://gist.github.com/qqrs/4107845">here</a>).</p>
 
-<p><img class="center" src="/images/softpot_pulldown_error_sm.png" title="'SoftPot Pulldown Error'" /></p>
+<p><img class="center" src="http://qqrs.github.com/images/softpot_pulldown_error_sm.png" title="'SoftPot Pulldown Error'" /></p>
 
 <p>The following table shows the maximum linearity error for each pulldown resistance value. </p>
 
@@ -272,42 +175,15 @@ Taking this into account, here are three possibilities for using the sensor:</p>
 </ol>
 
 <p>Thats it. The SoftPot is a pretty useful sensor — lot’s of possibilities for cool projects!</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/04/10/twilio-light-sensor/">Voice– and SMS–Enabled Light Sensor Using Raspberry Pi and Twilio</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-10T12:59:00-04:00" pubdate data-updated="true">Apr 10<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>This was a quick project created in collaboration with <a href="http://twitter.com/leocadiotine">@leocadiotine</a>
+  <entry>
+    <title type="html"><![CDATA[Voice– and SMS–Enabled Light Sensor using Raspberry Pi and Twilio]]></title>
+    <link href="http://qqrs.github.com/blog/2013/04/10/twilio-light-sensor/"/>
+    <updated>2013-04-10T12:59:00-04:00</updated>
+    <id>http://qqrs.github.com/blog/2013/04/10/twilio-light-sensor</id>
+    <content type="html"><![CDATA[<p>This was a quick project created in collaboration with <a href="http://twitter.com/leocadiotine">@leocadiotine</a>
 at <a href="http://www.hackerschool.com">Hacker School</a>. Hacker School is a free three–month self–directed learning environment
 that has been described as being “like a writers’ retreat for programmers.”</p>
 
@@ -315,7 +191,7 @@ that has been described as being “like a writers’ retreat for programmers.�
 
 <h2 id="overview">Overview</h2>
 
-<p><img class="right" src="/images/twilio_light_sensor_text_message.png" title="'Text message response'" />
+<p><img class="right" src="http://qqrs.github.com/images/twilio_light_sensor_text_message.png" title="'Text message response'" />
 The Hacker School space for our batch had two restrooms: one attached to the main work area, and one downstairs. 
 We thought it would nice to know if the bathroom is occupied before taking the time to walk down.</p>
 
@@ -355,7 +231,7 @@ Each request includes <code>sensor_id</code> and <code>sensor_val</code> paramet
 the sensor and report the current value. </p>
 
 <h2 id="remote-sensor">Remote Sensor</h2>
-<p><a href="/images/twilio_light_sensor_rpi_hardware.jpg"><img class="right" src="/images/twilio_light_sensor_rpi_hardware.jpg" title="Raspberry Pi with ADC daughterboard and CdS photocell" /></a></p>
+<p><a href="http://qqrs.github.com/images/twilio_light_sensor_rpi_hardware.jpg"><img class="right" src="http://qqrs.github.com/images/twilio_light_sensor_rpi_hardware.jpg" title="Raspberry Pi with ADC daughterboard and CdS photocell" /></a></p>
 
 <h3 id="raspberry-pi">Raspberry Pi</h3>
 <p>The <a href="http://www.raspberrypi.org/">Raspberry Pi</a> is a single–board computer with an ARM–core processor, SD card slot, HDMI and composite video, USB, and optional Ethernet
@@ -374,13 +250,13 @@ I experienced SD card corruption several times until I bought a <a href="http://
 and set <code>over_voltage=2</code> in the config.txt file as described <a href="http://raspberrypi.stackexchange.com/questions/2069/filesystem-corruption-on-the-sd-card">here</a>.
 Any good supply with at least a 1.0 amp current rating should be acceptable.</p>
 
-<p><a href="/images/twilio_light_sensor_photocell_sch.jpg"><img class="right" src="/images/twilio_light_sensor_photocell_sch.jpg" width="139" title="Photocell schematic" /></a></p>
+<p><a href="http://qqrs.github.com/images/twilio_light_sensor_photocell_sch.jpg"><img class="right" src="http://qqrs.github.com/images/twilio_light_sensor_photocell_sch.jpg" width="139" title="Photocell schematic" /></a></p>
 
 <h3 id="light-sensor">Light Sensor</h3>
 <p>The light sensor is a 10k CdS photocell, interfaced to a Raspberry Pi with an analog–to–digital converter (ADC) daughterboard. The light sensor is connected to an input of the ADC in a voltage divider configuration with a 10k resistor. With illumination from overhead lighting, the resistance of the photocell drops to about 1.5k.</p>
 
 <h3 id="adc-daughterboard">ADC Daughterboard</h3>
-<p><img class="right" src="/images/twilio_light_sensor_adc_daughterboard.jpg" title="ADC daughterboard" />
+<p><img class="right" src="http://qqrs.github.com/images/twilio_light_sensor_adc_daughterboard.jpg" title="ADC daughterboard" />
 An analog–to–digital converter (ADC) is required to read the signal from the light sensor. 
 The Raspberry Pi does not have an integrated ADC like the Arduino and many microcontroller dev boards. 
 However, it is straightforward to interface an external ADC via the SPI or I²C buses. 
@@ -418,110 +294,7 @@ The script can be stopped by switching to another tty with Ctrl–Alt–F2, logg
 
 <h2 id="success">Success</h2>
 <p>With the server running on Heroku and the light sensor attached to the Raspberry Pi, Twilio responds to text messages or voice calls: <code>The bathroom is vacant</code> or <code>The bathroom is occupied</code>. Success!</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="archives">Blog Archives</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <ul id="recent_posts">
-      <li class="post">
-      <a href="/" alt="Home"><img src="/images/Home.png"></a>
-      <a href="/archives/" alt="Archives"><img src="/images/Calendar.png"></a>
-      <a href="/about" alt="About"><img src="/images/Envelope.png"></a>
-      <a href="/atom.xml" alt="subscribe feed"><img src="/images/rss_big.png"></a>
-      </li>
-  </ul>
-</section>
-<section>
-<ul id="recent_posts">
-  <li class="post">
-    <div class="site-title"> <a href="/" alt="Home">qqrs</a> </div>
-    <div class="site-author"> <a href="/about" alt="About">Russell Smith</a> </div>
-  </li>
-  </ul>
-</section>
-<section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2013/04/22/interfacing-a-softpot-sensor-to-an-adc/">Interfacing a SoftPot Membrane Potentiometer</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/04/10/twilio-light-sensor/">Voice– and SMS–Enabled Light Sensor using Raspberry Pi and Twilio</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>GitHub Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/qqrs">@qqrs</a> on GitHub
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'qqrs',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-
-
-
-
-  
-</aside>
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2015 - Russell Smith -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-
-
-
-
-
-
-
-
-
-
-</body>
-</html>
+</feed>

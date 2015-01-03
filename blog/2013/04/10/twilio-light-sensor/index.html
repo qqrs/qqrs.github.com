@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>qqrs</title>
+  <title>Voice– and SMS–Enabled Light Sensor using Raspberry Pi and Twilio - qqrs</title>
   <meta name="author" content="Russell Smith">
 
   
-  <meta name="description" content="SoftPot? The SoftPot is a touch-sensitive position sensor produced by Spectra Symbol.
-It is available in a variety of sizes and configurations for &hellip;">
+  <meta name="description" content="This was a quick project created in collaboration with @leocadiotine
+at Hacker School. Hacker School is a free three–month self–directed learning &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +19,7 @@ It is available in a variety of sizes and configurations for &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://qqrs.github.com/">
+  <link rel="canonical" href="http://qqrs.github.com/blog/2013/04/10/twilio-light-sensor/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
    <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -84,207 +84,12 @@ It is available in a variety of sizes and configurations for &hellip;">
 </nav> -->
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/04/22/interfacing-a-softpot-sensor-to-an-adc/">Interfacing a SoftPot Membrane Potentiometer</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-22T12:26:00-04:00" pubdate data-updated="true">Apr 22<span>nd</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3 id="softpot">SoftPot?</h3>
-<p><img class="right" src="/images/softpot_200px_01.jpg" title="'SoftPot'" /></p>
-
-<p>The SoftPot is a touch-sensitive position sensor produced by <a href="http://www.spectrasymbol.com/potentiometer/softpot">Spectra Symbol</a>.
-It is available in a variety of sizes and configurations for linear and angular position measurements.
-There are also two related product lines: the ThinPot, which is narrower, and the HotPot, which is rated for higher temperature operation.</p>
-
-<p>A SoftPot acts as a momentary-contact potentiometer. 
-When a finger or mechanical stylus presses down on the sensor area, a top conductive shunt layer makes contact with a lower resistive layer.
-The top layer serves the same purpose as a movable wiper in a traditional rotary potentiometer, dividing the resistive layer into two segments around the point of contact. </p>
-
-<p>More detail on the SoftPot can be found at the <a href="http://itp.nyu.edu/physcomp/sensors/Reports/SoftPot">NYU ITP Sensor Workshop</a>.</p>
-
-<p>Several vendors sell the SoftPot in small quantities, including <a href="http://www.sparkfun.com">SparkFun</a>, <a href="http://www.adafruit.com/">Adafruit</a>, and <a href="http://www.digikey.com/">Digikey</a>.</p>
-
-<p>While reading up on the SoftPot to prepare for using it in a project, I found that a number of people posting in the SparkFun comments had run into problems.
-That’s understandable, since the datasheet is pretty sparse.
-It’s a pretty handy sensor for certain applications and it would be a shame if anyone avoided it due to the limited documentation, so here’s a blog post on my experience with the SoftPot. 
-(It was also a good excuse to add <script type="math/tex">\LaTeX</script> formatting support to my blog!) </p>
-
-<h3 id="interfacing-a-softpot">Interfacing a SoftPot</h3>
-<p><img class="right" src="/images/softpot_pot_divider.png" title="'Potentiometer voltage divider'" />
-The SoftPot datasheet indicates that it can be interfaced in the same way as a traditional rotary potentiometer.
-There are two bus bar pins which are connected to power (pin 1) and ground (pin 3). 
-The datasheet refers to pin 2 as the collector — analogous to the wiper in a rotary potentiometer.
-In this arragement, the collector voltage is proportional to the position of the touch along the length of the SoftPot.</p>
-
-<p>This configuration works fine as long as the SoftPot is always activated by a touch.
-However, it is not immediately clear from the datasheet how the sensor responds when not touched.</p>
-
-<p>I connected my SoftPot (part number SP-L-0300-103-1%-RH) to the ADC input of a microcontroller and found that the ADC recorded a slow oscillation of a few hundred millivolts when the SoftPot was not touched.
-This seemed to indicate that the SoftPot leaves the collector floating when not touched, so I took some resistance measurements.</p>
-
-<p><img class="right" src="/images/softpot_connection_diagram.png" title="'Softpot connection diagram'" /></p>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: left"> </th>
-      <th style="text-align: right">Pin 1-3</th>
-      <th style="text-align: right">Pin 2-3</th>
-      <th style="text-align: right">Pin 1-2</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: left">no touch</td>
-      <td style="text-align: right">9.8 kΩ</td>
-      <td style="text-align: right">&gt; 10 MΩ</td>
-      <td style="text-align: right">&gt; 10 MΩ</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">touch far end</td>
-      <td style="text-align: right">9.6 kΩ</td>
-      <td style="text-align: right">20 Ω</td>
-      <td style="text-align: right">9.6 kΩ</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">touch middle</td>
-      <td style="text-align: right">9.5 kΩ</td>
-      <td style="text-align: right">4.7 kΩ</td>
-      <td style="text-align: right">4.7 kΩ</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">touch close end</td>
-      <td style="text-align: right">9.6 kΩ</td>
-      <td style="text-align: right">9.6 kΩ</td>
-      <td style="text-align: right">5 Ω</td>
-    </tr>
-  </tbody>
-</table>
-
-<p><br />
-That confirmed it. The collector pin is floating when the sensor is not touched.</p>
-
-<p>Also worth noting is that the resistance from pin 1 to 3 decreases slightly when the SoftPot is touched. When touching with a fingernail instead of a fingertip, 
-the resistance decrease is smaller, 
-so this effect seems to be caused by the conductive shunt layer shorting out a cross section of the resistive layer at the point of contact.</p>
-
-<p><strong>Warning:</strong> By pressing both ends of the SoftPot at the same time it is possible to short power to ground, which can damage the SoftPot. 
-This might be a serious concern for the rotary SoftPot, since a stray finger could easily press both ends at the same time.
-A resistor in series with the supply pin should protect against this, but will reduce the voltage range of the output.</p>
-
-<h3 id="softpot-with-pulldown">SoftPot with Pulldown</h3>
-<p><img class="right" src="/images/softpot_pot_divider_pulldown.png" title="'Potentiometer voltage divider with pulldown'" /></p>
-
-<p>We need a way to distinguish between a garbage sensor measurement due to the floating collector pin and a good sensor measurement resulting from a touch.
-One way to do so is to add a pulldown resistor at the SoftPot collector pin which will hold the ADC input at GND when the SoftPot is not touched.</p>
-
-<p>Adding a pulldown resistor will affect the linearity of the sensor measurement.
-The choice of resistance value is a tradeoff: 
-it must be small enough to hold the ADC pin near GND but as large as possible to reduce the linearity error introduced in the measurement.</p>
-
-<p><img class="right" src="/images/softpot_res_divider_pulldown.png" title="'Softpot equivalent circuit with pulldown'" />
-The SoftPot can be modeled as two series resistors, 
-<script type="math/tex"> R_1 </script> and <script type="math/tex"> R_2 </script> , where  <script type="math/tex"> R_1 + R_2 = 10kΩ </script>.
-The touch position can be denoted as <script type="math/tex"> x </script>, with <script type="math/tex"> x = 0.0 </script> corresponding to the close end of the sensor and <script type="math/tex"> x = 1.0 </script> to the far end.
-Since the resistances are proportional to touch position, this gives <script type="math/tex"> R_1 = x \cdot 10kΩ </script> and <script type="math/tex"> R_2 = (1-x) \cdot 10kΩ </script>.</p>
-
-<p>When a pulldown resistor <script type="math/tex"> R_o </script> is added, it combines in parallel with <script type="math/tex"> R_1 </script> 
-and the voltage at the ADC input can be calculated as 
-<script type="math/tex"> V_{out} = \frac{R_1 \| R_o}{(R_1 \| R_o) + R_2}\cdot{V_{cc}} </script>,
-where <script type="math/tex"> R_1 \| R_o = (\frac{1}{R_1} + \frac{1}{R_o})^{-1} </script>.</p>
-
-<p>To illustrate the effect of the pulldown resistor on sensor linearity, 
-the top plot below shows <script type="math/tex"> \frac{V_{out}}{V_{cc}} </script> vs. touch position for four values of <script type="math/tex"> R_o </script>: 1 kΩ, 10 kΩ, 100 kΩ, and 1 MΩ.
-The bottom plot shows linearity error, which is the percentage difference from a true linear response due to the effect of the pulldown resistor.
-(Python/matplotlib source code <a href="http://gist.github.com/qqrs/4107845">here</a>).</p>
-
-<p><img class="center" src="/images/softpot_pulldown_error_sm.png" title="'SoftPot Pulldown Error'" /></p>
-
-<p>The following table shows the maximum linearity error for each pulldown resistance value. </p>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: right"><script type="math/tex"> R_o </script></th>
-      <th style="text-align: right">max error (%)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: right">1 kΩ</td>
-      <td style="text-align: right">71.4%</td>
-    </tr>
-    <tr>
-      <td style="text-align: right">10 kΩ</td>
-      <td style="text-align: right">20.0%</td>
-    </tr>
-    <tr>
-      <td style="text-align: right">100 kΩ</td>
-      <td style="text-align: right">2.4%</td>
-    </tr>
-    <tr>
-      <td style="text-align: right">1 MΩ</td>
-      <td style="text-align: right">0.2%</td>
-    </tr>
-  </tbody>
-</table>
-
-<p><br />
-A good rule of thumb for most circuits is to choose a pulldown resistor an order of magnitude larger than the output resistance of the signal source.
-Going by the plot and table above, it seems to hold in this case:
-anything greater than 100 kΩ is reasonable, depending on the specifics of the application.</p>
-
-<h3 id="conclusion">Conclusion</h3>
-<p>The SoftPot can be treated like a traditional rotary potentiometer, except when the sensor is not touched. 
-When not touched, the sensor output at the collector pin is left floating.
-Taking this into account, here are three possibilities for using the sensor:</p>
-
-<ol>
-  <li>Add a pulldown resistor of approximately 100kΩ – 1MΩ to hold the sensor output at GND when not touched.</li>
-  <li>Design the device such that a stylus or other object is in continuous mechanical contact with the SoftPot.</li>
-  <li>Use some additional means of detecting touch events, such as a limit switch or capacitive touch sensor. Only read the SoftPot output when a touch has been detected.</li>
-</ol>
-
-<p>Thats it. The SoftPot is a pretty useful sensor — lot’s of possibilities for cool projects!</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/04/10/twilio-light-sensor/">Voice– and SMS–Enabled Light Sensor Using Raspberry Pi and Twilio</a></h1>
+      <h1 class="entry-title">Voice– and SMS–Enabled Light Sensor Using Raspberry Pi and Twilio</h1>
     
     
       <p class="meta">
@@ -307,7 +112,7 @@ Taking this into account, here are three possibilities for using the sensor:</p>
   </header>
 
 
-  <div class="entry-content"><p>This was a quick project created in collaboration with <a href="http://twitter.com/leocadiotine">@leocadiotine</a>
+<div class="entry-content"><p>This was a quick project created in collaboration with <a href="http://twitter.com/leocadiotine">@leocadiotine</a>
 at <a href="http://www.hackerschool.com">Hacker School</a>. Hacker School is a free three–month self–directed learning environment
 that has been described as being “like a writers’ retreat for programmers.”</p>
 
@@ -419,18 +224,57 @@ The script can be stopped by switching to another tty with Ctrl–Alt–F2, logg
 <h2 id="success">Success</h2>
 <p>With the server running on Heroku and the light sensor attached to the Raspberry Pi, Twilio responds to text messages or voice calls: <code>The bathroom is vacant</code> or <code>The bathroom is occupied</code>. Success!</p>
 </div>
+
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Russell Smith</span></span>
+
+      
+
+
+
+
+
+
+
+
   
 
 
-    </article>
+<time datetime="2013-04-10T12:59:00-04:00" pubdate data-updated="true">Apr 10<span>th</span>, 2013</time>
+      
+
+<span class="categories">
   
-  <div class="pagination">
+    <a class='category' href='/blog/categories/code/'>code</a>, <a class='category' href='/blog/categories/electronics/'>electronics</a>, <a class='category' href='/blog/categories/hacker-school/'>hacker-school</a>
+  
+</span>
+
+
+    </p>
     
-    <a href="archives">Blog Archives</a>
-    
-  </div>
+      <div class="sharing">
+  
+  
+  
 </div>
+
+    
+    <p class="meta">
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/04/22/interfacing-a-softpot-sensor-to-an-adc/" title="Next Post: Interfacing a SoftPot Membrane Potentiometer">Interfacing a SoftPot Membrane Potentiometer &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -469,7 +313,7 @@ The script can be stopped by switching to another tty with Ctrl–Alt–F2, logg
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/qqrs">@qqrs</a> on GitHub
@@ -502,6 +346,7 @@ The script can be stopped by switching to another tty with Ctrl–Alt–F2, logg
 
   
 </aside>
+
 
     </div>
   </div>
