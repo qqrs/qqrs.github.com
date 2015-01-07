@@ -1,9 +1,8 @@
 ---
-published: false
 layout: post
 title: "Android-Controlled Bluetooth Double-Bell Alarm Clock"
 date: 2013-04-30 17:29
-comments: true
+comments: false
 categories: code electronics hacker-school
 ---
 
