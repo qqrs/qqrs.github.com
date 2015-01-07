@@ -4,7 +4,7 @@
   <title><![CDATA[Category: electronics | qqrs]]></title>
   <link href="http://qqrs.github.com/blog/categories/electronics/atom.xml" rel="self"/>
   <link href="http://qqrs.github.com/"/>
-  <updated>2015-01-07T00:15:48-05:00</updated>
+  <updated>2015-01-07T00:19:24-05:00</updated>
   <id>http://qqrs.github.com/</id>
   <author>
     <name><![CDATA[Russell Smith]]></name>
@@ -12,6 +12,169 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Android-Controlled Bluetooth Double-Bell Alarm Clock]]></title>
+    <link href="http://qqrs.github.com/blog/2013/04/30/bluetooth-alarm-clock/"/>
+    <updated>2013-04-30T17:29:00-04:00</updated>
+    <id>http://qqrs.github.com/blog/2013/04/30/bluetooth-alarm-clock</id>
+    <content type="html"><![CDATA[<p><img class="center" src="/images/btalarm/btalarm_phone_with_alarm.jpg" title="Alarm clock with phone" ></p>
+
+<!--
+Careful design is important when it comes to auditory cues, just as it is for visual elements.
+Because the connections we make with sounds can have a highly emotional character, auditory cues
+work to amplify our experiences.
+
+Some pleasant examples:
+A TV that chirrups a "hello" tune when it turns on.
+A clothes dryer that rumbles quietly and then respectfully dings a single time to indicate that the cycle is complete.
+
+Some not-so-pleasant examples:
+A burglar alarm keypad that plays a confirmation beep slightly out-of-sync with a button press.
+A microwave that impatiently beeps that it's finished every minute even though your hands are full elsewhere in the kitchen.
+-->
+
+<p>I’ve woken many mornings to a blaring square-wave-through-overdriven-8Ω-speaker alarm tone, wailing for me to come back from the comfortable, warm depths of sleep…</p>
+
+<blockquote>
+  <p>If I had to describe the character of an ideal alarm clock, I would say that it should be <strong>persistent</strong> but <strong>polite</strong>.</p>
+</blockquote>
+
+<p>As an exercise in curiosity, I bought an analog-face alarm clock with a double-bell ringer and found the alarm sound to be crisp and clear.
+However, the clock wasn’t perfect:
+the second hand tick-tocked all night long, the alarm ringer was too insistent, and I had to remember to set the alarm every evening.</p>
+
+<p>In search of an improved alarm clock, I decided to modify the clock so it could be controlled by my Android phone.
+I stripped out the clock mechanism and added a Bluetooth module, then wrote an Android app to gently ding the alarm ringer when the alarm clock on the phone goes off.</p>
+
+<p>It may not be the perfect alarm clock, but I’ve been very happy with it so far.</p>
+
+<h2 id="hardware">Hardware</h2>
+
+<h3 id="alarm-clock">Alarm Clock</h3>
+<p><img class="center" src="/images/btalarm/btalarm_alarm_interior_sm.jpg" title="Alarm clock interior" >
+I used an alarm clock with double-bell mechanical ringer (cost: about $10).
+The clock hands are advanced by what appears to be a stepper motor winding built into the mechanism, which is driven by an epoxy-potted timing circuit.
+The clock is set by turning knobs to move the hour, minute, and alarm hands.</p>
+
+<p>When the alarm time is reached, an electric circuit is completed by mechanical contact, which turns on a small DC motor to strike the alarm bells—no electronics here!
+The DC motor runs from two 1.5V AA batteries in parallel.</p>
+
+<h3 id="bluetooth-module">Bluetooth Module</h3>
+<p><img class="center" src="/images/btalarm/btalarm_rn41_sm.jpg" title="RN-41 Bluetooth module" ></p>
+
+<p>For the Bluetooth interface, I used a
+<a href="http://www.rovingnetworks.com/products/RN41">Roving Networks RN-41</a>
+Bluetooth module
+(update 1/3/2015: if I was picking a Bluetooth module today, I’d take a look at the <a href="http://octopart.com/common-parts-library">Octopart Common Parts Library</a> first).</p>
+
+<p>The module is a fully integrated solution which provides everything needed for a Bluetooth Serial Port Profile (SPP) link.
+Bluetooth SPP emulates a serial port: data sent over the Bluetooth link is passed through to the UART pins.
+The module also provides several general purpose I/O (GPIO) pins which are controlled by entering a command mode.
+The GPIO functionality was exactly what I needed for this project.</p>
+
+<p>For a previous project, I had designed a custom PCB for the RN-41 that I was able to re-use as a breakout board.
+GPIO 3 was the most accessible on my PCB so I used it to control the ringer motor.</p>
+
+<p>The RN-41 requires a 3.3V supply.
+I had a 5V wall adapter handy so I used it along with a 3.3V LDO regulator to power the RN-41.</p>
+
+<h3 id="rn-41-command-mode">RN-41 Command Mode</h3>
+<p>The Roving Networks <a href="http://www.rovingnetworks.com/resources/download/47/Advanced_User_Manual">Advanced User Manual</a>
+(update 1/3/2015: unfortunately the page seems to have been removed)
+documents the command set for controlling the Bluetooth module.
+Sending <code>$$$</code> causes the module to enter command mode where it will interpret received data as configuration commands rather than passing the data through to the UART.
+The module stays in command mode until it sees the command <code>---</code>.</p>
+
+<p>Two things to note: every command except <code>$$$</code> is followed by a carriage return character, and,
+by default, it is only possible to enter command mode within 60 seconds of cycling power.</p>
+
+<p>To test the Bluetooth link, I used the <a href="https://play.google.com/store/apps/details?id=mobi.dzs.android.BluetoothSPP">Bluetooth SPP</a> Android app.
+After pairing with the RN-41 Bluetooth module, I used the Bluetooth SPP app to confirm that it responded to commands as expected,
+then modified some configuration settings.</p>
+
+<p>Here are the commands I used:</p>
+
+<p>```
+# one-time configuration – saved to flash memory
+SN,btalarm      # set the Bluetooth device name
+ST,255          # enter command mode at any time (no 60 second window after boot)
+SQ,4            # disable special functions on GPIO 3 and 6</p>
+
+<h1 id="gpio-control">GPIO control</h1>
+<p>S&amp;,0808         # mask and turn on GPIO 3
+S&amp;,0800         # mask and turn off GPIO 3
+```</p>
+
+<h3 id="motor-switching">Motor Switching</h3>
+<p><img class="center" src="/images/btalarm/btalarm_sch.png" title="Bluetooth alarm schematic" >
+<img class="right" src="/images/btalarm/btalarm_fet_protoboard_sm.jpg" title="Bluetooth alarm" >
+First, I soldered a 1N4004 diode at the motor terminals for flyback suppression.</p>
+
+<p>I didn’t have any test gear handy to see how much current the motor draws.
+Since it was powered by two AA batteries in parallel, it seemed safe to assume that it could easily require up to a couple hundred milliamps.</p>
+
+<p>I tried using a MPS2222A NPN transistor to switch the motor.
+I found that the motor turned on when forcing the base high through a resistor to +3.3V but not when controlled by the RN-41 GPIO pin.
+I suspect the RN-41 GPIO pin was unable to source enough current to drive the transistor into saturation.
+However, the datasheet didn’t specify a current limit for the pins and without test gear it wasn’t worth speculating.</p>
+
+<p>I swapped the MPS2222A for an International Rectifier n-channel power FET with 3.3V-tolerant gate threshold.
+Success! The Bluetooth module turned on the ringer motor.</p>
+
+<h2 id="android-application">Android application</h2>
+
+<p><a href="/images/btalarm/full_size/btalarm_screenshot_select_device.png"><img class="right" src="/images/btalarm/btalarm_screenshot_select_device_sm.png" title="Bluetooth alarm" ></a>
+This was my first time creating an Android app so I started out by
+<a href="http://developer.android.com/sdk/index.html">installing the SDK</a>
+and working through the
+<a href="http://developer.android.com/training/basics/firstapp/index.html">Building Your First App</a>
+example in the Android developer docs.
+The whole process turned out to be very easy—I was running a “Hello, World” app on my phone within a couple of hours.
+Quite a contrast to the development tools for some of the microcontroller and FPGA platforms I’ve used in the past!</p>
+
+<p>For the most part, I tested using an actual phone.
+While it’s nice that the Android emulator is available, I found it to be very sluggish.</p>
+
+<p>The Android SDK comes with a Bluetooth Chat sample project, which demonstrates how to create a background service in a separate thread to handle Bluetooth communications.
+To communicate with the RN-41 module, I found that I needed to change the Bluetooth UUID to the
+<a href="http://stackoverflow.com/questions/3072776/android-bluetooth-cant-connect-out">proper value for an SPP connection</a>.
+I converted the chat app into a debug terminal, allowing me to send arbitrary commands to the RN-41 or press shortcut buttons for command mode and GPIO control.</p>
+
+<p><a href="/images/btalarm/full_size/btalarm_screenshot_debug.png"><img class="left" src="/images/btalarm/btalarm_screenshot_debug_sm.png" title="Bluetooth alarm" ></a>
+I ran into an error when trying to run the Android example:
+<code>getActionBar() call returning null</code>.
+A StackOverflow search provided a fix which involved a
+<a href="http://stackoverflow.com/questions/6867076/getactionbar-returns-null">change to the <em>AndroidManifest.xml</em> file</a>
+for the project.</p>
+
+<p>I thought it would be elegant to trigger the Bluetooth alarm clock from the built-in Nexus 4 Android 4.2 alarm clock so,
+ideally, I wanted to find a way to intercept alarm events from the system alarm clock.
+I <a href="https://groups.google.com/forum/?fromgroups=#!topic/android-developers/QTpdFvtdRVo">found a post</a> that pointed me in the right direction.
+The alarm event can be captured by creating a BroadcastReceiver to receive the <code>com.android.deskclock.ALARM_ALERT</code> action.
+Note that alarm events from other alarm clocks (older Android builds, manufacturer/carrier builds, third party apps) will use
+<a href="http://stackoverflow.com/a/15876187">different actions</a>.</p>
+
+<p><a href="/images/btalarm/full_size/btalarm_screenshot_settings.png"><img class="right" src="/images/btalarm/btalarm_screenshot_settings_sm.png" title="Bluetooth alarm" ></a>
+My alarm app is implemented using a background service that registers the BroadcastReceiver to listen for alarm events and starts the ringer when an event occurs.
+The service is loaded when the app is installed or the phone is powered up.
+Since I wanted to support a “repeated ding” ringer style, I also created a separate alarm ringer background service thread
+to support sending a timed pattern of Bluetooth commands, with pauses.</p>
+
+<p>I wanted to be able to set configuration options to enable/disable the alarm, change the ringer style, and save the selected Bluetooth device
+so I created the appropriate UI controls and used the Android SharedPreferences API to store the settings.</p>
+
+<p>Full source for the Android application can be found at <a href="https://github.com/qqrs/btalarm">github.com/qqrs/btalarm</a>.</p>
+
+<h3 id="acknowledgments">Acknowledgments</h3>
+
+<p>This was a project I worked on at <a href="http://www.hackerschool.com">Hacker School</a>.
+Hacker School is a free three-month self-directed learning environment
+that has been described as being “like a writers’ retreat for programmers.”</p>
+
+<p>Many thanks to <a href="http://twitter.com/leocadiotine">@leocadiotine</a> for repeatedly offering expert guidance in navigating the intricacies of the Android APIs.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Interfacing a SoftPot Membrane Potentiometer]]></title>
