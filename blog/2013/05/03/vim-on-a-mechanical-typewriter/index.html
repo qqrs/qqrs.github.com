@@ -1,0 +1,371 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Vim on a Mechanical Typewriter - qqrs</title>
+  <meta name="author" content="Russell Smith">
+
+  
+  <meta name="description" content="Watch on Youtube (with sound) &gt;&gt; Inspiration I’ve had the idea for this project kicking around for years, but it was only recently that a &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://qqrs.github.com/blog/2013/05/03/vim-on-a-mechanical-typewriter/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+   <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+
+  <!-- mathjax config similar to math.stackexchange -->
+  <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+          jax: ["input/TeX", "output/HTML-CSS"],
+          tex2jax: {
+              inlineMath: [ ['\\$', '\\$'] ],
+              displayMath: [ ['$$', '$$']],
+              processEscapes: true,
+              skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+          },
+          messageStyle: "none",
+          "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+      });
+  </script>
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+
+  <link href="/atom.xml" rel="alternate" title="qqrs" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-39885144-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+</hgroup>
+
+</header>
+  <!-- <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav> -->
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Vim on a Mechanical Typewriter</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-03T00:00:00-04:00" pubdate data-updated="true">May 3<span>rd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><iframe src="http://gfycat.com/ifr/BackGiddyAmericanbittern" frameborder="0" scrolling="no" width="720" height="540" style="-webkit-backface-visibility: hidden;-webkit-transform: scale(1);position: relative;left: -32px;"></iframe>
+
+<p style="text-align: right">
+<a href="https://www.youtube.com/watch?v=eFBTBwdVobQ" target="_blank">Watch on Youtube (with sound) &gt;&gt;</a>
+</p>
+
+<h2 id="inspiration">Inspiration</h2>
+
+<p>I’ve had the idea for this project kicking around for years, but it was only recently that a minimal-assembly-required interfacing scheme presented itself and I found the time to make it happen.</p>
+
+<p>The original inspiration came a long time ago when I read a writeup by someone
+who had thoughtfully interfaced a typewriter to a computer so an older relative who wasn’t comfortable using a computer could send email.
+I seem to recall that it was an IBM Selectric or similar electric typewriter with serial out.
+(It may be <a href="http://hackaday.com/2007/07/25/emailing-typewriter/">this project</a>, but the linked project page has disappeared.)
+I thought the idea was fun, but I wanted to use a mechanical typewriter.</p>
+
+<p>At some point, the <a href="http://www.usbtypewriter.com/">USB typewriter</a> project popped up which does exactly that.
+The <a href="http://www.usbtypewriter.com/pages/instructions">technical writeup</a> indicates that
+it uses a long PCB strip with a laser-cut metal tab for each key.
+The tabs are folded over the crossbar on the underside of the typewriter to detect strikes of the key levers on the crossbar.
+To detect key strikes, an ATmega168 with a bunch of 74HC595 shift registers strobes the tabs and tests for voltage at a common point shared by the key levers.
+It looks like a nicely polished project, and it’s great to see the creator running what appears to be a successful Etsy store while supporting open hardware.</p>
+
+<p>That approach required more assembly work than I wanted to put in, though, so my idea was on hold until I stumbled across the SoftPot while browsing SparkFun.</p>
+
+<h2 id="softpot">SoftPot</h2>
+
+<p><img class="center" src="/images/typewriter/softpot.jpg" title="SoftPot" />
+The SoftPot is a touch-sensitive position sensor produced by <a href="http://www.spectrasymbol.com/potentiometer/softpot">Spectra Symbol</a>.
+I’ve written a <a href="/blog/2013/04/22/interfacing-a-softpot-sensor-to-an-adc/">separate post</a>
+describing the SoftPot and documenting how to interface it to a microcontroller ADC,
+but for most uses it can be thought of as a momentary-contact potentiometer and can be modeled as a voltage divider.
+When touched, the output voltage is proportional to the position of a touch along the length of the sensor.</p>
+
+<p>I installed the SoftPot (a <a href="https://octopart.com/tsp-l-0200-103-1%25-rh-spectra+symbol-19249699">ThinPot TSP-L-0200-103-1%-RH</a>) using its adhesive backing onto the upper side of the crossbar.
+The purpose of the crossbar is to advance the carriage by one space after the type hammer leaves its imprint on the page.
+To accomplish this, the lever arm for each key applies force to the top of the crossbar when the key is pressed.
+Since the key levers are arranged along the length of the crossbar, the position of a hit on the crossbar can be used to determine which key was pressed.</p>
+
+<p>There are a few keys which don’t actuate the crossbar and therefore can’t be detected by the SoftPot: space bar, backspace, shift, and tab.</p>
+
+<p><img class="center" src="/images/typewriter/typewriter_underside.jpg" title="Typewriter underside" /></p>
+
+<p>I did run into some difficulties mounting the SoftPot securely while still allowing the crossbar to move.
+I ended up running the SoftPot connector and wires up around a piece of the typewriter frame, down around another piece, then outward along the underside of the typewriter.
+For strain relief I added some electrical tape to secure everything, but I’m still worried that repeated stresses at the connector will eventually damage the SoftPot.
+For a more robust build, I would probably either need a SoftPot with a right-angle connector (which I don’t believe is available), or I would need to take a Dremel to the crossbar side support.</p>
+
+<p>There is also a small inactive zone on the far edge of the SoftPot from the connector, so the <code>q</code> and <code>=</code> keys aren’t detected at all.
+Mounting the SoftPot with the end curving up onto the crossbar side support might fix this, but it would be at greater risk of slipping or being damaged.
+It might be possible to trim the SoftPot by a few millimeters,
+but it’s difficult to tell from the datasheet if that would interfere with its operation or expose the internals to air that might degrade it prematurely.</p>
+
+<p>Overall, I’m quite satisfied with the performance of the SoftPot given the limited ambitions of this project.
+It’s able to consistently detect keypresses and seems to have no trouble reliably distingushing between adjacent keys.
+With some practice, it could easily be installed on a new typewriter in just a few minutes.</p>
+
+<h2 id="raspberry-pi">Raspberry Pi</h2>
+<p><img class="right" src="/images/twilio_light_sensor_adc_daughterboard.jpg" title="ADC daughterboard" />
+I had a Raspbery Pi with Microchip MCP3008 ADC daughterboard handy (described in more detail in a <a href="/blog/2013/04/10/twilio-light-sensor/">separate blog post</a>)
+so I used it to take the SoftPot sensor readings.</p>
+
+<p>I added a 100kΩ pulldown resistor to the SoftPot output to prevent the ADC input from floating when no keys are pressed.</p>
+
+<h3 id="software">Software</h3>
+<p>The software to read the SoftPot sensor values and convert to keystrokes is written in Python. Source code is here:
+<a href="https://github.com/qqrs/ttypewriter">github.com/qqrs/ttypewriter</a>.</p>
+
+<p>The implementation is rough and leaves plenty of room for future improvement, but for purposes of testing out the SoftPot sensor it got the job done.</p>
+
+<p>The script consists of a polling loop that reads the sensor at a fixed delay.
+To read values from the MCP3008 ADC, it calls <code>adc_spi.py</code>, which is based on
+<a href="http://learn.adafruit.com/reading-a-analog-in-and-controlling-audio-volume-with-the-raspberry-pi/necessary-packages">example code</a>
+from Adafruit that bit-bangs the SPI communication in software (some versions of the Raspberry Pi did not include hardware SPI).
+The script is able to read the sensor at about 100 samples/second.
+This is slow but it provided adequate key detection results so I haven’t yet gone on to modify it to do the SPI in a separate thread, use the hardware SPI interface, port to C, etc.</p>
+
+<p>Key up/down state is determined by comparing the sensor value to a fixed threshold of a few ADC counts.
+When a key is pressed, the sensor value is recorded until all keys are up.
+As a debouncing mechanism, very short keypresses of &lt; 100 ms are discarded.
+Otherwise, outlier values are filtered out and the average of the sensor readings is taken.
+A calibration file maps sensor reading values to typewriter keys.</p>
+
+<p>One major caveat of this approach is that for a key to be detected correctly, it must be fully released before the next key is pressed.
+The potentiometer-like behavior of the SoftPot means that there is no simple means of decoding multiple simultaneous pressed keys.
+While it would be useful to improve the software to handle faster typing speeds, in practice the typewriter tends to enforce its own speed limit since sustained fast typing is likely to jam the typeheads.</p>
+
+<p>For output, the script supports writing keypresses to stdout or injecting them into a <code>screen</code> session.</p>
+
+<p>Since the original <code>vi</code> key commands were designed for use over a teletype interface, the <code>vim</code> text editor is very usable without any special keys or modifier keys.
+With a <code>vim</code> instance open inside a <code>screen</code> session, <code>jj</code> mapped to <code>Esc</code>, and the key detection script running, the typewriter is usable for text editing.</p>
+
+<h2 id="ideas-for-future-improvements">Ideas for Future Improvements</h2>
+
+<ol>
+  <li>Improve the keypress detection algorithm to handle faster typing with overlapping keypresses.</li>
+  <li>Add limit switches or reed switches and magnets to detect presses of the keys not detected by the SoftPot.</li>
+  <li>Port the code to an Arduino or a microcontroller with a USB HID stack so the typewriter can be used with any computer.</li>
+  <li>Add a <a href="https://github.com/alevchuk/vim-clutch">vim clutch</a>.</li>
+  <li>Real life <a href="http://writeordie.com/">Write or Die</a>:
+port to MSP430 for low standby power consumption, add an SD card, and add an energy harvesting system (piezo? electromechanical?) to capture energy from keypresses.
+If you type fast enough you’ll store enough energy to write your work to the SD card before it’s lost!</li>
+</ol>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Russell Smith</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-03T00:00:00-04:00" pubdate data-updated="true">May 3<span>rd</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/code/'>code</a>, <a class='category' href='/blog/categories/electronics/'>electronics</a>, <a class='category' href='/blog/categories/hacker-school/'>hacker-school</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/04/30/bluetooth-alarm-clock/" title="Previous Post: Android-Controlled Bluetooth Double-Bell Alarm Clock">&laquo; Android-Controlled Bluetooth Double-Bell Alarm Clock</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <ul id="recent_posts">
+      <li class="post">
+      <a href="/" alt="Home"><img src="/images/Home.png"></a>
+      <a href="/archives/" alt="Archives"><img src="/images/Calendar.png"></a>
+      <a href="/about" alt="About"><img src="/images/Envelope.png"></a>
+      <a href="/atom.xml" alt="subscribe feed"><img src="/images/rss_big.png"></a>
+      </li>
+  </ul>
+</section>
+<section>
+<ul id="recent_posts">
+  <li class="post">
+    <div class="site-title"> <a href="/" alt="Home">qqrs</a> </div>
+    <div class="site-author"> <a href="/about" alt="About">Russell Smith</a> </div>
+  </li>
+  </ul>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/05/03/vim-on-a-mechanical-typewriter/">Vim on a Mechanical Typewriter</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/30/bluetooth-alarm-clock/">Android-Controlled Bluetooth Double-Bell Alarm Clock</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/22/interfacing-a-softpot-sensor-to-an-adc/">Interfacing a SoftPot Membrane Potentiometer</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/10/twilio-light-sensor/">Voice– and SMS–Enabled Light Sensor using Raspberry Pi and Twilio</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/qqrs">@qqrs</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'qqrs',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Russell Smith -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
