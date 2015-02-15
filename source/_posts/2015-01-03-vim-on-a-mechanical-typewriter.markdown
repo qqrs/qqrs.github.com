@@ -9,6 +9,10 @@ categories: code electronics hacker-school
 
 <iframe src="http://gfycat.com/ifr/BackGiddyAmericanbittern" frameborder="0" scrolling="no" width="720" height="540" style="-webkit-backface-visibility: hidden;-webkit-transform: scale(1);position: relative;left: -32px;" ></iframe>
 
+<p style="text-align: right">
+<a href="https://www.youtube.com/watch?v=eFBTBwdVobQ" target="_blank">Watch on Youtube (with sound) &gt;&gt;</a>
+</p>
+
 ## Inspiration
 
 I've had the idea for this project kicking around for years, but it was only recently that a minimal-assembly-required interfacing scheme presented itself and I found the time to make it happen.
