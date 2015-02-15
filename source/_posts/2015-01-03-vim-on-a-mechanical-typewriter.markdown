@@ -1,9 +1,9 @@
 ---
-published: false
+published: true
 layout: post
 title: "Vim on a Mechanical Typewriter"
 date: 2013-05-03
-comments: true
+comments: false
 categories: code electronics hacker-school
 ---
 
