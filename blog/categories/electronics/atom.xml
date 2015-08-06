@@ -4,7 +4,7 @@
   <title><![CDATA[Category: electronics | qqrs]]></title>
   <link href="http://qqrs.github.com/blog/categories/electronics/atom.xml" rel="self"/>
   <link href="http://qqrs.github.com/"/>
-  <updated>2015-02-15T16:55:57-05:00</updated>
+  <updated>2015-08-06T05:27:38-04:00</updated>
   <id>http://qqrs.github.com/</id>
   <author>
     <name><![CDATA[Russell Smith]]></name>
@@ -18,7 +18,16 @@
     <link href="http://qqrs.github.com/blog/2013/05/03/vim-on-a-mechanical-typewriter/"/>
     <updated>2013-05-03T00:00:00-04:00</updated>
     <id>http://qqrs.github.com/blog/2013/05/03/vim-on-a-mechanical-typewriter</id>
-    <content type="html"><![CDATA[<iframe src="http://gfycat.com/ifr/BackGiddyAmericanbittern" frameborder="0" scrolling="no" width="720" height="540" style="-webkit-backface-visibility: hidden;-webkit-transform: scale(1);position: relative;left: -32px;"></iframe>
+    <content type="html"><![CDATA[<script>
+ (function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.src = 'http://assets.gfycat.com/js/gfyajax-0.517d.js';
+    s.parentNode.insertBefore(g, s);
+}(document, 'script'));
+</script>
+
+<p><img class="gfyitem" data-id="BackGiddyAmericanbittern" style="position: relative; left: -40px" /></p>
 
 <p style="text-align: right">
 <a href="https://www.youtube.com/watch?v=eFBTBwdVobQ" target="_blank">Watch on Youtube (with sound) &gt;&gt;</a>
