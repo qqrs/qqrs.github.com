@@ -127,7 +127,7 @@
 
 <p>A panel voltmeter can be used to build a milligram-range electrobalance, which turns out to produce surprisingly linear measurements.</p>
 
-<p>Using a bare-bones panel meter electrobalance, I attempted to measure the proof of alcohol by tracking evaporation over time. Results were promising but inconclusive.</p>
+<p>Using a bare-bones panel meter electrobalance, I attempted to measure the proof of alcohol by tracking evaporation over time.</p>
 
 <h2 id="electrobalance">Electrobalance</h2>
 <p>A <a href="http://www.allaboutcircuits.com/textbook/direct-current/chpt-8/what-is-a-meter/">typical panel meter</a> passes a current through a coil to generate a magnetic field,
@@ -148,12 +148,12 @@ One drawback to this simple system is that for repeatable measurements it requir
 
 <h2 id="linearity">Linearity</h2>
 
-<p>To test the linearity of the scale I used a set of inexpensive calibration weights from Ebay.
-While they didn’t include a traceable calibration certificate (or make any accuracy claims at all), they did make it possible to collect some data.</p>
+<p>To test the linearity of the scale I used a set of calibration weights from Ebay.
+While they didn’t include a traceable calibration certificate (or make any accuracy claims at all), they were very inexpensive.</p>
 
 <p><img class="center" src="/images/electrobalance/electrobalance_test_weights.jpg" title="'Test weight set'" /></p>
 
-<p>I made measurements manually at a number of data points. The plot confirms that the electrobalance seems to be linear enough to be useable.</p>
+<p>I made measurements manually across a range of load weights. The plot confirms that the electrobalance is at least linear enough for further investigation.</p>
 
 <p><img class="center" src="/images/electrobalance/electrobalance_linearity.png" title="'Electrobalance linearity graph'" /></p>
 
@@ -168,8 +168,9 @@ and as the alcohol concentration drops the overall evaporation rate will also sl
 
 <p><img class="center" src="/images/electrobalance/electrobalance_evaporation_slivovitz.png" title="'Electrobalance 40% EtOH evaporation graph'" /></p>
 
-<p>I took data by weighing cotton samples dipped in several solutions: tap water, isopropyl alcohol, and ethanol at various proofs.
-From this data, it does not seem to be possible to directly calculate alcohol proof from time constant, though the general trend seems to hold.</p>
+<p>I took data by weighing cotton samples dipped in several solutions: tap water, isopropyl alcohol, and ethanol at various proofs.</p>
+
+<p>However, from this data, it does not seem to be possible to directly calculate alcohol proof from time constant, though the general trend does seem to hold.</p>
 
 <p>Eliminating the sources of error related to manual measurement and taking more frequent data points during evaporation might provide more conclusive data.
 However, it may be the case that a significant component of the evaporation time constant is determined by the surface area of the sample.
@@ -234,7 +235,7 @@ When the ramp rate was increased, the needle would overshoot, leading to signifi
 <p><img class="gfyitem" data-id="AllCrazyFrogmouth" data-comment="electrobalance ramp" /></p>
 
 <p>I made a quick pass at implementing PID control, but the digital-only feedback and relatively slow response made it difficult to find parameters that would allow the needle to settle.
-Since I didn’t want to spend all day tuning control algorithms, I had to leave this project for another time.</p>
+Since I didn’t want to spend all day tuning control algorithms, I had to leave this part of the project for another time.</p>
 
 <p><img class="gfyitem" data-id="VerifiableFamousAngora" data-comment="electrobalance pid" /></p>
 
@@ -248,7 +249,7 @@ Since I didn’t want to spend all day tuning control algorithms, I had to leave
 (<a href="https://www.dropbox.com/s/tc96svyovprii1f/microgram_electrobalance.pdf?dl=0">PDF mirror</a>)
 (<a href="https://www.dropbox.com/s/fswmy7v7cemjuzv/e-bal.pdf?dl=0">Forth source code mirror</a>).</p>
 
-<p>There are a few other incarnations that are worth a look:
+<p>There are a few other incarnations that are worth a look:<br />
 <a href="http://www.sci-spot.com/Mechanical/balance.htm">Digital Balance</a> (sci-spot.com)<br />
 <a href="https://www.youtube.com/watch?v=n90whRO-ypE">Weigh an Eyelash—Build a Microgram Scale</a> (Youtube video, Paul Grohe, Texas Instruments)<br />
 <a href="http://www.avrfreaks.net/forum/stk-500-based-microgram-scales?page=all">STK-500 based microgram scales</a> (avrfreaks.net forum thread)  </p>
