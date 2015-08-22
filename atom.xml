@@ -4,7 +4,7 @@
   <title><![CDATA[qqrs]]></title>
   <link href="http://qqrs.github.com/atom.xml" rel="self"/>
   <link href="http://qqrs.github.com/"/>
-  <updated>2015-08-06T05:27:38-04:00</updated>
+  <updated>2015-08-21T21:27:47-04:00</updated>
   <id>http://qqrs.github.com/</id>
   <author>
     <name><![CDATA[Russell Smith]]></name>
@@ -12,6 +12,152 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Proofing Spirits with a Homemade Electrobalance]]></title>
+    <link href="http://qqrs.github.com/blog/2015/08/21/proofing-spirits-with-homemade-electrobalance/"/>
+    <updated>2015-08-21T20:04:00-04:00</updated>
+    <id>http://qqrs.github.com/blog/2015/08/21/proofing-spirits-with-homemade-electrobalance</id>
+    <content type="html"><![CDATA[<script>
+ (function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.src = 'http://assets.gfycat.com/js/gfyajax-0.517d.js';
+    s.parentNode.insertBefore(g, s);
+}(document, 'script'));
+</script>
+
+<p><img class="gfyitem" data-id="PoliticalHarmoniousAracari" data-comment="electrobalance manual" /></p>
+
+<p>A panel voltmeter can be used to build a milligram-range electrobalance, which turns out to produce surprisingly linear measurements.</p>
+
+<p>Using a bare-bones panel meter electrobalance, I attempted to measure the proof of alcohol by tracking evaporation over time. Results were promising but inconclusive.</p>
+
+<h2 id="electrobalance">Electrobalance</h2>
+<p>A <a href="http://www.allaboutcircuits.com/textbook/direct-current/chpt-8/what-is-a-meter/">typical panel meter</a> passes a current through a coil to generate a magnetic field,
+which generates a force in the presence of a permanent magnet and causes the needle to move.</p>
+
+<p>The meter I had at hand is a 0–15V voltmeter, so it includes a 75k resistor in series with the coil in order to present an appropriate input impedance for that voltage range
+(think <a href="http://www.allaboutcircuits.com/textbook/direct-current/chpt-10/thevenin-norton-equivalencies/">Thevenin and Norton equivalents</a>).
+The coil has a DC resistance of approximately 520 ohms, which means the full-scale current for the coil is about 200 microamps.</p>
+
+<p>To convert the voltmeter into an electrobalance, I replaced the 75k resistor with a 1k series resistor and connected an adjustable voltage power supply for testing.
+This range permits currents from a few hundred microamps to several milliamps, which is enough to lift small loads without destroying the coil.
+However, it’s worth noting that if accuracy were a significant concern, coil heating resulting from the higher-than-rated currents would likely be non-negligible.</p>
+
+<p>I turned the meter on its side and placed the load on the needle, then increased the power supply voltage until the needle was centered and read the current using a multimeter.
+One drawback to this simple system is that for repeatable measurements it requires care to ensure the load is placed on the same position along the needle and the needle is raised to the same center point every time.</p>
+
+<p><img class="gfyitem" data-id="ImpishThisGrouper" data-comment="electrobalance loads" /></p>
+
+<h2 id="linearity">Linearity</h2>
+
+<p>To test the linearity of the scale I used a set of inexpensive calibration weights from Ebay.
+While they didn’t include a traceable calibration certificate (or make any accuracy claims at all), they did make it possible to collect some data.</p>
+
+<p><img class="center" src="http://qqrs.github.com/images/electrobalance/electrobalance_test_weights.jpg" title="'Test weight set'" /></p>
+
+<p>I made measurements manually at a number of data points. The plot confirms that the electrobalance seems to be linear enough to be useable.</p>
+
+<p><img class="center" src="http://qqrs.github.com/images/electrobalance/electrobalance_linearity.png" title="'Electrobalance linearity graph'" /></p>
+
+<h2 id="spirits">Spirits</h2>
+
+<p>I suspected it might be possible to identify the percentage alcohol in a solution by measuring the evaporation curve.</p>
+
+<p>Since alcohol evaporates more easily than water, more alcohol than water can be expected to evaporate at first,
+and as the alcohol concentration drops the overall evaporation rate will also slow until it approaches the evaporation rate of pure water.</p>
+
+<p>The evaporation time constant <script type="math/tex"> \tau </script> can found by an exponential fit to <script type="math/tex"> y = ke^{\frac{-t}{\tau}} </script>.</p>
+
+<p><img class="center" src="http://qqrs.github.com/images/electrobalance/electrobalance_evaporation_slivovitz.png" title="'Electrobalance 40% EtOH evaporation graph'" /></p>
+
+<p>I took data by weighing cotton samples dipped in several solutions: tap water, isopropyl alcohol, and ethanol at various proofs.
+From this data, it does not seem to be possible to directly calculate alcohol proof from time constant, though the general trend seems to hold.</p>
+
+<p>Eliminating the sources of error related to manual measurement and taking more frequent data points during evaporation might provide more conclusive data.
+However, it may be the case that a significant component of the evaporation time constant is determined by the surface area of the sample.
+With such small samples sizes, it may not be possible to get repeatable measurements without carefully controlling the cotton dimensions and sample volume.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sample</th>
+      <th>Evaporation time constant</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>50% IPA</td>
+      <td>28.6</td>
+    </tr>
+    <tr>
+      <td>water</td>
+      <td>76.9</td>
+    </tr>
+    <tr>
+      <td>20% EtOH</td>
+      <td>22.2</td>
+    </tr>
+    <tr>
+      <td>40% EtOH (Slivovitz)</td>
+      <td>15.4</td>
+    </tr>
+    <tr>
+      <td>40% EtOH (Slivovitz)</td>
+      <td>20.4</td>
+    </tr>
+    <tr>
+      <td>unknown EtOH #1</td>
+      <td>20.4</td>
+    </tr>
+    <tr>
+      <td>unknown EtOH #2</td>
+      <td>18.5</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="automation">Automation</h2>
+
+<p>Next, I attempted to automate the measurements by adding a photointerruptor to detect the needle position.
+When the needle is lowered, an electrical tape flag on the needle blocks the infrared LED from illuminating the phototransistor.
+A microcontroller applies power to the coil using a PWM-controlled FET.
+When the needle begins to raise, the microcontroller detects the change in phototransistor output.</p>
+
+<p><img class="center" src="http://qqrs.github.com/images/electrobalance/electrobalance_photointerruptor.jpg" title="'Panel meter with photointerruptor'" /></p>
+
+<p><img class="center" src="http://qqrs.github.com/images/electrobalance/electrobalance_photointerruptor_circuit.jpg" title="'Photointerruptor circuit'" /></p>
+
+<p><img class="center" src="http://qqrs.github.com/images/electrobalance/electrobalance_system_diagram.jpg" title="'Electrobalance system diagram'" /></p>
+
+<p>As a first attempt, I programmed the microcontroller to simply ramp the PWM duty cycle until the phototransistor signal changed.
+This did the job, but had to be run painfully slowly to produce accurate results.
+When the ramp rate was increased, the needle would overshoot, leading to significant variability between measurements.</p>
+
+<p><img class="gfyitem" data-id="AllCrazyFrogmouth" data-comment="electrobalance ramp" /></p>
+
+<p>I made a quick pass at implementing PID control, but the digital-only feedback and relatively slow response made it difficult to find parameters that would allow the needle to settle.
+Since I didn’t want to spend all day tuning control algorithms, I had to leave this project for another time.</p>
+
+<p><img class="gfyitem" data-id="VerifiableFamousAngora" data-comment="electrobalance pid" /></p>
+
+<h2 id="inspiration-and-references">Inspiration and References</h2>
+
+<p>The inspiration for this project comes from an article in the Amateur Scientist column of <em>Scientific American</em> that I found years ago,
+<a href="http://web.archive.org/web/20011031150021/http://www.scientificamerican.com/2000/1000issue/1000amsci.html">Down Among the Micrograms</a>.</p>
+
+<p>Expanded versions of that article also appeared in several issues of the
+<a href="https://web.archive.org/web/20061231172955/http://www.sas.org/tcs/weeklyIssues/2004-11-12/Classics/index.html">Society for Amateur Scientists newsletter</a>
+(<a href="https://www.dropbox.com/s/tc96svyovprii1f/microgram_electrobalance.pdf?dl=0">PDF mirror</a>)
+(<a href="https://www.dropbox.com/s/fswmy7v7cemjuzv/e-bal.pdf?dl=0">Forth source code mirror</a>).</p>
+
+<p>There are a few other incarnations that are worth a look:
+<a href="http://www.sci-spot.com/Mechanical/balance.htm">Digital Balance</a> (sci-spot.com)<br />
+<a href="https://www.youtube.com/watch?v=n90whRO-ypE">Weigh an Eyelash—Build a Microgram Scale</a> (Youtube video, Paul Grohe, Texas Instruments)<br />
+<a href="http://www.avrfreaks.net/forum/stk-500-based-microgram-scales?page=all">STK-500 based microgram scales</a> (avrfreaks.net forum thread)  </p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Vim on a Mechanical Typewriter]]></title>
