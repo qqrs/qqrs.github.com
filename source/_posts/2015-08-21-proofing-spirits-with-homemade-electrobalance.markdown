@@ -21,7 +21,7 @@ categories: electronics
 
 A panel voltmeter can be used to build a milligram-range electrobalance, which turns out to produce surprisingly linear measurements.
 
-Using a bare-bones panel meter electrobalance, I attempted to measure the proof of alcohol by tracking evaporation over time. Results were promising but inconclusive.
+Using a bare-bones panel meter electrobalance, I attempted to measure the proof of alcohol by tracking evaporation over time.
 
 ## Electrobalance
 A [typical panel meter](http://www.allaboutcircuits.com/textbook/direct-current/chpt-8/what-is-a-meter/) passes a current through a coil to generate a magnetic field,
@@ -42,12 +42,12 @@ One drawback to this simple system is that for repeatable measurements it requir
 
 ## Linearity
 
-To test the linearity of the scale I used a set of inexpensive calibration weights from Ebay.
-While they didn't include a traceable calibration certificate (or make any accuracy claims at all), they did make it possible to collect some data.
+To test the linearity of the scale I used a set of calibration weights from Ebay.
+While they didn't include a traceable calibration certificate (or make any accuracy claims at all), they were very inexpensive.
 
 {% img center /images/electrobalance/electrobalance_test_weights.jpg 'Test weight set' %}
 
-I made measurements manually at a number of data points. The plot confirms that the electrobalance seems to be linear enough to be useable.
+I made measurements manually across a range of load weights. The plot confirms that the electrobalance is at least linear enough for further investigation.
 
 {% img center /images/electrobalance/electrobalance_linearity.png 'Electrobalance linearity graph' %}
 
@@ -63,7 +63,8 @@ The evaporation time constant $$ \tau $$ can found by an exponential fit to $$ y
 {% img center /images/electrobalance/electrobalance_evaporation_slivovitz.png 'Electrobalance 40% EtOH evaporation graph' %}
 
 I took data by weighing cotton samples dipped in several solutions: tap water, isopropyl alcohol, and ethanol at various proofs.
-From this data, it does not seem to be possible to directly calculate alcohol proof from time constant, though the general trend seems to hold.
+
+However, from this data, it does not seem to be possible to directly calculate alcohol proof from time constant, though the general trend does seem to hold.
 
 Eliminating the sources of error related to manual measurement and taking more frequent data points during evaporation might provide more conclusive data.
 However, it may be the case that a significant component of the evaporation time constant is determined by the surface area of the sample.
@@ -99,7 +100,7 @@ When the ramp rate was increased, the needle would overshoot, leading to signifi
 <img class="gfyitem" data-id="AllCrazyFrogmouth" data-comment="electrobalance ramp" />
 
 I made a quick pass at implementing PID control, but the digital-only feedback and relatively slow response made it difficult to find parameters that would allow the needle to settle.
-Since I didn't want to spend all day tuning control algorithms, I had to leave this project for another time.
+Since I didn't want to spend all day tuning control algorithms, I had to leave this part of the project for another time.
 
 <img class="gfyitem" data-id="VerifiableFamousAngora" data-comment="electrobalance pid" />
 
@@ -114,7 +115,7 @@ Expanded versions of that article also appeared in several issues of the
 ([Forth source code mirror](https://www.dropbox.com/s/fswmy7v7cemjuzv/e-bal.pdf?dl=0)).
 
 
-There are a few other incarnations that are worth a look:
+There are a few other incarnations that are worth a look:  
 [Digital Balance](http://www.sci-spot.com/Mechanical/balance.htm) (sci-spot.com)  
 [Weigh an Eyelash---Build a Microgram Scale](https://www.youtube.com/watch?v=n90whRO-ypE) (Youtube video, Paul Grohe, Texas Instruments)  
 [STK-500 based microgram scales](http://www.avrfreaks.net/forum/stk-500-based-microgram-scales?page=all) (avrfreaks.net forum thread)  
