@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Time Fountain"
-date: 2015-12-04 21:00
+date: 2015-12-15 21:00
 comments: false
 categories: electronics
 ---
@@ -24,7 +24,7 @@ If the drops fall at a consistent rate, the UV LEDs can be flashed at the same f
 
 ## Construction
 
-I used a 555-timer configured for low-duty-cycle astable operation, with a 100 uF timing capacitor, zzz on the charging path and zzz on the discharging path. This corresponded to roughly 15 ms on-time and 0.5 Hz to 20 Hz frequency. An n-channel FET switches the LEDs.
+I used a 555-timer configured for [low-duty-cycle astable operation](http://pcbheaven.com/wikipages/555_Theory/?p=1), with a 100 uF timing capacitor, 100 ohm resistor on the charging path, and 10k ohm pot on the discharging path. This corresponded to roughly 15 ms on-time and 0.5 Hz to 20 Hz frequency. An n-channel FET switches the LEDs.
 
 While it would be nice to detect drops and reset the cycle so phase errors don't accumulate, the effect is still pretty good with a simple timer as long as you have consistent drops.
 
@@ -42,8 +42,3 @@ It's a cool effect to see in person, but difficult to capture on camera because 
 [video 1](https://www.youtube.com/watch?v=rvY7NGncCgU)  
 [video 2](https://www.youtube.com/watch?v=XwYIE-82i6Y)  
 [video 3](https://www.youtube.com/watch?v=CaDtZA78uP0)  
-
-<p style="text-align: right">
-<a href="https://www.youtube.com/watch?v=eFBTBwdVobQ" target="_blank">Watch on Youtube (with sound) &gt;&gt;</a>
-</p>
-
