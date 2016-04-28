@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[qqrs]]></title>
+  <title><![CDATA[]]></title>
   <link href="http://qqrs.github.com/atom.xml" rel="self"/>
   <link href="http://qqrs.github.com/"/>
-  <updated>2015-12-15T00:39:27-05:00</updated>
+  <updated>2016-04-28T19:38:04-04:00</updated>
   <id>http://qqrs.github.com/</id>
   <author>
     <name><![CDATA[Russell Smith]]></name>
@@ -12,6 +12,81 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Reading Notes: The Architecture of Open Source Applications II]]></title>
+    <link href="http://qqrs.github.com/blog/2016/04/08/reading-notes-the-architecture-of-open-source-applications/"/>
+    <updated>2016-04-08T02:10:00-04:00</updated>
+    <id>http://qqrs.github.com/blog/2016/04/08/reading-notes-the-architecture-of-open-source-applications</id>
+    <content type="html"><![CDATA[<p>The Architecture of Open Source Applications, Volume II: Structure, Scale, and a Few More Fearless Hacks
+http://aosabook.org/en/buy.html#vol2
+Scalable Web Architecture and Distributed Systems
+FreeRTOS
+The Glasgow Haskell Compiler
+GPSD
+nginx
+Twisted
+Yesod
+ZeroMQ</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Writing a BitTorrent Client]]></title>
+    <link href="http://qqrs.github.com/blog/2016/04/04/writing-a-bittorrent-client/"/>
+    <updated>2016-04-04T19:21:00-04:00</updated>
+    <id>http://qqrs.github.com/blog/2016/04/04/writing-a-bittorrent-client</id>
+    <content type="html"><![CDATA[<p>I’ve found that writing a BitTorrent client from scratch has been an interesting project for practicing concurrent networking concepts.
+However, when I started, I found that I had to do much more reading than I expected to understand the BitTorrent protocol and to decide whether the scope was appropriate for a spare time project.</p>
+
+<p>As a result, this post is a short overview of a minimal BitTorrent download implementation.</p>
+
+<p>I hope it will be useful to other programmers seeking an answer to the question: “Do I actually want to write a BitTorrent client?”</p>
+
+<h2 id="parse-the-torrent-metainfo-file">1. Parse the <code>.torrent</code> metainfo file</h2>
+<p>The <code>.torrent</code> file contains information about the torrent tracker and the files to be downloaded.
+Data is encoded using a serialization protocol called bencoding.
+Parsing bencoded data is not significantly more difficult than parsing json, and there is likely a bencoding library available for your language.</p>
+
+<h2 id="connect-to-the-tracker">2. Connect to the tracker</h2>
+<p>To connect to the torrent, an HTTP GET request is made to the tracker announce URL.
+The response provides a list of available peers.</p>
+
+<h2 id="concurrent-peer-network-connections">3. Concurrent peer network connections</h2>
+<p>The client will connect to peers using TCP sockets.
+To support multiple simultaneous connections the client should be able to handle network operations asynchronously.
+There are two fundamental ways to do this: (1) using threads, or
+(2) using an event loop with select() (or a library like Twisted which does so internally).</p>
+
+<h2 id="peer-protocol">4. Peer protocol</h2>
+<p>The spec defines a number of messages that each peer must be prepared to send and receive.
+A minimal download client may not need to implement all of these messages.
+In order to start downloading from a peer, a client needs to send a handshake, wait for a handshake response,
+send an ‘interested’ message, and wait for an ‘unchoke’ message.
+It can then start sending ‘request’ messages to request blocks.
+The peer will respond with ‘piece’ messages which contain the block data.</p>
+
+<h2 id="torrent-strategy">5. Torrent strategy</h2>
+<p>The client must download all blocks of all pieces and assemble them into the complete output file
+set. If any peers disconnect or fail to provide a block, the client must request from another peer.
+A more ambitious client may also attempt to further optimize its download strategy to improve download times.</p>
+
+<h2 id="further-reading">Further reading</h2>
+
+<p>I found the following blog posts to be very helpful when I was getting started:</p>
+
+<p><a href="http://www.kristenwidman.com/blog/33/how-to-write-a-bittorrent-client-part-1/">How to Write a Bittorrent Client (part 1)</a> 
+<a href="http://www.kristenwidman.com/blog/71/how-to-write-a-bittorrent-client-part-2/">(part 2)</a>
+(Kristen Widman)<br />
+<a href="http://charmeleon.github.io/advice/2012/11/26/pitfalls-when-creating-a-bittorrent-client/">Pitfalls when creating a BitTorrent client</a> (Erick Rivas)</p>
+
+<p>The best advice I picked up from them is (1) to rely on the <a href="https://wiki.theory.org/BitTorrentSpecification">unofficial BitTorrent spec</a>, and (2) to use Wireshark to inspect network traffic to clarify ambiguities in the spec and to validate your implementation.</p>
+
+<p>Since there are now many extensions to the BitTorrent protocol, you should test with torrents that do not use new or experimental features. I have had good luck with torrents from <a href="https://archive.org/details/bittorrent">archive.org</a> and <a href="http://bt.etree.org/">bt.etree.org</a>.</p>
+
+<p>Good luck!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Time Fountain]]></title>
@@ -62,16 +137,7 @@ This was able to produce consistent drops, with an easily adjustable drop rate.<
     <link href="http://qqrs.github.com/blog/2015/08/21/proofing-spirits-with-homemade-electrobalance/"/>
     <updated>2015-08-21T20:04:00-04:00</updated>
     <id>http://qqrs.github.com/blog/2015/08/21/proofing-spirits-with-homemade-electrobalance</id>
-    <content type="html"><![CDATA[<script>
- (function(d, t) {
-    var g = d.createElement(t),
-        s = d.getElementsByTagName(t)[0];
-    g.src = 'http://assets.gfycat.com/js/gfyajax-0.517d.js';
-    s.parentNode.insertBefore(g, s);
-}(document, 'script'));
-</script>
-
-<p><img class="gfyitem" data-id="PoliticalHarmoniousAracari" data-comment="electrobalance manual" /></p>
+    <content type="html"><![CDATA[<div style="position:relative;padding-bottom:calc(100% / 1.78)"><iframe src="https://gfycat.com/ifr/PoliticalHarmoniousAracari" frameborder="0" scrolling="no" width="100%" height="100%" style="position:absolute;top:0;left:0;" allowfullscreen=""></iframe></div>
 
 <p>A panel voltmeter can be used to build a milligram-range electrobalance, which turns out to produce surprisingly linear measurements.</p>
 
@@ -92,7 +158,7 @@ However, it’s worth noting that if accuracy were a significant concern, coil h
 <p>I turned the meter on its side and placed the load on the needle, then increased the power supply voltage until the needle was centered and read the current using a multimeter.
 One drawback to this simple system is that for repeatable measurements it requires care to ensure the load is placed on the same position along the needle and the needle is raised to the same center point every time.</p>
 
-<p><img class="gfyitem" data-id="ImpishThisGrouper" data-comment="electrobalance loads" /></p>
+<div style="position:relative;padding-bottom:calc(100% / 1.33)"><iframe src="https://gfycat.com/ifr/ImpishThisGrouper" frameborder="0" scrolling="no" width="100%" height="100%" style="position:absolute;top:0;left:0;" allowfullscreen=""></iframe></div>
 
 <h2 id="linearity">Linearity</h2>
 
@@ -180,12 +246,12 @@ When the needle begins to raise, the microcontroller detects the change in photo
 This did the job, but had to be run painfully slowly to produce accurate results.
 When the ramp rate was increased, the needle would overshoot, leading to significant variability between measurements.</p>
 
-<p><img class="gfyitem" data-id="AllCrazyFrogmouth" data-comment="electrobalance ramp" /></p>
+<div style="position:relative;padding-bottom:calc(100% / 1.78)"><iframe src="https://gfycat.com/ifr/AllCrazyFrogmouth" frameborder="0" scrolling="no" width="100%" height="100%" style="position:absolute;top:0;left:0;" allowfullscreen=""></iframe></div>
 
 <p>I made a quick pass at implementing PID control, but the digital-only feedback and relatively slow response made it difficult to find parameters that would allow the needle to settle.
 Since I didn’t want to spend all day tuning control algorithms, I had to leave this part of the project for another time.</p>
 
-<p><img class="gfyitem" data-id="VerifiableFamousAngora" data-comment="electrobalance pid" /></p>
+<div style="position:relative;padding-bottom:calc(100% / 1.78)"><iframe src="https://gfycat.com/ifr/VerifiableFamousAngora" frameborder="0" scrolling="no" width="100%" height="100%" style="position:absolute;top:0;left:0;" allowfullscreen=""></iframe></div>
 
 <h2 id="inspiration-and-references">Inspiration and References</h2>
 

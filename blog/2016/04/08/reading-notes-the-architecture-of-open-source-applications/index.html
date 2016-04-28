@@ -5,13 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Time Fountain - </title>
+  <title>Reading Notes: The Architecture of Open Source Applications II - </title>
   <meta name="author" content="Russell Smith">
 
   
-  <meta name="description" content="Inspiration The first time I remember seeing a time fountain was a
-blog post by Nate True from 2006
-(archive.org). Operation The time fountain works &hellip;">
+  <meta name="description" content="The Architecture of Open Source Applications, Volume II: Structure, Scale, and a Few More Fearless Hacks
+http://aosabook.org/en/buy.html#vol2 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +19,7 @@ blog post by Nate True from 2006
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://qqrs.github.com/blog/2015/12/15/time-fountain/">
+  <link rel="canonical" href="http://qqrs.github.com/blog/2016/04/08/reading-notes-the-architecture-of-open-source-applications/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
    <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -90,7 +89,7 @@ blog post by Nate True from 2006
   
   <header>
     
-      <h1 class="entry-title">Time Fountain</h1>
+      <h1 class="entry-title">Reading Notes: The Architecture of Open Source Applications II</h1>
     
     
       <p class="meta">
@@ -106,49 +105,23 @@ blog post by Nate True from 2006
   
 
 
-<time datetime="2015-12-15T21:00:00-05:00" pubdate data-updated="true">Dec 15<span>th</span>, 2015</time>
+<time datetime="2016-04-08T02:10:00-04:00" pubdate data-updated="true">Apr 8<span>th</span>, 2016</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p><img class="center" src="/images/timefountain.jpg" title="'Time fountain'" /></p>
-
-<h2 id="inspiration">Inspiration</h2>
-
-<p>The first time I remember seeing a time fountain was a
-<a href="http://cre.ations.net/creation/the-time-fountain">blog post by Nate True from 2006</a>
-<a href="http://web.archive.org/web/20150414033350/http://cre.ations.net/creation/the-time-fountain">(archive.org)</a>.</p>
-
-<h2 id="operation">Operation</h2>
-
-<p>The time fountain works by using flashes from UV LEDs to illuminate falling drops of fluorescent dye.
-If the drops fall at a consistent rate, the UV LEDs can be flashed at the same frequency as the drops are falling so that the drops appear to be suspended in mid-air. Or, if there is a small frequency differential, it appers that the drops are rising upward.</p>
-
-<p><a href="http://www.eccentricgenius.com/wp/2006/08/10/stopping-time-visually/">This blog post</a>
-<a href="http://web.archive.org/web/20070603015657/http://www.eccentricgenius.com/wp/2006/08/10/stopping-time-visually/">(archive.org)</a> provides a more detailed explanation.</p>
-
-<h2 id="construction">Construction</h2>
-
-<p>I used a 555-timer configured for <a href="http://pcbheaven.com/wikipages/555_Theory/?p=1">low-duty-cycle astable operation</a>, with a 100 uF timing capacitor, 100 ohm resistor on the charging path, and 10k ohm pot on the discharging path. This corresponded to roughly 15 ms on-time and 0.5 Hz to 20 Hz frequency. An n-channel FET switches the LEDs.</p>
-
-<p>While it would be nice to detect drops and reset the cycle so phase errors don’t accumulate, the effect is still pretty good with a simple timer as long as you have consistent drops.</p>
-
-<p>I bought some fluorescein dye from Ebay but it turns out that highlighter dye works just fine and doesn’t precipitate out of solution like the fluorescein. I diluted the dye from one highlighter into about 100 mL of water.</p>
-
-<p>To make the drops I started by punching a hole in a food container with a needle, but wasn’t able to achieve the consistency I wanted.
-The best solution I found was to punch a hole in the bottom of the container and use a <a href="http://www.amazon.com/Uxcell-Plastic-Aquarium-Control-Valves/dp/B00ZRHB5NW">fish tank aeration valve</a>, sealing with super glue.
-This was able to produce consistent drops, with an easily adjustable drop rate.</p>
-
-<h2 id="action">Action</h2>
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/y3eXu-68REc" frameborder="0" allowfullscreen=""></iframe>
-
-<p>It’s a cool effect to see in person, but difficult to capture on camera because of the lighting conditions. Here are a few videos that do a better job of showing off the effect:<br />
-<a href="https://www.youtube.com/watch?v=rvY7NGncCgU">video 1</a><br />
-<a href="https://www.youtube.com/watch?v=XwYIE-82i6Y">video 2</a><br />
-<a href="https://www.youtube.com/watch?v=CaDtZA78uP0">video 3</a>  </p>
+<div class="entry-content"><p>The Architecture of Open Source Applications, Volume II: Structure, Scale, and a Few More Fearless Hacks
+http://aosabook.org/en/buy.html#vol2
+Scalable Web Architecture and Distributed Systems
+FreeRTOS
+The Glasgow Haskell Compiler
+GPSD
+nginx
+Twisted
+Yesod
+ZeroMQ</p>
 </div>
 
 
@@ -171,14 +144,8 @@ This was able to produce consistent drops, with an easily adjustable drop rate.<
   
 
 
-<time datetime="2015-12-15T21:00:00-05:00" pubdate data-updated="true">Dec 15<span>th</span>, 2015</time>
+<time datetime="2016-04-08T02:10:00-04:00" pubdate data-updated="true">Apr 8<span>th</span>, 2016</time>
       
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/electronics/'>electronics</a>
-  
-</span>
 
 
     </p>
@@ -192,10 +159,8 @@ This was able to produce consistent drops, with an easily adjustable drop rate.<
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2015/08/21/proofing-spirits-with-homemade-electrobalance/" title="Previous Post: Proofing Spirits with a Homemade Electrobalance">&laquo; Proofing Spirits with a Homemade Electrobalance</a>
+        <a class="basic-alignment left" href="/blog/2016/04/04/writing-a-bittorrent-client/" title="Previous Post: Writing a BitTorrent Client">&laquo; Writing a BitTorrent Client</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2016/04/04/writing-a-bittorrent-client/" title="Next Post: Writing a BitTorrent Client">Writing a BitTorrent Client &raquo;</a>
       
     </p>
   </footer>
