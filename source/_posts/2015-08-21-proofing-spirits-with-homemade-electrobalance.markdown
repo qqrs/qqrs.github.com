@@ -7,17 +7,7 @@ comments: false
 categories: electronics
 ---
 
-<script>
- (function(d, t) {
-    var g = d.createElement(t),
-        s = d.getElementsByTagName(t)[0];
-    g.src = 'http://assets.gfycat.com/js/gfyajax-0.517d.js';
-    s.parentNode.insertBefore(g, s);
-}(document, 'script'));
-</script>
-
-
-<img class="gfyitem" data-id="PoliticalHarmoniousAracari" data-comment="electrobalance manual" />
+<div style='position:relative;padding-bottom:calc(100% / 1.78)'><iframe src='https://gfycat.com/ifr/PoliticalHarmoniousAracari' frameborder='0' scrolling='no' width='100%' height='100%' style='position:absolute;top:0;left:0;' allowfullscreen></iframe></div>
 
 A panel voltmeter can be used to build a milligram-range electrobalance, which turns out to produce surprisingly linear measurements.
 
@@ -38,7 +28,7 @@ However, it's worth noting that if accuracy were a significant concern, coil hea
 I turned the meter on its side and placed the load on the needle, then increased the power supply voltage until the needle was centered and read the current using a multimeter.
 One drawback to this simple system is that for repeatable measurements it requires care to ensure the load is placed on the same position along the needle and the needle is raised to the same center point every time.
 
-<img class="gfyitem" data-id="ImpishThisGrouper" data-comment="electrobalance loads" />
+<div style='position:relative;padding-bottom:calc(100% / 1.33)'><iframe src='https://gfycat.com/ifr/ImpishThisGrouper' frameborder='0' scrolling='no' width='100%' height='100%' style='position:absolute;top:0;left:0;' allowfullscreen></iframe></div>
 
 ## Linearity
 
@@ -97,12 +87,12 @@ As a first attempt, I programmed the microcontroller to simply ramp the PWM duty
 This did the job, but had to be run painfully slowly to produce accurate results.
 When the ramp rate was increased, the needle would overshoot, leading to significant variability between measurements.
 
-<img class="gfyitem" data-id="AllCrazyFrogmouth" data-comment="electrobalance ramp" />
+<div style='position:relative;padding-bottom:calc(100% / 1.78)'><iframe src='https://gfycat.com/ifr/AllCrazyFrogmouth' frameborder='0' scrolling='no' width='100%' height='100%' style='position:absolute;top:0;left:0;' allowfullscreen></iframe></div>
 
 I made a quick pass at implementing PID control, but the digital-only feedback and relatively slow response made it difficult to find parameters that would allow the needle to settle.
 Since I didn't want to spend all day tuning control algorithms, I had to leave this part of the project for another time.
 
-<img class="gfyitem" data-id="VerifiableFamousAngora" data-comment="electrobalance pid" />
+<div style='position:relative;padding-bottom:calc(100% / 1.78)'><iframe src='https://gfycat.com/ifr/VerifiableFamousAngora' frameborder='0' scrolling='no' width='100%' height='100%' style='position:absolute;top:0;left:0;' allowfullscreen></iframe></div>
 
 ## Inspiration and References
 

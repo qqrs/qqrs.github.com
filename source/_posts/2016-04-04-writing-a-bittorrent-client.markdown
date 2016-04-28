@@ -6,18 +6,17 @@ comments: false
 categories: code
 ---
 
-Writing a BitTorrent client has been interesting side project to learn concurrent networking concepts and practice structuring a new project from scratch.
+I've found that writing a BitTorrent client from scratch has been an interesting project for practicing concurrent networking concepts.
+However, when I started, I found that I had to do much more reading than I expected to understand the BitTorrent protocol and to decide whether the scope was appropriate for a spare time project.
 
-However, when I first started I had one important question: "Do I actually want to write a BitTorrent client?"
+As a result, this post is a short overview of a minimal BitTorrent download implementation.
 
-I found that I had to do much more reading than I expected to understand the BitTorrent protocol and to decide whether the scope was appropriate for a spare time project.
-
-As a result, this post is a very short overview of a minimal BitTorrent download implementation.
+I hope it will be useful to other programmers seeking an answer to the question: "Do I actually want to write a BitTorrent client?"
 
 ## 1. Parse the `.torrent` metainfo file
 The `.torrent` file contains information about the torrent tracker and the files to be downloaded.
 Data is encoded using a serialization protocol called bencoding.
-If your language provides a bencoding library, this is not much more difficult to decode than parsing json.
+Parsing bencoded data is not significantly more difficult than parsing json, and there is likely a bencoding library available for your language.
 
 ## 2. Connect to the tracker
 To connect to the torrent, an HTTP GET request is made to the tracker announce URL.
@@ -39,19 +38,20 @@ The peer will respond with 'piece' messages which contain the block data.
 
 ## 5. Torrent strategy
 The client must download all blocks of all pieces and assemble them into the complete output file
-set. If any peers disconnect or fail to provide a block, the client must request from another peer. A more ambitious client may also attempt to further optimize its download strategy to improve download times.
+set. If any peers disconnect or fail to provide a block, the client must request from another peer.
+A more ambitious client may also attempt to further optimize its download strategy to improve download times.
 
 ## Further reading
 
-These posts each go into more detail regarding implementation details:
+I found the following blog posts to be very helpful when I was getting started:
 
 [How to Write a Bittorrent Client (part 1)](http://www.kristenwidman.com/blog/33/how-to-write-a-bittorrent-client-part-1/) 
 [(part 2)](http://www.kristenwidman.com/blog/71/how-to-write-a-bittorrent-client-part-2/)
 (Kristen Widman)  
 [Pitfalls when creating a BitTorrent client](http://charmeleon.github.io/advice/2012/11/26/pitfalls-when-creating-a-bittorrent-client/) (Erick Rivas)
 
-The best advice I picked up from them is to rely on the [unofficial BitTorrent spec](https://wiki.theory.org/BitTorrentSpecification) and to use Wireshark liberally to inspect the network traffic.
+The best advice I picked up from them is (1) to rely on the [unofficial BitTorrent spec](https://wiki.theory.org/BitTorrentSpecification), and (2) to use Wireshark to inspect network traffic to clarify ambiguities in the spec and to validate your implementation.
 
-Since there now many extensions to the BitTorrent protocol, you should test with torrents that do not use new or experimental features. I have tested with torrents from [archive.org](https://archive.org/details/bittorrent) and [bt.etree.org](http://bt.etree.org/).
+Since there are now many extensions to the BitTorrent protocol, you should test with torrents that do not use new or experimental features. I have had good luck with torrents from [archive.org](https://archive.org/details/bittorrent) and [bt.etree.org](http://bt.etree.org/).
 
 Good luck!
