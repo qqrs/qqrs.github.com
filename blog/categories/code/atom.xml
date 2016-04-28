@@ -4,7 +4,7 @@
   <title><![CDATA[Category: code | ]]></title>
   <link href="http://qqrs.github.com/blog/categories/code/atom.xml" rel="self"/>
   <link href="http://qqrs.github.com/"/>
-  <updated>2016-04-28T19:38:04-04:00</updated>
+  <updated>2016-04-28T19:40:31-04:00</updated>
   <id>http://qqrs.github.com/</id>
   <author>
     <name><![CDATA[Russell Smith]]></name>
@@ -75,16 +75,7 @@ A more ambitious client may also attempt to further optimize its download strate
     <link href="http://qqrs.github.com/blog/2013/05/03/vim-on-a-mechanical-typewriter/"/>
     <updated>2013-05-03T00:00:00-04:00</updated>
     <id>http://qqrs.github.com/blog/2013/05/03/vim-on-a-mechanical-typewriter</id>
-    <content type="html"><![CDATA[<script>
- (function(d, t) {
-    var g = d.createElement(t),
-        s = d.getElementsByTagName(t)[0];
-    g.src = 'http://assets.gfycat.com/js/gfyajax-0.517d.js';
-    s.parentNode.insertBefore(g, s);
-}(document, 'script'));
-</script>
-
-<p><img class="gfyitem" data-id="BackGiddyAmericanbittern" style="position: relative; left: -40px" /></p>
+    <content type="html"><![CDATA[<div style="position:relative;padding-bottom:calc(100% / 1.33)"><iframe src="https://gfycat.com/ifr/BackGiddyAmericanbittern" frameborder="0" scrolling="no" width="100%" height="100%" style="position:absolute;top:0;left:0;" allowfullscreen=""></iframe></div>
 
 <p style="text-align: right">
 <a href="https://www.youtube.com/watch?v=eFBTBwdVobQ" target="_blank">Watch on Youtube (with sound) &gt;&gt;</a>
