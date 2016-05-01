@@ -9,9 +9,7 @@
   <meta name="author" content="Russell Smith">
 
   
-  <meta name="description" content="Inspiration The first time I remember seeing a time fountain was a
-blog post by Nate True from 2006
-(archive.org). Operation The time fountain works &hellip;">
+  <meta name="description" content="While re-reading The Architecture of Open Source Applications, Volume II, a line in the chapter on git caught my eye: if two objects are different &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -87,6 +85,54 @@ blog post by Nate True from 2006
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2016/05/01/git-hash-collisions/">Git Hash Collisions</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-05-01T14:40:00-04:00" pubdate data-updated="true">May 1<span>st</span>, 2016</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>While re-reading <em>The Architecture of Open Source Applications, Volume II</em>, a line in the <a href="http://aosabook.org/en/git.html">chapter on git</a> caught my eye:</p>
+
+<blockquote>
+  <p>if two objects are different they will have different SHAs.</p>
+</blockquote>
+
+<p>This was surprising, as there should always be be some very very small but nonzero chance of a hash collision. Either the book is simplifying for ease of explanation, or git is doing something behind the scenes that is more complicated than simply hashing the contents of the object.</p>
+
+<p>It turns out that hash collisions are possible.</p>
+
+<p>As expected, an accidental collision is very unlikely: on even a large and active repo, a collision is unlikely to occur in the timespan of the <a href="http://diego.assencio.com/?index=eacd6eedf46c9dd596a5f12221ad15b8">age of the universe</a>.</p>
+
+<p>Even if an attacker could break SHA-1 or brute-force a hash, <a href="http://stackoverflow.com/a/9392525">git always prefers the older version of an object</a>, so the attacker would be unable to replace an existing file with a tainted version.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1030,6 +1076,10 @@ The script can be stopped by switching to another tty with Ctrl–Alt–F2, logg
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/05/01/git-hash-collisions/">Git Hash Collisions</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/12/15/time-fountain/">Time Fountain</a>
       </li>
     
@@ -1043,10 +1093,6 @@ The script can be stopped by switching to another tty with Ctrl–Alt–F2, logg
     
       <li class="post">
         <a href="/blog/2013/04/30/bluetooth-alarm-clock/">Android-Controlled Bluetooth Double-Bell Alarm Clock</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/04/22/interfacing-a-softpot-sensor-to-an-adc/">Interfacing a SoftPot Membrane Potentiometer</a>
       </li>
     
   </ul>

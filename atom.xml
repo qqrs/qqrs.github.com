@@ -4,7 +4,7 @@
   <title><![CDATA[]]></title>
   <link href="http://qqrs.github.com/atom.xml" rel="self"/>
   <link href="http://qqrs.github.com/"/>
-  <updated>2016-04-28T19:41:43-04:00</updated>
+  <updated>2016-05-01T14:58:01-04:00</updated>
   <id>http://qqrs.github.com/</id>
   <author>
     <name><![CDATA[Russell Smith]]></name>
@@ -12,6 +12,27 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Git Hash Collisions]]></title>
+    <link href="http://qqrs.github.com/blog/2016/05/01/git-hash-collisions/"/>
+    <updated>2016-05-01T14:40:00-04:00</updated>
+    <id>http://qqrs.github.com/blog/2016/05/01/git-hash-collisions</id>
+    <content type="html"><![CDATA[<p>While re-reading <em>The Architecture of Open Source Applications, Volume II</em>, a line in the <a href="http://aosabook.org/en/git.html">chapter on git</a> caught my eye:</p>
+
+<blockquote>
+  <p>if two objects are different they will have different SHAs.</p>
+</blockquote>
+
+<p>This was surprising, as there should always be be some very very small but nonzero chance of a hash collision. Either the book is simplifying for ease of explanation, or git is doing something behind the scenes that is more complicated than simply hashing the contents of the object.</p>
+
+<p>It turns out that hash collisions are possible.</p>
+
+<p>As expected, an accidental collision is very unlikely: on even a large and active repo, a collision is unlikely to occur in the timespan of the <a href="http://diego.assencio.com/?index=eacd6eedf46c9dd596a5f12221ad15b8">age of the universe</a>.</p>
+
+<p>Even if an attacker could break SHA-1 or brute-force a hash, <a href="http://stackoverflow.com/a/9392525">git always prefers the older version of an object</a>, so the attacker would be unable to replace an existing file with a tainted version.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Time Fountain]]></title>

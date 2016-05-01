@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: code - </title>
+  <title>Git Hash Collisions - </title>
   <meta name="author" content="Russell Smith">
 
   
-  <meta name="description" content="Category: code">
+  <meta name="description" content="While re-reading The Architecture of Open Source Applications, Volume II, a line in the chapter on git caught my eye: if two objects are different &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://qqrs.github.comblog/categories/code/">
+  <link rel="canonical" href="http://qqrs.github.com/blog/2016/05/01/git-hash-collisions/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
    <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -84,80 +84,94 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: Code</h1>
+    
+      <h1 class="entry-title">Git Hash Collisions</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-05-01T14:40:00-04:00" pubdate data-updated="true">May 1<span>st</span>, 2016</time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>While re-reading <em>The Architecture of Open Source Applications, Volume II</em>, a line in the <a href="http://aosabook.org/en/git.html">chapter on git</a> caught my eye:</p>
 
-  
-  <h2>2016</h2>
+<blockquote>
+  <p>if two objects are different they will have different SHAs.</p>
+</blockquote>
 
-<article>
-  
-<h1><a href="/blog/2016/05/01/git-hash-collisions/">Git Hash Collisions</a></h1>
-<time datetime="2016-05-01T14:40:00-04:00" pubdate><span class='month'>May</span> <span class='day'>01</span> <span class='year'>2016</span></time>
+<p>This was surprising, as there should always be be some very very small but nonzero chance of a hash collision. Either the book is simplifying for ease of explanation, or git is doing something behind the scenes that is more complicated than simply hashing the contents of the object.</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/books/'>books</a>, <a class='category' href='/blog/categories/code/'>code</a></span>
-</footer>
+<p>It turns out that hash collisions are possible.</p>
 
+<p>As expected, an accidental collision is very unlikely: on even a large and active repo, a collision is unlikely to occur in the timespan of the <a href="http://diego.assencio.com/?index=eacd6eedf46c9dd596a5f12221ad15b8">age of the universe</a>.</p>
 
-</article>
-
-
-
-  
-  <h2>2013</h2>
-
-<article>
-  
-<h1><a href="/blog/2013/05/03/vim-on-a-mechanical-typewriter/">Vim on a Mechanical Typewriter</a></h1>
-<time datetime="2013-05-03T00:00:00-04:00" pubdate><span class='month'>May</span> <span class='day'>03</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/code/'>code</a>, <a class='category' href='/blog/categories/electronics/'>electronics</a>, <a class='category' href='/blog/categories/hacker-school/'>hacker-school</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2013/04/30/bluetooth-alarm-clock/">Android-Controlled Bluetooth Double-Bell Alarm Clock</a></h1>
-<time datetime="2013-04-30T17:29:00-04:00" pubdate><span class='month'>Apr</span> <span class='day'>30</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/code/'>code</a>, <a class='category' href='/blog/categories/electronics/'>electronics</a>, <a class='category' href='/blog/categories/hacker-school/'>hacker-school</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2013/04/10/twilio-light-sensor/">Voice– and SMS–Enabled Light Sensor using Raspberry Pi and Twilio</a></h1>
-<time datetime="2013-04-10T12:59:00-04:00" pubdate><span class='month'>Apr</span> <span class='day'>10</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/code/'>code</a>, <a class='category' href='/blog/categories/electronics/'>electronics</a>, <a class='category' href='/blog/categories/hacker-school/'>hacker-school</a></span>
-</footer>
-
-
-</article>
-
+<p>Even if an attacker could break SHA-1 or brute-force a hash, <a href="http://stackoverflow.com/a/9392525">git always prefers the older version of an object</a>, so the attacker would be unable to replace an existing file with a tainted version.</p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Russell Smith</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-05-01T14:40:00-04:00" pubdate data-updated="true">May 1<span>st</span>, 2016</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/books/'>books</a>, <a class='category' href='/blog/categories/code/'>code</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/12/15/time-fountain/" title="Previous Post: Time Fountain">&laquo; Time Fountain</a>
+      
+      
+    </p>
+  </footer>
 </article>
 
 </div>
