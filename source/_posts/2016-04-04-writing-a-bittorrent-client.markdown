@@ -7,7 +7,7 @@ comments: false
 categories: code
 ---
 
-I've found that writing a BitTorrent client from scratch has been an interesting project for practicing concurrent networking concepts.
+I've found that writing a [BitTorrent client from scratch](https://github.com/qqrs/qqtorrent) has been an interesting project for practicing concurrent networking concepts.
 However, when I started, I found that I had to do much more reading than I expected to understand the BitTorrent protocol and to decide whether the scope was appropriate for a spare time project.
 
 As a result, this post is a short overview of a minimal BitTorrent download implementation.
