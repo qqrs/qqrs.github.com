@@ -1,10 +1,10 @@
 ---
-published: false
+published: true
 layout: post
 title: "Git Hash Collisions"
-date: 2016-04-29 01:13
+date: 2016-05-01 14:40
 comments: false
-categories: 
+categories: code books
 ---
 
 While re-reading *The Architecture of Open Source Applications, Volume II*, a line in the [chapter on git](http://aosabook.org/en/git.html) caught my eye:
