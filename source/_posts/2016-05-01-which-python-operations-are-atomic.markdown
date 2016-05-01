@@ -2,7 +2,7 @@
 published: false
 layout: post
 title: "Which Python operations are atomic?"
-date: 2016-04-29 01:10
+date: 2016-05-01 16:16
 comments: false
 categories: code python
 ---
