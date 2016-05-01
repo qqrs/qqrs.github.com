@@ -4,7 +4,7 @@
   <title><![CDATA[]]></title>
   <link href="http://qqrs.github.com/atom.xml" rel="self"/>
   <link href="http://qqrs.github.com/"/>
-  <updated>2016-05-01T17:57:03-04:00</updated>
+  <updated>2016-05-01T17:59:41-04:00</updated>
   <id>http://qqrs.github.com/</id>
   <author>
     <name><![CDATA[Russell Smith]]></name>
@@ -28,7 +28,7 @@
 
 <p>Every chapter of AOS2 is a guided tour of an interesting codebase, with all of the hard-earned design wisdom distilled down to specific advice.</p>
 
-<p>The chapters are mostly free-form, though I noticed that a few repeating themes crop up throughout, allowing comparisons between the approaches taken in differen problem domains:<br />
+<p>Though the chapters are mostly free-form, there are a few repeating themes that crop up throughout, allowing comparisons between the approaches taken in differen problem domains:<br />
 1. Modularity<br />
 2. Testing<br />
 3. The danger of expecting to be able to predict the future  </p>
