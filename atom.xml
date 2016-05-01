@@ -4,7 +4,7 @@
   <title><![CDATA[]]></title>
   <link href="http://qqrs.github.com/atom.xml" rel="self"/>
   <link href="http://qqrs.github.com/"/>
-  <updated>2016-05-01T14:58:01-04:00</updated>
+  <updated>2016-05-01T17:57:03-04:00</updated>
   <id>http://qqrs.github.com/</id>
   <author>
     <name><![CDATA[Russell Smith]]></name>
@@ -12,6 +12,40 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Reading Notes: The Architecture of Open Source Applications II]]></title>
+    <link href="http://qqrs.github.com/blog/2016/05/01/reading-notes-the-architecture-of-open-source-applications/"/>
+    <updated>2016-05-01T16:37:00-04:00</updated>
+    <id>http://qqrs.github.com/blog/2016/05/01/reading-notes-the-architecture-of-open-source-applications</id>
+    <content type="html"><![CDATA[<p>Earlier this year, I read <a href="http://aosabook.org/en/buy.html#vol2"><em>The Architecture of Open Source Applications, Volume II: Structure, Scale, and a Few More Fearless Hacks</em></a>.</p>
+
+<p>It was an excellent read, and fills a gap in the market for software engineering books:</p>
+
+<blockquote>
+  <p>Architects look at thousands of buildings during their training, and study critiques of those buildings written by masters. In contrast, most software developers only ever get to know a handful of large programs well - usually programs they wrote themselves - and never study the great programs of history. As a result, they repeat one another’s mistakes rather than building on one another’s successes. This second volume of The Architecture of Open Source Applications aims to change that. In it, the authors of twenty-four open source applications explain how their software is structured, and why. What are each program’s major components? How do they interact? And what did their builders learn during their development? In answering these questions, the contributors to this book provide unique insights into how they think.</p>
+</blockquote>
+
+<p>Every chapter of AOS2 is a guided tour of an interesting codebase, with all of the hard-earned design wisdom distilled down to specific advice.</p>
+
+<p>The chapters are mostly free-form, though I noticed that a few repeating themes crop up throughout, allowing comparisons between the approaches taken in differen problem domains:<br />
+1. Modularity<br />
+2. Testing<br />
+3. The danger of expecting to be able to predict the future  </p>
+
+<p>Here are my personal favorites — chapters stood out as being especially clearly-written and thought-provoking:<br />
+1. Scalable Web Architecture and Distributed Systems<br />
+2. FreeRTOS<br />
+3. The Glasgow Haskell Compiler<br />
+4. GPSD<br />
+5. nginx<br />
+6. Twisted<br />
+7. Yesod<br />
+8. ZeroMQ  </p>
+
+<p>The full content is available to <a href="http://aosabook.org/en/index.html">read for free online</a>, and all profits from <a href="http://aosabook.org/en/buy.html#vol2">hard copy sales</a> go to charity.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Git Hash Collisions]]></title>
