@@ -4,7 +4,7 @@
   <title><![CDATA[]]></title>
   <link href="http://qqrs.github.com/atom.xml" rel="self"/>
   <link href="http://qqrs.github.com/"/>
-  <updated>2016-05-01T18:01:23-04:00</updated>
+  <updated>2016-05-01T18:53:14-04:00</updated>
   <id>http://qqrs.github.com/</id>
   <author>
     <name><![CDATA[Russell Smith]]></name>
@@ -12,6 +12,85 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Which Python operations are atomic?]]></title>
+    <link href="http://qqrs.github.com/blog/2016/05/01/which-python-operations-are-atomic/"/>
+    <updated>2016-05-01T18:52:00-04:00</updated>
+    <id>http://qqrs.github.com/blog/2016/05/01/which-python-operations-are-atomic</id>
+    <content type="html"><![CDATA[<p>A conversation with a coworker turned me on to the fact that a surprising range of operations in Python are atomic, even operations like dictionary and class member assignment.</p>
+
+<p>This wasn’t something I would have anticipated, given the number of machine language instructions that must ultimately be performed to complete an operation like hash table insertion.</p>
+
+<p>Why?</p>
+
+<p>The <a href="https://docs.python.org/2/faq/library.html#what-kinds-of-global-value-mutation-are-thread-safe">Python FAQ</a> provides explanation and a full list of atomic operations, but the short answer is:</p>
+
+<ol>
+  <li>The Python bytecode interpreter only switches between threads between bytecode instructions</li>
+  <li>The Global Interpreter Lock (GIL) only allows a single thread to execute at a time</li>
+  <li>Many operations translate to a single bytecode instruction</li>
+</ol>
+
+<p>It’s easy to check whether an operation compiles to a single bytecode instruction with <code>dis</code>.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">&gt;&gt;&gt; def update_dict():
+</span><span class="line">...     d['a'] = 1
+</span><span class="line">...
+</span><span class="line">&gt;&gt;&gt; import dis
+</span><span class="line">&gt;&gt;&gt; dis.dis(update_dict)
+</span><span class="line">  3           0 LOAD_CONST               1 (1)
+</span><span class="line">              3 LOAD_GLOBAL              0 (d)
+</span><span class="line">              6 LOAD_CONST               2 ('a')
+</span><span class="line">              9 STORE_SUBSCR                        # single bytecode instruction
+</span><span class="line">             10 LOAD_CONST               0 (None)
+</span><span class="line">             13 RETURN_VALUE</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>So what are the caveats? Is it safe to rely on atomicity instead of using locks?</p>
+
+<p>First, the linked FAQ above doesn’t make it clear to what degree this behavior is considered part of the Python spec as opposed to simply a consequence of CPython implementation details.
+It depends on the GIL, so it would likely be unsafe on GIL-less Pythons (IronPython, Jython, PyPy-TM).
+Would it be safe on non-CPython implementations with a GIL (PyPy)?
+I could certainly imagine possible optimizations that would invalidate the atomicity of these operations.</p>
+
+<p>Second, even if not strictly necessary, locks provide clear thread-safety guarantees and also serve as useful documentation that the code is accessing shared memory.
+Without a lock, care must be taken since it could be easy to assume operations are atomic when they are not (postmortem example: <a href="https://emptysqua.re/blog/pythons-swap-is-not-atomic/">Python’s swap is not atomic</a>).
+A clear comment is probably also necessary to head off the “Wait, this might need a lock!” reaction from collaborators.</p>
+
+<p>Third, because Python allows overriding of so many builtin methods, there are edge cases where these operations are no longer atomic. The <a href="https://google.github.io/styleguide/pyguide.html#Threading">Google Python style guide</a> advises:</p>
+
+<blockquote>
+  <p>Do not rely on the atomicity of built-in types.</p>
+
+  <p>While Python’s built-in data types such as dictionaries appear to have atomic operations, there are corner cases where they aren’t atomic (e.g. if <strong>hash</strong> or <strong>eq</strong> are implemented as Python methods) and their atomicity should not be relied upon. Neither should you rely on atomic variable assignment (since this in turn depends on dictionaries).</p>
+</blockquote>
+
+<p>That pretty much settles it for the general case.</p>
+
+<p>There may still be some cases where it would be necessary, such as when implementing new locking functionality or in cases where performance is critical.
+Relying on atomicity of operations effectively allows you to piggyback on the GIL for your locking, reducing the cost of additional locks.
+But if lock performance is so critical, it seems like it would be better to first profile hotspots and look for other speedups.</p>
+
+<p>So does it make sense to rely on the atomicity of operations when accessing or modifying shared mutable state?</p>
+
+<p>Short answer:<br />
+1. you’d better have a good reason<br />
+2. you’d better do some thorough research  </p>
+
+<p>Otherwise, you’re better off just using a lock.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Reading Notes: The Architecture of Open Source Applications II]]></title>

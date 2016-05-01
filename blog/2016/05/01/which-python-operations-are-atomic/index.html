@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Reading Notes: The Architecture of Open Source Applications II - </title>
+  <title>Which Python operations are atomic? - </title>
   <meta name="author" content="Russell Smith">
 
   
-  <meta name="description" content="Earlier this year, I read The Architecture of Open Source Applications, Volume II: Structure, Scale, and a Few More Fearless Hacks. It was an &hellip;">
+  <meta name="description" content="A conversation with a coworker turned me on to the fact that a surprising range of operations in Python are atomic, even operations like dictionary &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://qqrs.github.com/blog/2016/05/01/reading-notes-the-architecture-of-open-source-applications/">
+  <link rel="canonical" href="http://qqrs.github.com/blog/2016/05/01/which-python-operations-are-atomic/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
    <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -88,7 +88,7 @@
   
   <header>
     
-      <h1 class="entry-title">Reading Notes: The Architecture of Open Source Applications II</h1>
+      <h1 class="entry-title">Which Python Operations Are Atomic?</h1>
     
     
       <p class="meta">
@@ -104,39 +104,84 @@
   
 
 
-<time datetime="2016-05-01T16:37:00-04:00" pubdate data-updated="true">May 1<span>st</span>, 2016</time>
+<time datetime="2016-05-01T18:52:00-04:00" pubdate data-updated="true">May 1<span>st</span>, 2016</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Earlier this year, I read <a href="http://aosabook.org/en/buy.html#vol2"><em>The Architecture of Open Source Applications, Volume II: Structure, Scale, and a Few More Fearless Hacks</em></a>.</p>
+<div class="entry-content"><p>A conversation with a coworker turned me on to the fact that a surprising range of operations in Python are atomic, even operations like dictionary and class member assignment.</p>
 
-<p>It was an excellent read, and fills a gap in the market for software engineering books:</p>
+<p>This wasn’t something I would have anticipated, given the number of machine language instructions that must ultimately be performed to complete an operation like hash table insertion.</p>
+
+<p>Why?</p>
+
+<p>The <a href="https://docs.python.org/2/faq/library.html#what-kinds-of-global-value-mutation-are-thread-safe">Python FAQ</a> provides explanation and a full list of atomic operations, but the short answer is:</p>
+
+<ol>
+  <li>The Python bytecode interpreter only switches between threads between bytecode instructions</li>
+  <li>The Global Interpreter Lock (GIL) only allows a single thread to execute at a time</li>
+  <li>Many operations translate to a single bytecode instruction</li>
+</ol>
+
+<p>It’s easy to check whether an operation compiles to a single bytecode instruction with <code>dis</code>.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">&gt;&gt;&gt; def update_dict():
+</span><span class="line">...     d['a'] = 1
+</span><span class="line">...
+</span><span class="line">&gt;&gt;&gt; import dis
+</span><span class="line">&gt;&gt;&gt; dis.dis(update_dict)
+</span><span class="line">  3           0 LOAD_CONST               1 (1)
+</span><span class="line">              3 LOAD_GLOBAL              0 (d)
+</span><span class="line">              6 LOAD_CONST               2 ('a')
+</span><span class="line">              9 STORE_SUBSCR                        # single bytecode instruction
+</span><span class="line">             10 LOAD_CONST               0 (None)
+</span><span class="line">             13 RETURN_VALUE</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>So what are the caveats? Is it safe to rely on atomicity instead of using locks?</p>
+
+<p>First, the linked FAQ above doesn’t make it clear to what degree this behavior is considered part of the Python spec as opposed to simply a consequence of CPython implementation details.
+It depends on the GIL, so it would likely be unsafe on GIL-less Pythons (IronPython, Jython, PyPy-TM).
+Would it be safe on non-CPython implementations with a GIL (PyPy)?
+I could certainly imagine possible optimizations that would invalidate the atomicity of these operations.</p>
+
+<p>Second, even if not strictly necessary, locks provide clear thread-safety guarantees and also serve as useful documentation that the code is accessing shared memory.
+Without a lock, care must be taken since it could be easy to assume operations are atomic when they are not (postmortem example: <a href="https://emptysqua.re/blog/pythons-swap-is-not-atomic/">Python’s swap is not atomic</a>).
+A clear comment is probably also necessary to head off the “Wait, this might need a lock!” reaction from collaborators.</p>
+
+<p>Third, because Python allows overriding of so many builtin methods, there are edge cases where these operations are no longer atomic. The <a href="https://google.github.io/styleguide/pyguide.html#Threading">Google Python style guide</a> advises:</p>
 
 <blockquote>
-  <p>Architects look at thousands of buildings during their training, and study critiques of those buildings written by masters. In contrast, most software developers only ever get to know a handful of large programs well - usually programs they wrote themselves - and never study the great programs of history. As a result, they repeat one another’s mistakes rather than building on one another’s successes. This second volume of The Architecture of Open Source Applications aims to change that. In it, the authors of twenty-four open source applications explain how their software is structured, and why. What are each program’s major components? How do they interact? And what did their builders learn during their development? In answering these questions, the contributors to this book provide unique insights into how they think.</p>
+  <p>Do not rely on the atomicity of built-in types.</p>
+
+  <p>While Python’s built-in data types such as dictionaries appear to have atomic operations, there are corner cases where they aren’t atomic (e.g. if <strong>hash</strong> or <strong>eq</strong> are implemented as Python methods) and their atomicity should not be relied upon. Neither should you rely on atomic variable assignment (since this in turn depends on dictionaries).</p>
 </blockquote>
 
-<p>Every chapter of AOS2 is a guided tour of an interesting codebase, with all of the hard-earned design wisdom distilled down to specific advice.</p>
+<p>That pretty much settles it for the general case.</p>
 
-<p>Though the chapters are mostly free-form, there are a few repeating themes that crop up throughout, allowing comparisons between the approaches taken in different problem domains:<br />
-1. Modularity<br />
-2. Testing<br />
-3. The danger of expecting to be able to predict the future  </p>
+<p>There may still be some cases where it would be necessary, such as when implementing new locking functionality or in cases where performance is critical.
+Relying on atomicity of operations effectively allows you to piggyback on the GIL for your locking, reducing the cost of additional locks.
+But if lock performance is so critical, it seems like it would be better to first profile hotspots and look for other speedups.</p>
 
-<p>Here are my personal favorites — chapters that stood out as being especially clearly-written and thought-provoking:<br />
-1. Scalable Web Architecture and Distributed Systems<br />
-2. FreeRTOS<br />
-3. The Glasgow Haskell Compiler<br />
-4. GPSD<br />
-5. nginx<br />
-6. Twisted<br />
-7. Yesod<br />
-8. ZeroMQ  </p>
+<p>So does it make sense to rely on the atomicity of operations when accessing or modifying shared mutable state?</p>
 
-<p>The full content is available to <a href="http://aosabook.org/en/index.html">read for free online</a>, and all profits from <a href="http://aosabook.org/en/buy.html#vol2">hard copy sales</a> go to charity.</p>
+<p>Short answer:<br />
+1. you’d better have a good reason<br />
+2. you’d better do some thorough research  </p>
+
+<p>Otherwise, you’re better off just using a lock.</p>
 </div>
 
 
@@ -159,12 +204,12 @@
   
 
 
-<time datetime="2016-05-01T16:37:00-04:00" pubdate data-updated="true">May 1<span>st</span>, 2016</time>
+<time datetime="2016-05-01T18:52:00-04:00" pubdate data-updated="true">May 1<span>st</span>, 2016</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/books/'>books</a>, <a class='category' href='/blog/categories/code/'>code</a>
+    <a class='category' href='/blog/categories/code/'>code</a>, <a class='category' href='/blog/categories/python/'>python</a>
   
 </span>
 
@@ -180,10 +225,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2016/05/01/git-hash-collisions/" title="Previous Post: Git Hash Collisions">&laquo; Git Hash Collisions</a>
+        <a class="basic-alignment left" href="/blog/2016/05/01/reading-notes-the-architecture-of-open-source-applications/" title="Previous Post: Reading Notes: The Architecture of Open Source Applications II">&laquo; Reading Notes: The Architecture of Open Source Applications II</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2016/05/01/which-python-operations-are-atomic/" title="Next Post: Which Python operations are atomic?">Which Python operations are atomic? &raquo;</a>
       
     </p>
   </footer>
