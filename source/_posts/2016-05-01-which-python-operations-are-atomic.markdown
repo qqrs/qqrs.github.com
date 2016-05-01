@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 layout: post
 title: "Which Python operations are atomic?"
 date: 2016-05-01 16:16
@@ -17,6 +17,7 @@ The [Python FAQ](https://docs.python.org/2/faq/library.html#what-kinds-of-global
 
 1. The Python bytecode interpreter only switches between threads between bytecode instructions
 2. The Global Interpreter Lock (GIL) only allows a single thread to execute at a time
+3. Many operations translate to a single bytecode instruction
 
 It's easy to check whether an operation compiles to a single bytecode instruction with `dis`.
 
@@ -39,11 +40,11 @@ So what are the caveats? Is it safe to rely on atomicity instead of using locks?
 
 First, the linked FAQ above doesn't make it clear to what degree this behavior is considered part of the Python spec as opposed to simply a consequence of CPython implementation details.
 It depends on the GIL, so it would likely be unsafe on GIL-less Pythons (IronPython, Jython, PyPy-TM).
-Would it be safe on non-CPython implementations with a GIL?
+Would it be safe on non-CPython implementations with a GIL (PyPy)?
 I could certainly imagine possible optimizations that would invalidate the atomicity of these operations.
 
 Second, even if not strictly necessary, locks provide clear thread-safety guarantees and also serve as useful documentation that the code is accessing shared memory.
-Without a lock, care must be taken since it could be easy to assume operations are atomic when they are not (example: [Python's swap is not atomic](https://emptysqua.re/blog/pythons-swap-is-not-atomic/)).
+Without a lock, care must be taken since it could be easy to assume operations are atomic when they are not (postmortem example: [Python's swap is not atomic](https://emptysqua.re/blog/pythons-swap-is-not-atomic/)).
 A clear comment is probably also necessary to head off the "Wait, this might need a lock!" reaction from collaborators.
 
 Third, because Python allows overriding of so many builtin methods, there are edge cases where these operations are no longer atomic. The [Google Python style guide](https://google.github.io/styleguide/pyguide.html#Threading) advises:
