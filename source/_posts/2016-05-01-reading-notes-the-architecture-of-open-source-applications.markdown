@@ -15,12 +15,12 @@ It was an excellent read, and fills a gap in the market for software engineering
 
 Every chapter of AOS2 is a guided tour of an interesting codebase, with all of the hard-earned design wisdom distilled down to specific advice.
 
-Though the chapters are mostly free-form, there are a few repeating themes that crop up throughout, allowing comparisons between the approaches taken in differen problem domains:  
+Though the chapters are mostly free-form, there are a few repeating themes that crop up throughout, allowing comparisons between the approaches taken in different problem domains:  
 1. Modularity  
 2. Testing  
 3. The danger of expecting to be able to predict the future  
 
-Here are my personal favorites --- chapters stood out as being especially clearly-written and thought-provoking:  
+Here are my personal favorites --- chapters that stood out as being especially clearly-written and thought-provoking:  
 1. Scalable Web Architecture and Distributed Systems  
 2. FreeRTOS  
 3. The Glasgow Haskell Compiler  
