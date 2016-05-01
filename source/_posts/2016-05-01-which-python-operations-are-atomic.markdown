@@ -59,7 +59,7 @@ There may still be some cases where it would be necessary, such as when implemen
 Relying on atomicity of operations effectively allows you to piggyback on the GIL for your locking, reducing the cost of additional locks.
 But if lock performance is so critical, it seems like it would be better to first profile hotspots and look for other speedups.
 
-So does it makes sense to rely on the atomicity of operations when accessing or modifying shared mutable state?
+So does it make sense to rely on the atomicity of operations when accessing or modifying shared mutable state?
 
 Short answer:  
 1. you'd better have a good reason  
