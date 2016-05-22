@@ -1,8 +1,8 @@
 ---
-published: false
+published: true
 layout: post
 title: "Writing a BitTorrent Client"
-date: 2016-04-04 19:21
+date: 2016-05-22 12:12
 comments: false
 categories: code
 ---
