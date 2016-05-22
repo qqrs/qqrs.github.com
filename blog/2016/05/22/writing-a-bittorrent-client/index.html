@@ -131,7 +131,7 @@ The response provides a list of available peers.</p>
 <h2 id="concurrent-peer-network-connections">3. Concurrent peer network connections</h2>
 <p>The client will connect to peers using TCP sockets.
 To support multiple simultaneous connections the client should be able to handle network operations asynchronously.
-There are two fundamental ways to do this: (1) using threads, or
+There are two fundamental ways to do this in Python: (1) using threads, or
 (2) using an event loop with select() (or a library like Twisted which does so internally).</p>
 
 <h2 id="peer-protocol">4. Peer protocol</h2>
