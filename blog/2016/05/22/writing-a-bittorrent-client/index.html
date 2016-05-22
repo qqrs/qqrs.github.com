@@ -5,11 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Reading Notes: The Architecture of Open Source Applications II - </title>
+  <title>Writing a BitTorrent Client - </title>
   <meta name="author" content="Russell Smith">
 
   
-  <meta name="description" content="Earlier this year, I read The Architecture of Open Source Applications, Volume II: Structure, Scale, and a Few More Fearless Hacks. It was an &hellip;">
+  <meta name="description" content="I wrote a BitTorrent client as an excuse to practice concurrent networking concepts.
+However, when I started, I found that I had to do much more &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://qqrs.github.com/blog/2016/05/01/reading-notes-the-architecture-of-open-source-applications/">
+  <link rel="canonical" href="http://qqrs.github.com/blog/2016/05/22/writing-a-bittorrent-client/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
    <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -88,7 +89,7 @@
   
   <header>
     
-      <h1 class="entry-title">Reading Notes: The Architecture of Open Source Applications II</h1>
+      <h1 class="entry-title">Writing a BitTorrent Client</h1>
     
     
       <p class="meta">
@@ -104,39 +105,62 @@
   
 
 
-<time datetime="2016-05-01T16:37:00-04:00" pubdate data-updated="true">May 1<span>st</span>, 2016</time>
+<time datetime="2016-05-22T12:12:00-04:00" pubdate data-updated="true">May 22<span>nd</span>, 2016</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Earlier this year, I read <a href="http://aosabook.org/en/buy.html#vol2"><em>The Architecture of Open Source Applications, Volume II: Structure, Scale, and a Few More Fearless Hacks</em></a>.</p>
+<div class="entry-content"><p>I wrote <a href="https://github.com/qqrs/qqtorrent">a BitTorrent client</a> as an excuse to practice concurrent networking concepts.
+However, when I started, I found that I had to do much more reading than I expected to understand the BitTorrent protocol and to decide whether the scope was appropriate for a spare time project.</p>
 
-<p>It was an excellent read, and fills a gap in the market for software engineering books:</p>
+<p>As a result, this post is a short overview of a minimal BitTorrent download implementation.</p>
 
-<blockquote>
-  <p>Architects look at thousands of buildings during their training, and study critiques of those buildings written by masters. In contrast, most software developers only ever get to know a handful of large programs well - usually programs they wrote themselves - and never study the great programs of history. As a result, they repeat one another’s mistakes rather than building on one another’s successes. This second volume of The Architecture of Open Source Applications aims to change that. In it, the authors of twenty-four open source applications explain how their software is structured, and why. What are each program’s major components? How do they interact? And what did their builders learn during their development? In answering these questions, the contributors to this book provide unique insights into how they think.</p>
-</blockquote>
+<p>I hope it will be useful to other programmers seeking an answer to the question: “Do I actually want to write a BitTorrent client?”</p>
 
-<p>Every chapter of AOS2 is a guided tour of an interesting codebase, with all of the hard-earned design wisdom distilled down to specific advice.</p>
+<h2 id="parse-the-torrent-metainfo-file">1. Parse the <code>.torrent</code> metainfo file</h2>
+<p>The <code>.torrent</code> file contains information about the torrent tracker and the files to be downloaded.
+Data is encoded using a serialization protocol called bencoding.
+Parsing bencoded data is not significantly more difficult than parsing json, and there is likely a bencoding library available for your language.</p>
 
-<p>Though the chapters are mostly free-form, there are a few repeating themes that crop up throughout, allowing comparisons between the approaches taken in different problem domains:<br />
-1. Modularity<br />
-2. Testing<br />
-3. The danger of expecting to be able to predict the future  </p>
+<h2 id="connect-to-the-tracker">2. Connect to the tracker</h2>
+<p>To connect to the torrent, an HTTP GET request is made to the tracker announce URL.
+The response provides a list of available peers.</p>
 
-<p>Here are my personal favorites — chapters that stood out as being especially clearly-written and thought-provoking:<br />
-1. Scalable Web Architecture and Distributed Systems<br />
-2. FreeRTOS<br />
-3. The Glasgow Haskell Compiler<br />
-4. GPSD<br />
-5. nginx<br />
-6. Twisted<br />
-7. Yesod<br />
-8. ZeroMQ  </p>
+<h2 id="concurrent-peer-network-connections">3. Concurrent peer network connections</h2>
+<p>The client will connect to peers using TCP sockets.
+To support multiple simultaneous connections the client should be able to handle network operations asynchronously.
+There are two fundamental ways to do this: (1) using threads, or
+(2) using an event loop with select() (or a library like Twisted which does so internally).</p>
 
-<p>The full content is available to <a href="http://aosabook.org/en/index.html">read for free online</a>, and all profits from <a href="http://aosabook.org/en/buy.html#vol2">hard copy sales</a> go to charity.</p>
+<h2 id="peer-protocol">4. Peer protocol</h2>
+<p>The spec defines a number of messages that each peer must be prepared to send and receive.
+A minimal download client may not need to implement all of these messages.
+In order to start downloading from a peer, a client needs to send a handshake, wait for a handshake response,
+send an ‘interested’ message, and wait for an ‘unchoke’ message.
+It can then start sending ‘request’ messages to request blocks.
+The peer will respond with ‘piece’ messages which contain the block data.</p>
+
+<h2 id="torrent-strategy">5. Torrent strategy</h2>
+<p>The client must download all blocks of all pieces and assemble them into the complete output file
+set. If any peers disconnect or fail to provide a block, the client must request from another peer.
+A more ambitious client may also attempt to further optimize its download strategy to improve download times.</p>
+
+<h2 id="further-reading">Further reading</h2>
+
+<p>I found the following blog posts to be very helpful when I was getting started:</p>
+
+<p><a href="http://www.kristenwidman.com/blog/33/how-to-write-a-bittorrent-client-part-1/">How to Write a Bittorrent Client (part 1)</a> 
+<a href="http://www.kristenwidman.com/blog/71/how-to-write-a-bittorrent-client-part-2/">(part 2)</a>
+(Kristen Widman)<br />
+<a href="http://charmeleon.github.io/advice/2012/11/26/pitfalls-when-creating-a-bittorrent-client/">Pitfalls when creating a BitTorrent client</a> (Erick Rivas)</p>
+
+<p>The best advice I picked up from them is (1) to rely on the <a href="https://wiki.theory.org/BitTorrentSpecification">unofficial BitTorrent spec</a>, and (2) to use Wireshark to inspect network traffic to clarify ambiguities in the spec and to validate your implementation.</p>
+
+<p>Since there are now many extensions to the BitTorrent protocol, you should test with torrents that do not use new or experimental features. I have had good luck with torrents from <a href="https://archive.org/details/bittorrent">archive.org</a> and <a href="http://bt.etree.org/">bt.etree.org</a>.</p>
+
+<p>Good luck!</p>
 </div>
 
 
@@ -159,12 +183,12 @@
   
 
 
-<time datetime="2016-05-01T16:37:00-04:00" pubdate data-updated="true">May 1<span>st</span>, 2016</time>
+<time datetime="2016-05-22T12:12:00-04:00" pubdate data-updated="true">May 22<span>nd</span>, 2016</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/books/'>books</a>, <a class='category' href='/blog/categories/code/'>code</a>
+    <a class='category' href='/blog/categories/code/'>code</a>
   
 </span>
 
@@ -180,10 +204,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2016/05/01/git-hash-collisions/" title="Previous Post: Git Hash Collisions">&laquo; Git Hash Collisions</a>
+        <a class="basic-alignment left" href="/blog/2016/05/01/which-python-operations-are-atomic/" title="Previous Post: Which Python operations are atomic?">&laquo; Which Python operations are atomic?</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2016/05/01/which-python-operations-are-atomic/" title="Next Post: Which Python operations are atomic?">Which Python operations are atomic? &raquo;</a>
       
     </p>
   </footer>

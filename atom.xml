@@ -4,7 +4,7 @@
   <title><![CDATA[]]></title>
   <link href="http://qqrs.github.com/atom.xml" rel="self"/>
   <link href="http://qqrs.github.com/"/>
-  <updated>2016-05-01T18:57:25-04:00</updated>
+  <updated>2016-05-22T12:27:06-04:00</updated>
   <id>http://qqrs.github.com/</id>
   <author>
     <name><![CDATA[Russell Smith]]></name>
@@ -12,6 +12,63 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Writing a BitTorrent Client]]></title>
+    <link href="http://qqrs.github.com/blog/2016/05/22/writing-a-bittorrent-client/"/>
+    <updated>2016-05-22T12:12:00-04:00</updated>
+    <id>http://qqrs.github.com/blog/2016/05/22/writing-a-bittorrent-client</id>
+    <content type="html"><![CDATA[<p>I wrote <a href="https://github.com/qqrs/qqtorrent">a BitTorrent client</a> as an excuse to practice concurrent networking concepts.
+However, when I started, I found that I had to do much more reading than I expected to understand the BitTorrent protocol and to decide whether the scope was appropriate for a spare time project.</p>
+
+<p>As a result, this post is a short overview of a minimal BitTorrent download implementation.</p>
+
+<p>I hope it will be useful to other programmers seeking an answer to the question: “Do I actually want to write a BitTorrent client?”</p>
+
+<h2 id="parse-the-torrent-metainfo-file">1. Parse the <code>.torrent</code> metainfo file</h2>
+<p>The <code>.torrent</code> file contains information about the torrent tracker and the files to be downloaded.
+Data is encoded using a serialization protocol called bencoding.
+Parsing bencoded data is not significantly more difficult than parsing json, and there is likely a bencoding library available for your language.</p>
+
+<h2 id="connect-to-the-tracker">2. Connect to the tracker</h2>
+<p>To connect to the torrent, an HTTP GET request is made to the tracker announce URL.
+The response provides a list of available peers.</p>
+
+<h2 id="concurrent-peer-network-connections">3. Concurrent peer network connections</h2>
+<p>The client will connect to peers using TCP sockets.
+To support multiple simultaneous connections the client should be able to handle network operations asynchronously.
+There are two fundamental ways to do this: (1) using threads, or
+(2) using an event loop with select() (or a library like Twisted which does so internally).</p>
+
+<h2 id="peer-protocol">4. Peer protocol</h2>
+<p>The spec defines a number of messages that each peer must be prepared to send and receive.
+A minimal download client may not need to implement all of these messages.
+In order to start downloading from a peer, a client needs to send a handshake, wait for a handshake response,
+send an ‘interested’ message, and wait for an ‘unchoke’ message.
+It can then start sending ‘request’ messages to request blocks.
+The peer will respond with ‘piece’ messages which contain the block data.</p>
+
+<h2 id="torrent-strategy">5. Torrent strategy</h2>
+<p>The client must download all blocks of all pieces and assemble them into the complete output file
+set. If any peers disconnect or fail to provide a block, the client must request from another peer.
+A more ambitious client may also attempt to further optimize its download strategy to improve download times.</p>
+
+<h2 id="further-reading">Further reading</h2>
+
+<p>I found the following blog posts to be very helpful when I was getting started:</p>
+
+<p><a href="http://www.kristenwidman.com/blog/33/how-to-write-a-bittorrent-client-part-1/">How to Write a Bittorrent Client (part 1)</a> 
+<a href="http://www.kristenwidman.com/blog/71/how-to-write-a-bittorrent-client-part-2/">(part 2)</a>
+(Kristen Widman)<br />
+<a href="http://charmeleon.github.io/advice/2012/11/26/pitfalls-when-creating-a-bittorrent-client/">Pitfalls when creating a BitTorrent client</a> (Erick Rivas)</p>
+
+<p>The best advice I picked up from them is (1) to rely on the <a href="https://wiki.theory.org/BitTorrentSpecification">unofficial BitTorrent spec</a>, and (2) to use Wireshark to inspect network traffic to clarify ambiguities in the spec and to validate your implementation.</p>
+
+<p>Since there are now many extensions to the BitTorrent protocol, you should test with torrents that do not use new or experimental features. I have had good luck with torrents from <a href="https://archive.org/details/bittorrent">archive.org</a> and <a href="http://bt.etree.org/">bt.etree.org</a>.</p>
+
+<p>Good luck!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Which Python operations are atomic?]]></title>
