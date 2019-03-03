@@ -7,12 +7,10 @@ comments: false
 categories: code
 ---
 
-I wrote [a BitTorrent client](https://github.com/qqrs/qqtorrent) as an excuse to practice concurrent networking concepts.
-However, when I started, I found that I had to do much more reading than I expected to understand the BitTorrent protocol and to decide whether the scope was appropriate for a spare time project.
+This post is a short overview of what is required for a minimal, download-only BitTorrent implementation.
 
-As a result, this post is a short overview of a minimal BitTorrent download implementation.
+Earlier this year, I wrote [a BitTorrent client](https://github.com/qqrs/qqtorrent) as an excuse to practice concurrency and networking concepts. But the resources and documentation I found while researching the protocol felt scattered, so I'm distilling my understanding here as a starting point for others.
 
-I hope it will be useful to other programmers seeking an answer to the question: "Do I actually want to write a BitTorrent client?"
 
 ## 1. Parse the `.torrent` metainfo file
 The `.torrent` file contains information about the torrent tracker and the files to be downloaded.
@@ -31,7 +29,7 @@ There are two fundamental ways to do this in Python: (1) using threads, or
 
 ## 4. Peer protocol
 The spec defines a number of messages that each peer must be prepared to send and receive.
-A minimal download client may not need to implement all of these messages.
+A minimal BitTorrent client may not need to implement all of these messages.
 In order to start downloading from a peer, a client needs to send a handshake, wait for a handshake response,
 send an 'interested' message, and wait for an 'unchoke' message.
 It can then start sending 'request' messages to request blocks.
@@ -46,13 +44,13 @@ A more ambitious client may also attempt to further optimize its download strate
 
 I found the following blog posts to be very helpful when I was getting started:
 
-[How to Write a Bittorrent Client (part 1)](http://www.kristenwidman.com/blog/33/how-to-write-a-bittorrent-client-part-1/) 
+[How to Write a Bittorrent Client (part 1)](http://www.kristenwidman.com/blog/33/how-to-write-a-bittorrent-client-part-1/)
 [(part 2)](http://www.kristenwidman.com/blog/71/how-to-write-a-bittorrent-client-part-2/)
 (Kristen Widman)  
 [Pitfalls when creating a BitTorrent client](http://charmeleon.github.io/advice/2012/11/26/pitfalls-when-creating-a-bittorrent-client/) (Erick Rivas)
 
 The best advice I picked up from them is (1) to rely on the [unofficial BitTorrent spec](https://wiki.theory.org/BitTorrentSpecification), and (2) to use Wireshark to inspect network traffic to clarify ambiguities in the spec and to validate your implementation.
 
-Since there are now many extensions to the BitTorrent protocol, you should test with torrents that do not use new or experimental features. I have had good luck with torrents from [archive.org](https://archive.org/details/bittorrent) and [bt.etree.org](http://bt.etree.org/).
+There are now many extensions to the original BitTorrent protocol, so you should stick with `.torrent` files that do not use new or experimental features for your testing. I have had good luck with torrents from [archive.org](https://archive.org/details/bittorrent) and [bt.etree.org](http://bt.etree.org/).
 
 Good luck!
