@@ -8,32 +8,13 @@ categories: code electronics hacker-school
 
 {% img center /images/btalarm/btalarm_phone_with_alarm.jpg Alarm clock with phone %}
 
-<!--
-Careful design is important when it comes to auditory cues, just as it is for visual elements.
-Because the connections we make with sounds can have a highly emotional character, auditory cues
-work to amplify our experiences.
+I've woken many mornings to a blaring square-wave-through-overdriven-8Ω-speaker alarm tone dragging me back to consciousness from the warm depths of sleep.
 
-Some pleasant examples:
-A TV that chirrups a "hello" tune when it turns on.
-A clothes dryer that rumbles quietly and then respectfully dings a single time to indicate that the cycle is complete.
+Searching for a better alarm, I bought an analog-face alarm clock with a double-bell ringer and found the alarm sound to be crisp and clear. However, the clock wasn't perfect: I had to remember to set it every evening, and the second hand tick-tocked all night long.
 
-Some not-so-pleasant examples:
-A burglar alarm keypad that plays a confirmation beep slightly out-of-sync with a button press.
-A microwave that impatiently beeps that it's finished every minute even though your hands are full elsewhere in the kitchen.
--->
+I decided to modify the clock so it could be controlled by my Android phone. I stripped out the clock mechanism and added a Bluetooth module, then wrote an Android app to ding the clock ringer when triggered by the built-in Android alarm clock app.
 
-I've woken many mornings to a blaring square-wave-through-overdriven-8Ω-speaker alarm tone, wailing for me to come back from the comfortable, warm depths of sleep...
-
-> If I had to describe the character of an ideal alarm clock, I would say that it should be **persistent** but **polite**.
-
-As an exercise in curiosity, I bought an analog-face alarm clock with a double-bell ringer and found the alarm sound to be crisp and clear.
-However, the clock wasn't perfect:
-the second hand tick-tocked all night long, the alarm ringer was too insistent, and I had to remember to set the alarm every evening.
-
-In search of an improved alarm clock, I decided to modify the clock so it could be controlled by my Android phone.
-I stripped out the clock mechanism and added a Bluetooth module, then wrote an Android app to gently ding the alarm ringer when the alarm clock on the phone goes off.
-
-It may not be the perfect alarm clock, but I've been very happy with it so far.
+I've been happy with it so far—read on to see how I built it.
 
 ## Hardware
 
@@ -51,8 +32,9 @@ The DC motor runs from two 1.5V AA batteries in parallel.
 
 For the Bluetooth interface, I used a
 [Roving Networks RN-41](http://www.rovingnetworks.com/products/RN41)
-Bluetooth module
-(update 1/3/2015: if I was picking a Bluetooth module today, I'd take a look at the [Octopart Common Parts Library](http://octopart.com/common-parts-library) first).
+Bluetooth module.
+
+[Update 1/3/2015: There are fuller-featured and less expensive modules available now. For an idea of what's out there now, take a look at what we've included in the [Octopart Common Parts Library](http://octopart.com/common-parts-library).]
 
 The module is a fully integrated solution which provides everything needed for a Bluetooth Serial Port Profile (SPP) link.
 Bluetooth SPP emulates a serial port: data sent over the Bluetooth link is passed through to the UART pins.
@@ -67,7 +49,7 @@ I had a 5V wall adapter handy so I used it along with a 3.3V LDO regulator to po
 
 ### RN-41 Command Mode
 The Roving Networks [Advanced User Manual](http://www.rovingnetworks.com/resources/download/47/Advanced_User_Manual)
-(update 1/3/2015: unfortunately the page seems to have been removed)
+[update 1/3/2015: unfortunately the page seems to have been removed]
 documents the command set for controlling the Bluetooth module.
 Sending `$$$` causes the module to enter command mode where it will interpret received data as configuration commands rather than passing the data through to the UART.
 The module stays in command mode until it sees the command `---`.
