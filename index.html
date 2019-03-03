@@ -9,7 +9,7 @@
   <meta name="author" content="Russell Smith">
 
   
-  <meta name="description" content="This post is a short overview of what is required for a minimal, download-only BitTorrent implementation. Earlier this year, I wrote a BitTorrent &hellip;">
+  <meta name="description" content="What is it? Doorbot is an Internet-connected door unlocker that I built for a community space. It allows people to enter the space without needing to &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -85,6 +85,100 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/03/29/doorbot/">Doorbot</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2018-03-29T00:12:00-04:00" pubdate data-updated="true">Mar 29<span>th</span>, 2018</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2 id="what-is-it">What is it?</h2>
+
+<p>Doorbot is an Internet-connected door unlocker that I built for a community space. It allows people to enter the space without needing to be buzzed in.</p>
+
+<p><img class="center" src="/images/doorbot_flask_app_ready.png" title="Doorbot flask app ready screenshot" /></p>
+
+<h2 id="system-architecture">System Architecture</h2>
+
+<p><a href="/images/doorbot_block_diagram.png" target="_blank"><img class="center" src="/images/doorbot_block_diagram_th.png" title="Doorbot block diagram" /></a></p>
+
+<p>The Doorbot system consists of:</p>
+
+<ol>
+  <li>servo motors to actuate the door buzzer button</li>
+  <li>ESP8266 microcontroller with built-in Wi-Fi</li>
+  <li>NodeMCU firmware for ESP8266</li>
+  <li>lua application code for ESP8266</li>
+  <li>MQTT message broker</li>
+  <li>web app with user authentication</li>
+</ol>
+
+<p>The web app sends HMAC-signed command messages to the MQTT broker. The microcontroller waits for command messages to actuate the servo motor and unlock the door.</p>
+
+<p>The microcontroller also sends periodic heartbeat messages so that the web app can show when Doorbot is offline.</p>
+
+<h2 id="building-a-doorbot">Building a Doorbot</h2>
+
+<p>The <a href="https://octopart.com/bom-tool/tx1u0UMp">bill of materials</a> shows everything purchased to build Doorbot.</p>
+
+<p>[Update 3/3/2019: If I was starting today I’d strongly consider using the Raspberry Pi Zero W instead of the ESP8266.]</p>
+
+<p>To mount Doorbot, I used <a href="https://www.homedepot.com/p/Simpson-Strong-Tie-12-Gauge-Angle-A66/100375146">90° steel angle brackets</a> from Home Depot, <a href="https://www.homedepot.com/p/3M-Scotch-1-in-x-1-66-yds-Permanent-Double-Sided-Outdoor-Mounting-Tape-411DC-SF/100575385">3M 4011 double-sided mounting tape</a>, and <a href="https://www.homedepot.com/p/Commercial-Electric-4-in-Cable-Tie-Natural-1000-Pack-GT-100M/203531927">4 inch cable ties</a>.</p>
+
+<h2 id="doorbot-operation">Doorbot Operation</h2>
+
+<p>TODO: Doorbot photo<br />
+TODO: Doorbot action gif  </p>
+
+<h2 id="suggested-reading">Suggested Reading</h2>
+
+<ol>
+  <li>
+    <p><a href="https://www.jameco.com/jameco/workshop/howitworks/how-servo-motors-work.html" target="_blank">https://www.jameco.com/jameco/workshop/howitworks/how-servo-motors-work.html</a></p>
+  </li>
+  <li>
+    <p><a href="https://hackaday.com/2014/08/26/new-chip-alert-the-esp8266-wifi-module-its-5/" target="_blank">https://hackaday.com/2014/08/26/new-chip-alert-the-esp8266-wifi-module-its-5/</a></p>
+  </li>
+  <li>
+    <p><a href="https://nodemcu.readthedocs.io/en/master/" target="_blank">https://nodemcu.readthedocs.io/en/master/</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.hivemq.com/mqtt-security-fundamentals/" target="_blank">http://www.hivemq.com/mqtt-security-fundamentals/</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.hivemq.com/blog/mqtt-security-fundamentals-mqtt-message-data-integrity" target="_blank">http://www.hivemq.com/blog/mqtt-security-fundamentals-mqtt-message-data-integrity</a></p>
+  </li>
+</ol>
+
+<p>[Update 3/3/2019: This <a href="https://hackaday.com/2017/06/20/practical-iot-cryptography-on-the-espressif-esp8266/">Hackaday post</a> is a practical guide to securing a command protocol for the ESP8266.]</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1127,153 +1221,9 @@ it should be protected with a supply–pin series resistor or other current–li
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/04/10/twilio-light-sensor/">Voice– and SMS–Enabled Light Sensor Using Raspberry Pi and Twilio</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-10T12:59:00-04:00" pubdate data-updated="true">Apr 10<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>This was a quick project created in collaboration with <a href="http://twitter.com/leocadiotine">@leocadiotine</a>
-at <a href="http://www.hackerschool.com">Hacker School</a>. Hacker School is a free three–month self–directed learning environment
-that has been described as being “like a writers’ retreat for programmers.”</p>
-
-<p>Thanks go to <a href="http://twitter.com/sashalaundy">@sashalaundy</a> for the introduction to the Twilio API that sparked the idea.</p>
-
-<h2 id="overview">Overview</h2>
-
-<p><img class="right" src="/images/twilio_light_sensor_text_message.png" title="'Text message response'" />
-The Hacker School space for our batch had two restrooms: one attached to the main work area, and one downstairs. 
-We thought it would nice to know if the bathroom is occupied before taking the time to walk down.</p>
-
-<p>Our project makes it possible to check the bathroom status by phone or text message.</p>
-
-<p>Bathroom occupancy status is determined using a light sensor attached to a Raspberry Pi. 
-If the lights are on in the bathroom, we assume that the bathroom is occupied.</p>
-
-<p>We created a Heroku–hosted web application that accepts periodic bathroom state updates from the Raspberry Pi and handles incoming requests from Twilio. 
-When a user calls or texts the Twilio phone number, Twilio sends a request to the web app, which responds with an appropriate message to be spoken or texted to the user.</p>
-
-<p>In addition to the voice/SMS interface, <a href="http://twitter.com/gelstudios">@gelstudios</a> created a nice web interface for the project.</p>
-
-<h2 id="server">Server</h2>
-
-<h3 id="twilio">Twilio</h3>
-<p>Twilio is a web–based service for sending and receiving phone calls and SMS text messages.
-It provides an easy–to–use API accessible via HTTP and a convenient Python package.
-A free trial of the service is available (which inserts small nag notices into outgoing messages).
-We used the <a href="http://www.twilio.com/docs/quickstart/python">Twilio Python Quickstart Tutorials</a> as our introduction.</p>
-
-<h3 id="heroku">Heroku</h3>
-<p>Heroku is a service that provides a complete, integrated stack for hosting web applications with a range of choices in language, framework, web server and data store.
-We created the server application for the project in Python using the Flask microframework. 
-The Heroku Dev Center article <a href="http://devcenter.heroku.com/articles/python">Getting Started with Python on Heroku</a> is a good walkthrough for setting up Flask on Heroku.</p>
-
-<h3 id="server-code">Server Code</h3>
-<p>Full source for the web application can be found at <a href="https://github.com/qqrs/twilio-light-sensor-server/blob/master/run.py">github.com/qqrs/twilio-light-sensor-server/blob/master/run.py</a>.</p>
-
-<p>The <code>/twilio/voice</code> and <code>/twilio/text</code> routes handle requests from Twilio. 
-When a user calls or sends an SMS message to the phone number assigned to our account, Twilio is configured so that it will make an HTTP POST request to these routes.
-When the server receives the request from Twilio, it generates an appropriate message indicating the status of the bathroom. 
-The message is returned to Twilio in the HTTP response and is sent to the user as either audio (by text–to–speech) or as an SMS message.</p>
-
-<p>The <code>/update</code> route accepts sensor state updates from the remote sensor via HTTP POST. 
-Each request includes <code>sensor_id</code> and <code>sensor_val</code> parameters to identify
-the sensor and report the current value. </p>
-
-<h2 id="remote-sensor">Remote Sensor</h2>
-<p><a href="/images/twilio_light_sensor_rpi_hardware.jpg"><img class="right" src="/images/twilio_light_sensor_rpi_hardware.jpg" title="Raspberry Pi with ADC daughterboard and CdS photocell" /></a></p>
-
-<h3 id="raspberry-pi">Raspberry Pi</h3>
-<p>The <a href="http://www.raspberrypi.org/">Raspberry Pi</a> is a single–board computer with an ARM–core processor, SD card slot, HDMI and composite video, USB, and optional Ethernet
-that is able to run a full distribution of Linux.
-Though similar ARM dev boards and single–board computers have
-<a href="http://beagleboard.org/">existed</a>
-for <a href="http://www.embeddedarm.com/products/arm-sbc.php">years</a>,
-the Raspberry Pi was able to hit an enticing price point of $35 (with Ethernet) while still including many of the attractive features of more expensive boards.</p>
-
-<p>A 5V USB power supply and an SD card with an operating system installed are required to begin using the Raspberry Pi. 
-A good guide to getting started can be found at the <a href="http://elinux.org/RPi_Beginners">elinux.org wiki</a>.
-Preloaded SD cards can be purchased from several vendors or an operating system image can be <a href="http://elinux.org/RPi_Easy_SD_Card_Setup">loaded onto a blank SD card</a>.</p>
-
-<p>Note that it is important to have a stable power supply. Some USB 5V supplies may be inadequate. 
-I experienced SD card corruption several times until I bought a <a href="http://www.amazon.com/dp/B008R97TOQ">good supply</a> 
-and set <code>over_voltage=2</code> in the config.txt file as described <a href="http://raspberrypi.stackexchange.com/questions/2069/filesystem-corruption-on-the-sd-card">here</a>.
-Any good supply with at least a 1.0 amp current rating should be acceptable.</p>
-
-<p><a href="/images/twilio_light_sensor_photocell_sch.jpg"><img class="right" src="/images/twilio_light_sensor_photocell_sch.jpg" width="139" title="Photocell schematic" /></a></p>
-
-<h3 id="light-sensor">Light Sensor</h3>
-<p>The light sensor is a 10k CdS photocell, interfaced to a Raspberry Pi with an analog–to–digital converter (ADC) daughterboard. The light sensor is connected to an input of the ADC in a voltage divider configuration with a 10k resistor. With illumination from overhead lighting, the resistance of the photocell drops to about 1.5k.</p>
-
-<h3 id="adc-daughterboard">ADC Daughterboard</h3>
-<p><img class="right" src="/images/twilio_light_sensor_adc_daughterboard.jpg" title="ADC daughterboard" />
-An analog–to–digital converter (ADC) is required to read the signal from the light sensor. 
-The Raspberry Pi does not have an integrated ADC like the Arduino and many microcontroller dev boards. 
-However, it is straightforward to interface an external ADC via the SPI or I²C buses. 
-Adafruit provides a good guide to using the Microchip MCP3008: 
-<a href="http://learn.adafruit.com/reading-a-analog-in-and-controlling-audio-volume-with-the-raspberry-pi/overview">Analog Inputs for Raspberry Pi Using the MCP3008</a>.</p>
-
-<p>I had soldered up an MCP3008 on protoboard for another project so I reused it for this project.</p>
-
-<p>A number of assembled <a href="http://elinux.org/RPi_Expansion_Boards">expansion boards</a> that provide an ADC are available from third–party vendors.</p>
-
-<h3 id="raspberry-pi-remote-sensor-monitoring-script">Raspberry Pi Remote Sensor Monitoring Script</h3>
-<p>Adafruit provides <a href="http://learn.adafruit.com/reading-a-analog-in-and-controlling-audio-volume-with-the-raspberry-pi/script">sample code</a> 
-in Python to read from the ADC via the SPI bus.</p>
-
-<p>Full source for the remote sensor monitoring script can be found at <a href="https://github.com/qqrs/twilio-light-sensor-remote/blob/master/twilio_light_sensor.py">github.com/qqrs/twilio-light-sensor-remote/blob/master/twilio_light_sensor.py</a>.</p>
-
-<p>The monitoring script consists of a polling loop that reads the sensor at a defined interval. 
-It calls <code>readadc()</code>, a function provided by Adafruit that bit–bangs the SPI communication in software (some versions of the Raspberry Pi did not include hardware SPI).
-Sensor state is determined by comparing the ADC value to a fixed threshold: if greater than the threshold, the light is assumed to be on.
-A moving average is used as a basic low–pass filter to prevent a noisy read from being interpreted as a change in state. 
-The sensor state is reported to the server via an HTTP POST request by <code>update_server_state()</code> whenever the sensor state changes, or at least every 60 seconds when it has not changed.</p>
-
-<p>To run the script, Python packages must be installed. See the Adafruit article
-<a href="http://learn.adafruit.com/reading-a-analog-in-and-controlling-audio-volume-with-the-raspberry-pi/necessary-packages">here</a>
-on installing <code>python-dev</code> and <code>rpi.gpio</code>.
-The script can be run at the terminal: <code>python twilio_light_sensor.py</code>. </p>
-
-<p>To run the script automatically at boot, it can be added to the end of <code>/etc/rc.local</code>, 
-immediately before the <code>exit 0</code> line:
-<code>python /home/pi/twilio_light_sensor/twilio_light_sensor.py &amp;</code>
-(modifying the path to script if necessary). </p>
-
-<p>Note that the trailing ampersand <code>&amp;</code> is required. This forks a subshell and allows the rest of the init sequence to complete.
-The script can be stopped by switching to another tty with Ctrl–Alt–F2, logging in, finding the process ID with <code>ps aux | grep twilio</code>, and killing the process with <code>kill &lt;pid&gt;</code>.</p>
-
-<h2 id="success">Success</h2>
-<p>With the server running on Heroku and the light sensor attached to the Raspberry Pi, Twilio responds to text messages or voice calls: <code>The bathroom is vacant</code> or <code>The bathroom is occupied</code>. Success!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/2/">&larr; Older</a>
     
     <a href="archives">Blog Archives</a>
     
@@ -1304,6 +1254,10 @@ The script can be stopped by switching to another tty with Ctrl–Alt–F2, logg
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2018/03/29/doorbot/">Doorbot</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/05/22/writing-a-bittorrent-client/">Writing a BitTorrent Client</a>
       </li>
     
@@ -1329,10 +1283,6 @@ The script can be stopped by switching to another tty with Ctrl–Alt–F2, logg
     
       <li class="post">
         <a href="/blog/2013/05/03/vim-on-a-mechanical-typewriter/">Vim on a Mechanical Typewriter</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/04/30/bluetooth-alarm-clock/">Android-Controlled Bluetooth Double-Bell Alarm Clock</a>
       </li>
     
   </ul>

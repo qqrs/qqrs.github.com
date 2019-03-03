@@ -4,7 +4,7 @@
   <title><![CDATA[Category: code | ]]></title>
   <link href="http://qqrs.github.com/blog/categories/code/atom.xml" rel="self"/>
   <link href="http://qqrs.github.com/"/>
-  <updated>2019-03-03T01:21:53-05:00</updated>
+  <updated>2019-03-03T04:32:08-05:00</updated>
   <id>http://qqrs.github.com/</id>
   <author>
     <name><![CDATA[Russell Smith]]></name>
@@ -12,6 +12,73 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Doorbot]]></title>
+    <link href="http://qqrs.github.com/blog/2018/03/29/doorbot/"/>
+    <updated>2018-03-29T00:12:00-04:00</updated>
+    <id>http://qqrs.github.com/blog/2018/03/29/doorbot</id>
+    <content type="html"><![CDATA[<h2 id="what-is-it">What is it?</h2>
+
+<p>Doorbot is an Internet-connected door unlocker that I built for a community space. It allows people to enter the space without needing to be buzzed in.</p>
+
+<p><img class="center" src="/images/doorbot_flask_app_ready.png" title="Doorbot flask app ready screenshot" ></p>
+
+<h2 id="system-architecture">System Architecture</h2>
+
+<p><a href="http://qqrs.github.com/images/doorbot_block_diagram.png" target="_blank"><img class="center" src="/images/doorbot_block_diagram_th.png" title="Doorbot block diagram" ></a></p>
+
+<p>The Doorbot system consists of:</p>
+
+<ol>
+  <li>servo motors to actuate the door buzzer button</li>
+  <li>ESP8266 microcontroller with built-in Wi-Fi</li>
+  <li>NodeMCU firmware for ESP8266</li>
+  <li>lua application code for ESP8266</li>
+  <li>MQTT message broker</li>
+  <li>web app with user authentication</li>
+</ol>
+
+<p>The web app sends HMAC-signed command messages to the MQTT broker. The microcontroller waits for command messages to actuate the servo motor and unlock the door.</p>
+
+<p>The microcontroller also sends periodic heartbeat messages so that the web app can show when Doorbot is offline.</p>
+
+<h2 id="building-a-doorbot">Building a Doorbot</h2>
+
+<p>The <a href="https://octopart.com/bom-tool/tx1u0UMp">bill of materials</a> shows everything purchased to build Doorbot.</p>
+
+<p>[Update 3/3/2019: If I was starting today I’d strongly consider using the Raspberry Pi Zero W instead of the ESP8266.]</p>
+
+<p>To mount Doorbot, I used <a href="https://www.homedepot.com/p/Simpson-Strong-Tie-12-Gauge-Angle-A66/100375146">90° steel angle brackets</a> from Home Depot, <a href="https://www.homedepot.com/p/3M-Scotch-1-in-x-1-66-yds-Permanent-Double-Sided-Outdoor-Mounting-Tape-411DC-SF/100575385">3M 4011 double-sided mounting tape</a>, and <a href="https://www.homedepot.com/p/Commercial-Electric-4-in-Cable-Tie-Natural-1000-Pack-GT-100M/203531927">4 inch cable ties</a>.</p>
+
+<h2 id="doorbot-operation">Doorbot Operation</h2>
+
+<p>TODO: Doorbot photo<br />
+TODO: Doorbot action gif  </p>
+
+<h2 id="suggested-reading">Suggested Reading</h2>
+
+<ol>
+  <li>
+    <p><a href="https://www.jameco.com/jameco/workshop/howitworks/how-servo-motors-work.html" target="_blank">https://www.jameco.com/jameco/workshop/howitworks/how-servo-motors-work.html</a></p>
+  </li>
+  <li>
+    <p><a href="https://hackaday.com/2014/08/26/new-chip-alert-the-esp8266-wifi-module-its-5/" target="_blank">https://hackaday.com/2014/08/26/new-chip-alert-the-esp8266-wifi-module-its-5/</a></p>
+  </li>
+  <li>
+    <p><a href="https://nodemcu.readthedocs.io/en/master/" target="_blank">https://nodemcu.readthedocs.io/en/master/</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.hivemq.com/mqtt-security-fundamentals/" target="_blank">http://www.hivemq.com/mqtt-security-fundamentals/</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.hivemq.com/blog/mqtt-security-fundamentals-mqtt-message-data-integrity" target="_blank">http://www.hivemq.com/blog/mqtt-security-fundamentals-mqtt-message-data-integrity</a></p>
+  </li>
+</ol>
+
+<p>[Update 3/3/2019: This <a href="https://hackaday.com/2017/06/20/practical-iot-cryptography-on-the-espressif-esp8266/">Hackaday post</a> is a practical guide to securing a command protocol for the ESP8266.]</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Writing a BitTorrent Client]]></title>
@@ -189,117 +256,6 @@ But if lock performance is so critical, it seems like it would be better to firs
 <p>As expected, an accidental collision is very unlikely: on even a large and active repo, a collision is unlikely to occur in the timespan of the <a href="http://diego.assencio.com/?index=eacd6eedf46c9dd596a5f12221ad15b8">age of the universe</a>.</p>
 
 <p>Even if an attacker could break SHA-1 or brute-force a hash, <a href="http://stackoverflow.com/a/9392525">git always prefers the older version of an object</a>, so the attacker would be unable to replace an existing file with a tainted version.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Vim on a Mechanical Typewriter]]></title>
-    <link href="http://qqrs.github.com/blog/2013/05/03/vim-on-a-mechanical-typewriter/"/>
-    <updated>2013-05-03T00:00:00-04:00</updated>
-    <id>http://qqrs.github.com/blog/2013/05/03/vim-on-a-mechanical-typewriter</id>
-    <content type="html"><![CDATA[<div style="position:relative;padding-bottom:calc(100% / 1.33)"><iframe src="https://gfycat.com/ifr/BackGiddyAmericanbittern" frameborder="0" scrolling="no" width="100%" height="100%" style="position:absolute;top:0;left:0;" allowfullscreen=""></iframe></div>
-
-<p style="text-align: right">
-<a href="https://www.youtube.com/watch?v=eFBTBwdVobQ" target="_blank">Watch on Youtube (with sound) &gt;&gt;</a>
-</p>
-
-<h2 id="inspiration">Inspiration</h2>
-
-<p>I’ve had the idea for this project kicking around for years, but it was only recently that a minimal-assembly-required interfacing scheme presented itself and I found the time to make it happen.</p>
-
-<p>The original inspiration came a long time ago when I read a writeup by someone
-who had thoughtfully interfaced a typewriter to a computer so an older relative who wasn’t comfortable using a computer could send email.
-I seem to recall that it was an IBM Selectric or similar electric typewriter with serial out.
-(It may be <a href="http://hackaday.com/2007/07/25/emailing-typewriter/">this project</a>, but the linked project page has disappeared.)
-I thought the idea was fun, but I wanted to use a mechanical typewriter.</p>
-
-<p>At some point, the <a href="http://www.usbtypewriter.com/">USB typewriter</a> project popped up which does exactly that.
-The <a href="http://www.usbtypewriter.com/pages/instructions">technical writeup</a> indicates that
-it uses a long PCB strip with a laser-cut metal tab for each key.
-The tabs are folded over the crossbar on the underside of the typewriter to detect strikes of the key levers on the crossbar.
-To detect key strikes, an ATmega168 with a bunch of 74HC595 shift registers strobes the tabs and tests for voltage at a common point shared by the key levers.
-It looks like a nicely polished project, and it’s great to see the creator running what appears to be a successful Etsy store while supporting open hardware.</p>
-
-<p>That approach required more assembly work than I wanted to put in, though, so my idea was on hold until I stumbled across the SoftPot while browsing SparkFun.</p>
-
-<h2 id="softpot">SoftPot</h2>
-
-<p><img class="center" src="/images/typewriter/softpot.jpg" title="SoftPot" >
-The SoftPot is a touch-sensitive position sensor produced by <a href="http://www.spectrasymbol.com/potentiometer/softpot">Spectra Symbol</a>.
-I’ve written a <a href="/blog/2013/04/22/interfacing-a-softpot-sensor-to-an-adc/">separate post</a>
-describing the SoftPot and documenting how to interface it to a microcontroller ADC,
-but for most uses it can be thought of as a momentary-contact potentiometer and can be modeled as a voltage divider.
-When touched, the output voltage is proportional to the position of a touch along the length of the sensor.</p>
-
-<p>I installed the SoftPot (a <a href="https://octopart.com/tsp-l-0200-103-1%25-rh-spectra+symbol-19249699">ThinPot TSP-L-0200-103-1%-RH</a>) using its adhesive backing onto the upper side of the crossbar.
-The purpose of the crossbar is to advance the carriage by one space after the type hammer leaves its imprint on the page.
-To accomplish this, the lever arm for each key applies force to the top of the crossbar when the key is pressed.
-Since the key levers are arranged along the length of the crossbar, the position of a hit on the crossbar can be used to determine which key was pressed.</p>
-
-<p>There are a few keys which don’t actuate the crossbar and therefore can’t be detected by the SoftPot: space bar, backspace, shift, and tab.</p>
-
-<p><img class="center" src="/images/typewriter/typewriter_underside.jpg" title="Typewriter underside" ></p>
-
-<p>I did run into some difficulties mounting the SoftPot securely while still allowing the crossbar to move.
-I ended up running the SoftPot connector and wires up around a piece of the typewriter frame, down around another piece, then outward along the underside of the typewriter.
-For strain relief I added some electrical tape to secure everything, but I’m still worried that repeated stresses at the connector will eventually damage the SoftPot.
-For a more robust build, I would probably either need a SoftPot with a right-angle connector (which I don’t believe is available), or I would need to take a Dremel to the crossbar side support.</p>
-
-<p>There is also a small inactive zone on the far edge of the SoftPot from the connector, so the <code>q</code> and <code>=</code> keys aren’t detected at all.
-Mounting the SoftPot with the end curving up onto the crossbar side support might fix this, but it would be at greater risk of slipping or being damaged.
-It might be possible to trim the SoftPot by a few millimeters,
-but it’s difficult to tell from the datasheet if that would interfere with its operation or expose the internals to air that might degrade it prematurely.</p>
-
-<p>Overall, I’m quite satisfied with the performance of the SoftPot given the limited ambitions of this project.
-It’s able to consistently detect keypresses and seems to have no trouble reliably distingushing between adjacent keys.
-With some practice, it could easily be installed on a new typewriter in just a few minutes.</p>
-
-<h2 id="raspberry-pi">Raspberry Pi</h2>
-<p><img class="right" src="/images/twilio_light_sensor_adc_daughterboard.jpg" title="ADC daughterboard" >
-I had a Raspbery Pi with Microchip MCP3008 ADC daughterboard handy (described in more detail in a <a href="/blog/2013/04/10/twilio-light-sensor/">separate blog post</a>)
-so I used it to take the SoftPot sensor readings.</p>
-
-<p>I added a 100kΩ pulldown resistor to the SoftPot output to prevent the ADC input from floating when no keys are pressed.</p>
-
-<h3 id="software">Software</h3>
-<p>The software to read the SoftPot sensor values and convert to keystrokes is written in Python. Source code is here:
-<a href="https://github.com/qqrs/ttypewriter">github.com/qqrs/ttypewriter</a>.</p>
-
-<p>The implementation is rough and leaves plenty of room for future improvement, but for purposes of testing out the SoftPot sensor it got the job done.</p>
-
-<p>The script consists of a polling loop that reads the sensor at a fixed delay.
-To read values from the MCP3008 ADC, it calls <code>adc_spi.py</code>, which is based on
-<a href="http://learn.adafruit.com/reading-a-analog-in-and-controlling-audio-volume-with-the-raspberry-pi/necessary-packages">example code</a>
-from Adafruit that bit-bangs the SPI communication in software (some versions of the Raspberry Pi did not include hardware SPI).
-The script is able to read the sensor at about 100 samples/second.
-This is slow but it provided adequate key detection results so I haven’t yet gone on to modify it to do the SPI in a separate thread, use the hardware SPI interface, port to C, etc.</p>
-
-<p>Key up/down state is determined by comparing the sensor value to a fixed threshold of a few ADC counts.
-When a key is pressed, the sensor value is recorded until all keys are up.
-As a debouncing mechanism, very short keypresses of &lt; 100 ms are discarded.
-Otherwise, outlier values are filtered out and the average of the sensor readings is taken.
-A calibration file maps sensor reading values to typewriter keys.</p>
-
-<p>One major caveat of this approach is that for a key to be detected correctly, it must be fully released before the next key is pressed.
-The potentiometer-like behavior of the SoftPot means that there is no simple means of decoding multiple simultaneous pressed keys.
-While it would be useful to improve the software to handle faster typing speeds, in practice the typewriter tends to enforce its own speed limit since sustained fast typing is likely to jam the typeheads.</p>
-
-<p>For output, the script supports writing keypresses to stdout or injecting them into a <code>screen</code> session.</p>
-
-<p>Since the original <code>vi</code> key commands were designed for use over a teletype interface, the <code>vim</code> text editor is very usable without any special keys or modifier keys.
-With a <code>vim</code> instance open inside a <code>screen</code> session, <code>jj</code> mapped to <code>Esc</code>, and the key detection script running, the typewriter is usable for text editing.</p>
-
-<h2 id="ideas-for-future-improvements">Ideas for Future Improvements</h2>
-
-<ol>
-  <li>Improve the keypress detection algorithm to handle faster typing with overlapping keypresses.</li>
-  <li>Add limit switches or reed switches and magnets to detect presses of the keys not detected by the SoftPot.</li>
-  <li>Port the code to an Arduino or a microcontroller with a USB HID stack so the typewriter can be used with any computer.</li>
-  <li>Add a <a href="https://github.com/alevchuk/vim-clutch">vim clutch</a>.</li>
-  <li>Real life <a href="http://writeordie.com/">Write or Die</a>:
-port to MSP430 for low standby power consumption, add an SD card, and add an energy harvesting system (piezo? electromechanical?) to capture energy from keypresses.
-If you type fast enough you’ll store enough energy to write your work to the SD card before it’s lost!</li>
-</ol>
 ]]></content>
   </entry>
   

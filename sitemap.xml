@@ -2,66 +2,70 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://qqrs.github.com/blog/2013/04/10/twilio-light-sensor/</loc>
-        <lastmod>2018-02-15T01:35:33-05:00</lastmod>
+        <lastmod>2019-03-03T01:32:18-05:00</lastmod>
     </url>
     <url>
         <loc>http://qqrs.github.com/blog/2013/04/22/interfacing-a-softpot-sensor-to-an-adc/</loc>
-        <lastmod>2018-02-15T01:35:33-05:00</lastmod>
+        <lastmod>2019-03-03T01:32:18-05:00</lastmod>
     </url>
     <url>
         <loc>http://qqrs.github.com/blog/2013/04/30/bluetooth-alarm-clock/</loc>
-        <lastmod>2019-03-03T00:38:08-05:00</lastmod>
+        <lastmod>2019-03-03T01:32:18-05:00</lastmod>
     </url>
     <url>
         <loc>http://qqrs.github.com/blog/2013/05/03/vim-on-a-mechanical-typewriter/</loc>
-        <lastmod>2019-03-03T00:56:31-05:00</lastmod>
+        <lastmod>2019-03-03T04:29:38-05:00</lastmod>
     </url>
     <url>
         <loc>
             http://qqrs.github.com/blog/2015/08/21/proofing-spirits-with-homemade-electrobalance/
         </loc>
-        <lastmod>2019-03-03T00:56:31-05:00</lastmod>
+        <lastmod>2019-03-03T04:29:38-05:00</lastmod>
     </url>
     <url>
         <loc>http://qqrs.github.com/blog/2015/12/15/time-fountain/</loc>
-        <lastmod>2019-03-03T00:56:31-05:00</lastmod>
+        <lastmod>2019-03-03T04:29:38-05:00</lastmod>
     </url>
     <url>
         <loc>http://qqrs.github.com/blog/2016/05/01/git-hash-collisions/</loc>
-        <lastmod>2019-03-03T00:56:31-05:00</lastmod>
+        <lastmod>2019-03-03T04:29:38-05:00</lastmod>
     </url>
     <url>
         <loc>
             http://qqrs.github.com/blog/2016/05/01/reading-notes-the-architecture-of-open-source-applications/
         </loc>
-        <lastmod>2019-03-03T00:56:31-05:00</lastmod>
+        <lastmod>2019-03-03T04:29:38-05:00</lastmod>
     </url>
     <url>
         <loc>http://qqrs.github.com/blog/2016/05/01/which-python-operations-are-atomic/</loc>
-        <lastmod>2019-03-03T00:56:31-05:00</lastmod>
+        <lastmod>2019-03-03T04:29:38-05:00</lastmod>
     </url>
     <url>
         <loc>http://qqrs.github.com/blog/2016/05/22/writing-a-bittorrent-client/</loc>
-        <lastmod>2019-03-03T01:21:03-05:00</lastmod>
+        <lastmod>2019-03-03T04:29:38-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://qqrs.github.com/blog/2018/03/29/doorbot/</loc>
+        <lastmod>2019-03-03T04:31:28-05:00</lastmod>
     </url>
     <url>
         <loc>http://qqrs.github.com/about/</loc>
-        <lastmod>2018-02-15T01:35:33-05:00</lastmod>
+        <lastmod>2019-03-03T01:32:18-05:00</lastmod>
     </url>
     <url>
         <loc>http://qqrs.github.com/archives/</loc>
-        <lastmod>2019-03-03T01:21:03-05:00</lastmod>
+        <lastmod>2019-03-03T04:31:28-05:00</lastmod>
     </url>
     <url>
         <loc>http://qqrs.github.com/blog/archives/</loc>
-        <lastmod>2019-03-03T01:21:03-05:00</lastmod>
+        <lastmod>2019-03-03T04:31:28-05:00</lastmod>
     </url>
     <url>
         <loc>http://qqrs.github.com/</loc>
-        <lastmod>2019-03-03T01:21:03-05:00</lastmod>
+        <lastmod>2019-03-03T04:31:28-05:00</lastmod>
     </url>
     <url>
         <loc>http://qqrs.github.com/robots.txt</loc>
-        <lastmod>2018-02-15T01:35:33-05:00</lastmod>
+        <lastmod>2019-03-03T01:32:18-05:00</lastmod>
     </url>
 </urlset>
