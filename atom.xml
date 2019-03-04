@@ -4,7 +4,7 @@
   <title><![CDATA[]]></title>
   <link href="http://qqrs.github.com/atom.xml" rel="self"/>
   <link href="http://qqrs.github.com/"/>
-  <updated>2019-03-03T04:36:10-05:00</updated>
+  <updated>2019-03-04T00:16:22-05:00</updated>
   <id>http://qqrs.github.com/</id>
   <author>
     <name><![CDATA[Russell Smith]]></name>
@@ -18,7 +18,9 @@
     <link href="http://qqrs.github.com/blog/2018/03/29/doorbot/"/>
     <updated>2018-03-29T00:12:00-04:00</updated>
     <id>http://qqrs.github.com/blog/2018/03/29/doorbot</id>
-    <content type="html"><![CDATA[<h2 id="what-is-it">What is it?</h2>
+    <content type="html"><![CDATA[<div style="position:relative;padding-bottom:calc(100% / 1.78)"><iframe src="https://gfycat.com/ifr/OrganicGratefulArachnid" frameborder="0" scrolling="no" width="100%" height="100%" style="position:absolute;top:0;left:0;" allowfullscreen=""></iframe></div>
+
+<h2 id="what-is-it">What is it?</h2>
 
 <p>Doorbot is an Internet-connected door unlocker that I built for a community space. It allows people to enter the space without needing to be buzzed in.</p>
 
@@ -49,12 +51,14 @@
 
 <p>[Update 3/3/2019: If I was starting today I’d strongly consider using the Raspberry Pi Zero W instead of the ESP8266.]</p>
 
-<p>To mount Doorbot, I used <a href="https://www.homedepot.com/p/Simpson-Strong-Tie-12-Gauge-Angle-A66/100375146">90° steel angle brackets</a> from Home Depot, <a href="https://www.homedepot.com/p/3M-Scotch-1-in-x-1-66-yds-Permanent-Double-Sided-Outdoor-Mounting-Tape-411DC-SF/100575385">3M 4011 double-sided mounting tape</a>, and <a href="https://www.homedepot.com/p/Commercial-Electric-4-in-Cable-Tie-Natural-1000-Pack-GT-100M/203531927">4 inch cable ties</a>.</p>
+<p>To mount Doorbot, I used <a href="https://www.homedepot.com/p/Simpson-Strong-Tie-12-Gauge-Angle-A66/100375146">90° steel angle brackets</a>, <a href="https://www.homedepot.com/p/3M-Scotch-1-in-x-1-66-yds-Permanent-Double-Sided-Outdoor-Mounting-Tape-411DC-SF/100575385">3M 4011 double-sided mounting tape</a>, and 4” and 8” <a href="https://www.homedepot.com/p/Commercial-Electric-4-in-Cable-Tie-Natural-1000-Pack-GT-100M/203531927">cable ties</a>—all from Home Depot.</p>
 
-<h2 id="doorbot-operation">Doorbot Operation</h2>
+<h2 id="photos">Photos</h2>
 
-<p>TODO: Doorbot photo<br />
-TODO: Doorbot action gif  </p>
+<div>
+<img src="http://qqrs.github.com/images/doorbot_intercom.jpg" style="display: inline-block" />
+<img src="http://qqrs.github.com/images/doorbot_call.jpg" style="display: inline-block" />
+</div>
 
 <h2 id="suggested-reading">Suggested Reading</h2>
 
